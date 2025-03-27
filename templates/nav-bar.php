@@ -1,5 +1,5 @@
 <?php
-require_once "src/db.php";
+require_once "../src/db.php";
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 ?>
