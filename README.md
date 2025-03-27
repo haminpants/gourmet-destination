@@ -29,3 +29,5 @@ Group 3's project for INFO 3135
 6. Navigating to `localhost` should now display the `index.php` in `/public`
 
 **Note:** You can undo this change at anytime by repeating the steps above, but instead of adding `/GourmetGuide/public`, remove it!
+
+a
