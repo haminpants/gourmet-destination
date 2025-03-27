@@ -5,7 +5,7 @@ Group 3's project for INFO 3135
 1. Open your terminal and navigate to your `htdocs` folder
     - Should be something like `cd C:\xampp\htdocs`
 2. Run the command `git clone https://github.com/haminpants/gourmet-destination.git GourmetGuide`
-    - This should create a folder called `GourmetGuide` in your xampp folder with files from the project
+    - This should create a folder called `GourmetGuide` in your `htdocs` folder with files from the project
 3. In the same terminal, navigate to the `GourmetGuide` folder
     - Should be something like `cd GourmetGuide`
 4. Run the command `composer install`
