@@ -14,7 +14,7 @@ Group 3's project for INFO 3135
         - `composer`
         - `stripe`
         - `autoload.php`
-6. Go to the `config` folder and create copy (or rename) of the `example-db-config.ini` named `db_info.ini`, enter info as needed
+6. Go to the `config` folder and create copy of the `example-db-config.ini` named `db_info.ini`, enter info as needed
 ### Optional (But Recommended) Setup
 1. Open XAMPP and **stop the Apache service, if running**
 2. Open the Apache service's `httpd.conf`
