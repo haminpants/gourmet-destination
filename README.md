@@ -2,18 +2,19 @@
 Group 3's project for INFO 3135
 
 # Setup (XAMPP)
-1. Open your terminal and navigate to your `htdocs` folder
+1. Install [Git](https://git-scm.com/) and [Composer](https://getcomposer.org/) if you haven't yet
+2. Open your terminal and navigate to your `htdocs` folder
     - Should be something like `cd C:\xampp\htdocs`
-2. Run the command `git clone https://github.com/haminpants/gourmet-destination.git GourmetGuide`
+3. Run the command `git clone https://github.com/haminpants/gourmet-destination.git GourmetGuide`
     - This should create a folder called `GourmetGuide` in your `htdocs` folder with files from the project
-3. In the same terminal, navigate to the `GourmetGuide` folder
+4. In the same terminal, navigate to the `GourmetGuide` folder
     - Should be something like `cd GourmetGuide`
-4. In the same terminal, run the command `composer install`
+5. In the same terminal, run the command `composer install`
     - When complete, there should be a `vendor` folder with the following contents:
         - `composer`
         - `stripe`
         - `autoload.php`
-5. Go to the `config` folder and create copy (or rename) of the `example-db-config.ini` named `db_info.ini`, enter info as needed
+6. Go to the `config` folder and create copy (or rename) of the `example-db-config.ini` named `db_info.ini`, enter info as needed
 ### Optional (But Recommended) Setup
 1. Open XAMPP and **stop the Apache service, if running**
 2. Open the Apache service's `httpd.conf`
