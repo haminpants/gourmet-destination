@@ -2,6 +2,7 @@
 body {
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: lightgreen;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -9,6 +10,23 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 /* --- Container Rules --- */
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    background-color: white;
+    height: 40px;
+}
+.nav-bar > a { 
+    color: black;
+    text-decoration: none;
+    margin-right: 20px;
+}
+.nav-bar > a:hover {
+    text-decoration: underline;
+}
+
 .centered-container {
     display: flex;
     flex-direction: column;
