@@ -8,7 +8,7 @@ Group 3's project for INFO 3135
     - This should create a folder called `GourmetGuide` in your `htdocs` folder with files from the project
 3. In the same terminal, navigate to the `GourmetGuide` folder
     - Should be something like `cd GourmetGuide`
-4. Run the command `composer install`
+4. In the same terminal, run the command `composer install`
     - When complete, there should be a `vendor` folder with the following contents:
         - `composer`
         - `stripe`
