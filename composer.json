@@ -1,0 +1,7 @@
+{
+    "name": "info-3135-group-3/gourmet-guide",
+    "type": "project",
+    "require": {
+        "stripe/stripe-php": "^16.6"
+    }
+}
