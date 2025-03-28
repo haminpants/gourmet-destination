@@ -1,5 +1,5 @@
 <?php
-$dbConfig = parse_ini_file("../config/db_info.ini");
+$dbConfig = parse_ini_file(__DIR__ . "/../config/db_info.ini");
 if (!$dbConfig) die("Database config has not been set up :(");
 
 $host = $dbConfig["host"];

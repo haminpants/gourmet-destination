@@ -4,7 +4,6 @@ session_start();
 
 //checks if the account exists
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    echo "testing";
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
 
