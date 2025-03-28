@@ -39,6 +39,15 @@ if (empty($_SESSION["errorMsgs"])) {
 
     $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name) VALUES (:email, :password, :first_name, :last_name)");
     $stmt->execute([":email" => $email, ":password" => password_hash($password, PASSWORD_DEFAULT), ":first_name" => $firstName, ":last_name" => $lastName]);
+
+    $stmt = $pdo->prepare("SELECT id, first_name, last_name FROM users WHERE email=:email");
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $stmt->execute([":email" => $email]);
+    $userData = $stmt->fetch();
+
+    $_SESSION["userData"]["id"] = $userData["id"];
+    $_SESSION["userData"]["firstName"] = $firstName;
+    $_SESSION["userData"]["lastName"] = $lastName;
 } else {
     $redirect = "sign-up.php";
 }
