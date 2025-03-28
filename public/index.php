@@ -1,3 +1,6 @@
+<?php
+require_once '../src/db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,15 +86,33 @@
                 <option value="WY">Wyoming</option>
 
                 <?php
-                    require_once 'db_connect.php';
+                
+                    echo "<option>Testing</option>";
 
-                    $stmt = $pdo->prepare("SELECT first_name, last_name, role FROM users");
+                    // $stmt = $pdo->prepare("SELECT first_name, last_name, role_id FROM users");
+                    // $stmt->execute();
+
+                    $stmt = $pdo->prepare("SELECT users.first_name, users.last_name, roles.name
+                                           FROM users
+                                           JOIN roles ON users.role_id = roles.id
+                                           ");
                     $stmt->execute();
+
+                    // $stmt2 = $pdo->prepare("SELECT roles.names
+                    //                         FROM roles
+                    //                         JOIN users
+                    //                         ON roles.id = users.role_id
+                    //                         ");
+                    // $stmt2->execute();
 
                     while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         echo "<option value='" . htmlspecialchars($user['first_name']) . " " . htmlspecialchars($user['last_name']) . "'>"
-                                    . htmlspecialchars($user['role']) . "</option>";
+                                    . htmlspecialchars($user['name']) . "</option>";
+                                    
                     }
+
+                   
+
                     
                 ?>
             </datalist>
