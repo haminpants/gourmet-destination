@@ -22,7 +22,7 @@ echo !empty($_SESSION["loginErrorMsgs"]) ? htmlspecialchars($_SESSION["loginErro
             <label>Password</label><br>
             <input type="password" placeholder="Password" name="password"> <br>
             <button type="submit" placeholder="Password">Login</button>
-            <p>Don't have an account? <a href="signup.php">Register</a></p>
+            <p>Don't have an account? <a href="sign-up.php">Sign Up</a></p>
         </form>
     </div>
 </body>
