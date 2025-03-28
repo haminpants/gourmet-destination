@@ -29,19 +29,15 @@ h1, h2, h3, h4, h5, h6, p {
 
 .centered-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.sign-up-form-outer {
-
-}
-.sign-up-form-inner {
+.sign-up-form {
     display: grid;
     grid-template-areas: 
     "form-title form-title"
-    "form-msgs form-msgs"
+    "form-error-msgs form-error-msgs"
     "first-name last-name"
     "email email"
     "password password"
@@ -53,42 +49,42 @@ h1, h2, h3, h4, h5, h6, p {
     column-gap: 16px;
     row-gap: 8px;
 
-    width: 600px;
-    height: 800px;
-
+    margin: 100px 0px 100px 0px;
+    padding: 30px;
     border-radius: 20px;
-    padding: 40px;
+    
     background-color: white;
 }
-.sign-up-form-inner > div {
-
-}
-.sign-up-form-inner > div.form-title {
+.sign-up-form > div.form-title {
     grid-area: form-title;
 }
-.sign-up-form-inner > div.form-msgs {
-    grid-area: form-msgs;
+.sign-up-form > div.form-error-msgs {
+    grid-area: form-error-msgs;
 }
-.sign-up-form-inner > div.first-name {
+.sign-up-form > div.first-name {
     grid-area: first-name;
 }
-.sign-up-form-inner > div.last-name {
+.sign-up-form > div.last-name {
     grid-area: last-name;
 }
-.sign-up-form-inner > div.email {
+.sign-up-form > div.email {
     grid-area: email;
 }
-.sign-up-form-inner > div.password {
+.sign-up-form > div.password {
     grid-area: password;
 }
-.sign-up-form-inner > div.confirm-password {
+.sign-up-form > div.confirm-password {
     grid-area: confirm-password;
 }
-.sign-up-form-inner > div.policies {
+.sign-up-form > div.policies {
     grid-area: policies;
 }
-.sign-up-form-inner > div.submit {
+.sign-up-form > div.submit {
     grid-area: submit;
+}
+
+.error-msg {
+    color: red;
 }
 
 /* --- Misc Rules --- */

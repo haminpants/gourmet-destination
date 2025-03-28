@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gourmet Guide</title>
+    <title>Gourmet Destination</title>
 
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
     <?php include "../includes/nav-bar.php" ?>
-    <h1>hello world</h1>
+    <h1>Gournmet Destination</h1>
 </body>
 
 </html>
