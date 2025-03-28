@@ -1,0 +1,9 @@
+#loginForm {
+    padding: 20px;
+    background-color: lightgray;
+    margin-top: 40px;
+    margin-left: 250px;
+    margin-right: 250px;
+    display: flex;
+    justify-content: center;
+}
