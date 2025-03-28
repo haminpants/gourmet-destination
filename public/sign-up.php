@@ -11,7 +11,7 @@
 
 <?php
 session_start();
-if (!isset($_SESSION["errorMsgs"])) $_SESSION["errorMsgs"] = [];
+if (!isset($_SESSION["signupErrorMsgs"])) $_SESSION["signupErrorMsgs"] = [];
 if (!isset($_SESSION["validFormData"])) $_SESSION["validFormData"] = [];
 ?>
 
@@ -22,7 +22,7 @@ if (!isset($_SESSION["validFormData"])) $_SESSION["validFormData"] = [];
                 <h2 class="text-align-center">Sign Up</h2>
             </div>
             <div class="form-error-msgs">
-                <?php foreach ($_SESSION["errorMsgs"] as $msg) { ?>
+                <?php foreach ($_SESSION["signupErrorMsgs"] as $msg) { ?>
                     <p class="error-msg"><?php echo $msg ?></p>
                 <?php } ?>
             </div>

@@ -18,7 +18,13 @@ try {
 function emailIsUnique(PDO $pdo, string $email)
 {
     $stmt = $pdo->prepare("SELECT email FROM users WHERE email=:email");
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $stmt->execute([":email" => $email]);
-    return empty($stmt->fetch());
+    return empty($stmt->fetch(PDO::FETCH_ASSOC));
+}
+
+function getUserByEmail(PDO $pdo, string $email)
+{
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
+    $stmt->execute([":email" => $email]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }

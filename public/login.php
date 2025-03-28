@@ -1,6 +1,6 @@
 <?php
 session_start();
-echo !empty($_SESSION['errorMessage']) ? htmlspecialchars($_SESSION['errorMessage']) : '';
+echo !empty($_SESSION["loginErrorMsgs"]) ? htmlspecialchars($_SESSION["loginErrorMsgs"]) : '';
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ echo !empty($_SESSION['errorMessage']) ? htmlspecialchars($_SESSION['errorMessag
 
 <body>
     <div class="login-form">
-        <form action="login-action.php" method="POST">
+        <form action="actions/login-action.php" method="POST">
             <label>Email</label><br>
             <input type="email" placeholder="Email" name="email"> <br>
             <label>Password</label><br>

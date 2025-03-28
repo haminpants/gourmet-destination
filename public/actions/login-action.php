@@ -1,27 +1,31 @@
 <?php
-require '../src/db.php';
+require "../../src/db.php";
 session_start();
 
-//checks if the account exists
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $password = $_POST['password'];
-
-    $stmt = $pdo->prepare("SELECT id, password, email, role FROM users WHERE email = :email");
-    $stmt->execute([':email' => $email]);
-
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Validate the password with the hashed password
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['loginSucess'] = true;
-        $_SESSION['role'] = $user['role'];
-        $_SESSION['userID'] = $user['id'];
-        header("Location: index.php");
-        exit;
-    } else {
-        $_SESSION['loginErrorMsg'] = "Invalid username or password. Please try again.";
-        header("Location: login.php");
-        exit;
-    }
+// Validate that the script is called from a POST
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("Location: ../sign-up.php");
+    die();
 }
+
+// Get and format form fields
+$email = trim($_POST["email"]);
+$password = $_POST["password"];
+
+$userData = getUserByEmail($pdo, $email);
+
+// Validate the password with the hashed password
+if ($userData && password_verify($password, $userData["password"])) {
+    $redirect = "index.php";
+
+    $_SESSION["userData"]["id"] = $user["id"];
+    $_SESSION["userData"]["firstName"] = $firstName;
+    $_SESSION["userData"]["lastName"] = $lastName;
+} else {
+    $redirect = "login.php";
+    $_SESSION["loginErrorMsgs"] = "Invalid username or password. Please try again.";
+}
+
+header("Location: ../{$redirect}");
+$pdo = null;
+die();
