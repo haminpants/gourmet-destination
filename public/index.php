@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
+<?php
+session_start();
+unset($_SESSION["loginErrorMsgs"]);
+unset($_SESSION["loginFormData"]);
+unset($_SESSION["signupErrorMsgs"]);
+unset($_SESSION["signupFormData"]);
+?>
+
 <body>
     <?php include "../includes/nav-bar.php" ?>
     <h1>Gournmet Destination</h1>

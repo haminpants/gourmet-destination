@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gourmet Guide - Sign Up</title>
+    <title>Gourmet Destiation | Sign Up</title>
 
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <?php
 session_start();
-if (!isset($_SESSION["errorMsgs"])) $_SESSION["errorMsgs"] = [];
-if (!isset($_SESSION["validFormData"])) $_SESSION["validFormData"] = [];
+if (!isset($_SESSION["signupErrorMsgs"])) $_SESSION["signupErrorMsgs"] = [];
+if (!isset($_SESSION["signupFormData"])) $_SESSION["signupFormData"] = [];
 ?>
 
 <body>
@@ -22,18 +22,18 @@ if (!isset($_SESSION["validFormData"])) $_SESSION["validFormData"] = [];
                 <h2 class="text-align-center">Sign Up</h2>
             </div>
             <div class="form-error-msgs">
-                <?php foreach ($_SESSION["errorMsgs"] as $msg) { ?>
+                <?php foreach ($_SESSION["signupErrorMsgs"] as $msg) { ?>
                     <p class="error-msg"><?php echo $msg ?></p>
                 <?php } ?>
             </div>
             <div class="first-name">
-                <input type="text" name="firstName" placeholder="First Name" maxlength="255" required value="<?php if (isset($_SESSION["validFormData"]["firstName"])) echo htmlspecialchars($_SESSION["validFormData"]["firstName"]); ?>">
+                <input type="text" name="firstName" placeholder="First Name" maxlength="255" required value="<?php if (isset($_SESSION["signupFormData"]["firstName"])) echo htmlspecialchars($_SESSION["signupFormData"]["firstName"]); ?>">
             </div>
             <div class="last-name">
-                <input type="text" name="lastName" placeholder="Last Name" maxlength="255" required value="<?php if (isset($_SESSION["validFormData"]["lastName"])) echo htmlspecialchars($_SESSION["validFormData"]["lastName"]); ?>">
+                <input type="text" name="lastName" placeholder="Last Name" maxlength="255" required value="<?php if (isset($_SESSION["signupFormData"]["lastName"])) echo htmlspecialchars($_SESSION["signupFormData"]["lastName"]); ?>">
             </div>
             <div class="email">
-                <input type="email" name="email" placeholder="Email" maxlength="255" required value="<?php if (isset($_SESSION["validFormData"]["email"])) echo htmlspecialchars($_SESSION["validFormData"]["email"]); ?>">
+                <input type="email" name="email" placeholder="Email" maxlength="255" required value="<?php if (isset($_SESSION["signupFormData"]["email"])) echo htmlspecialchars($_SESSION["signupFormData"]["email"]); ?>">
             </div>
             <div class="password">
                 <input type="password" name="password" placeholder="Password" maxlength="255" required>
