@@ -10,5 +10,6 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         <a href="sign-up.php">Sign Up</a>
     <?php } else { ?>
         <a href="profile.php">Profile</a>
+        <a href="actions/logout-action.php">Log Out</a>
     <?php } ?>
 </nav>

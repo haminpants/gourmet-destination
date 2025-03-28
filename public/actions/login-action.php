@@ -1,5 +1,5 @@
 <?php
-require '../src/db_connect.php';
+require '../src/db.php';
 session_start();
 
 //checks if the account exists
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $stmt->execute([':email' => $email]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     // Validate the password with the hashed password
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['loginSucess'] = true;
@@ -19,14 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $_SESSION['userID'] = $user['id'];
         header("Location: index.php");
         exit;
-        } else {
-            $_SESSION['loginErrorMsg'] = "Invalid username or password. Please try again.";
-            header("Location: login.php");
-            exit;
-        }
-    } 
-
-
-
-
-?>
+    } else {
+        $_SESSION['loginErrorMsg'] = "Invalid username or password. Please try again.";
+        header("Location: login.php");
+        exit;
+    }
+}
