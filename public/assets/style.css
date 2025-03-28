@@ -33,3 +33,71 @@ h1, h2, h3, h4, h5, h6, p {
     justify-content: center;
     align-items: center;
 }
+
+.sign-up-form-outer {
+
+}
+.sign-up-form-inner {
+    display: grid;
+    grid-template-areas: 
+    "form-title form-title"
+    "form-msgs form-msgs"
+    "first-name last-name"
+    "email email"
+    "password password"
+    "confirm-password confirm-password"
+    "policies policies"
+    "submit submit";
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: min-content;
+    column-gap: 16px;
+    row-gap: 8px;
+
+    width: 600px;
+    height: 800px;
+
+    border-radius: 20px;
+    padding: 40px;
+    background-color: white;
+}
+.sign-up-form-inner > div {
+
+}
+.sign-up-form-inner > div.form-title {
+    grid-area: form-title;
+}
+.sign-up-form-inner > div.form-msgs {
+    grid-area: form-msgs;
+}
+.sign-up-form-inner > div.first-name {
+    grid-area: first-name;
+}
+.sign-up-form-inner > div.last-name {
+    grid-area: last-name;
+}
+.sign-up-form-inner > div.email {
+    grid-area: email;
+}
+.sign-up-form-inner > div.password {
+    grid-area: password;
+}
+.sign-up-form-inner > div.confirm-password {
+    grid-area: confirm-password;
+}
+.sign-up-form-inner > div.policies {
+    grid-area: policies;
+}
+.sign-up-form-inner > div.submit {
+    grid-area: submit;
+}
+
+/* --- Misc Rules --- */
+.full-width {
+    width: 100%;
+}
+.full-height {
+    height: 100%;
+}
+.text-align-center {
+    text-align: center;
+}
