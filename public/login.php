@@ -1,9 +1,5 @@
 <?php
-session_unset();
-session_destroy();
 session_start();
-
-
 
 ?>
 
@@ -19,12 +15,12 @@ session_start();
     
     <!-- Login Form -->
     <div id="loginForm">
-        <p><?php echo $error ?></p>
+        <p><?php echo !empty($_SESSION['errorMessage']) ? htmlspecialchars($_SESSION['errorMessage']) : ''; ?></p>
         <form method="POST" action="login-action.php">
             <label>Email</label><br>
-            <input type="email" placeholder="Email" name="email"> <br>
+            <input type="email" placeholder="Email" name="email" required> <br>
             <label>Password</label><br>
-            <input type="password" placeholder="Password" name="password"> <br>
+            <input type="password" placeholder="Password" name="password" required> <br>
             <button type="submit" placeholder="Password">Login</button>
             <p>Don't have an account? <a href="signup.php">Register</a></p>
         </form>
