@@ -108,3 +108,63 @@ h1, h2, h3, h4, h5, h6, p {
 .text-align-center {
     text-align: center;
 }
+
+/*login page*/
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-image: url('Kitchen_Background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form{
+
+    width: 360px;
+    margin: 100px auto;
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.login-form{
+    display: flex;
+    flex-direction:column ;
+}
+
+.login-form{
+    font-weight: 600;
+    margin-bottom: 6px;
+    margin-top: 14px;
+    color: #333;
+
+}
+
+.login-form input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.login-form input:focus {
+    border-color: #0077cc;
+}
+.login-form button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
