@@ -35,11 +35,11 @@ function commitUserDataToSession (array $userData) {
 
     $err = "Failed to commit user data to session. Missing value: ";
     if (!isset($userData["id"])) die("{$err} id");
-    if (!isset($userData["firstName"])) die("{$err} firstName");
-    if (!isset($userData["lastName"])) die("{$err} lastName");
+    if (!isset($userData["first_name"])) die("{$err} first_name");
+    if (!isset($userData["last_name"])) die("{$err} last_name");
 
     $_SESSION["userData"] = [];
     $_SESSION["userData"]["id"] = $userData["id"];
-    $_SESSION["userData"]["firstName"] = $userData["firstName"];
-    $_SESSION["userData"]["lastName"] = $userData["lastName"];
+    $_SESSION["userData"]["firstName"] = $userData["first_name"];
+    $_SESSION["userData"]["lastName"] = $userData["last_name"];
 }

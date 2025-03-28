@@ -2,7 +2,7 @@
 require "../../src/db.php";
 session_start();
 $_SESSION["signupErrorMsgs"] = [];
-$_SESSION["validFormData"] = [];
+$_SESSION["signupFormData"] = [];
 
 // Validate that the script is called from a POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -19,14 +19,14 @@ $confirmPassword = $_POST["confirmPassword"];
 
 // Validate form fields
 if (empty($firstName)) $_SESSION["signupErrorMsgs"]["firstName"] = "First name cannot be blank";
-else $_SESSION["validFormData"]["firstName"] = $firstName;
+else $_SESSION["signupFormData"]["firstName"] = $firstName;
 
 if (empty($lastName)) $_SESSION["signupErrorMsgs"]["lastName"] = "Last name cannot be blank";
-else $_SESSION["validFormData"]["lastName"] = $lastName;
+else $_SESSION["signupFormData"]["lastName"] = $lastName;
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $_SESSION["signupErrorMsgs"]["email"] = "Invalid email provided";
 else if (!emailIsUnique($pdo, $email)) $_SESSION["signupErrorMsgs"]["email"] = "Email is already in use";
-else $_SESSION["validFormData"]["email"] = $email;
+else $_SESSION["signupFormData"]["email"] = $email;
 
 if (empty($password)) $_SESSION["signupErrorMsgs"]["password"] = "Password cannot be blank";
 else if (strlen($password) < 10) $_SESSION["signupErrorMsgs"]["password"] = "Password must be at least 10 characters";
@@ -35,7 +35,7 @@ else if ($password !== $confirmPassword) $_SESSION["signupErrorMsgs"]["confirmPa
 // If there are no sign up messages, allow the user to sign up
 if (empty($_SESSION["signupErrorMsgs"])) {
     $redirect = "index.php";
-    unset($_SESSION["validFormData"]);
+    unset($_SESSION["signupFormData"]);
 
     $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name) VALUES (:email, :password, :first_name, :last_name)");
     $stmt->execute([":email" => $email, ":password" => password_hash($password, PASSWORD_DEFAULT), ":first_name" => $firstName, ":last_name" => $lastName]);

@@ -1,8 +1,3 @@
-<?php
-session_start();
-echo !empty($_SESSION["loginErrorMsgs"]) ? htmlspecialchars($_SESSION["loginErrorMsgs"]) : '';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,8 +9,17 @@ echo !empty($_SESSION["loginErrorMsgs"]) ? htmlspecialchars($_SESSION["loginErro
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
+<?php
+session_start();
+if (!isset($_SESSION["loginErrorMsgs"])) $_SESSION["loginErrorMsgs"] = [];
+if (!isset($_SESSION["loginFormData"])) $_SESSION["loginFormData"] = [];
+?>
+
 <body>
     <div class="login-form">
+        <?php foreach ($_SESSION["loginErrorMsgs"] as $msg) { ?>
+            <p class="error-msg"><?php echo $msg ?></p>
+        <?php } ?>
         <form action="actions/login-action.php" method="POST">
             <label>Email</label><br>
             <input type="email" placeholder="Email" name="email"> <br>
