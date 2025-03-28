@@ -5,16 +5,18 @@ echo !empty($_SESSION['errorMessage']) ? htmlspecialchars($_SESSION['errorMessag
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gourmet Destination | Login Page</title>
-    <link rel="stylesheet" href="assets/login.css">
-</head>
-<body>
 
-    <div id="loginForm">
-        <form method="POST" action="login-action.php">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <div class="login-form">
+        <form action="login-action.php" method="POST">
             <label>Email</label><br>
             <input type="email" placeholder="Email" name="email"> <br>
             <label>Password</label><br>
@@ -23,6 +25,6 @@ echo !empty($_SESSION['errorMessage']) ? htmlspecialchars($_SESSION['errorMessag
             <p>Don't have an account? <a href="signup.php">Register</a></p>
         </form>
     </div>
-    
 </body>
+
 </html>
