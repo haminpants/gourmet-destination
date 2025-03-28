@@ -1,8 +1,6 @@
 <?php
 session_start();
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,12 +13,12 @@ session_start();
 <body>
     
     <div id="loginForm">
-        <p><?php echo !empty($_SESSION['loginErrorMsg']) ? htmlspecialchars($_SESSION['loginErrorMsg']) : ''; ?></p>
-        <form method="POST" action="../login-action.php">
+        <p><?php echo !empty($_SESSION['errorMessage']) ? htmlspecialchars($_SESSION['errorMessage']) : ''; ?></p>
+        <form method="POST" action="login-action.php">
             <label>Email</label><br>
-            <input type="email" placeholder="Email" name="email" required> <br>
+            <input type="email" placeholder="Email" name="email"> <br>
             <label>Password</label><br>
-            <input type="password" placeholder="Password" name="password" required> <br>
+            <input type="password" placeholder="Password" name="password"> <br>
             <button type="submit" placeholder="Password">Login</button>
             <p>Don't have an account? <a href="signup.php">Register</a></p>
         </form>

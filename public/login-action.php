@@ -1,9 +1,10 @@
 <?php
-require '../../src/db_connection.php';
+require '../src/db_connect.php';
 session_start();
 
 //checks if the account exists
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    echo "testing";
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
 
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         exit;
         } else {
             $_SESSION['loginErrorMsg'] = "Invalid username or password. Please try again.";
-            header("Location: ../login.php");
+            header("Location: login.php");
             exit;
         }
     } 
