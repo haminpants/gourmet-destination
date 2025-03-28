@@ -17,10 +17,7 @@ $userData = getUserByEmail($pdo, $email);
 // Validate the password with the hashed password
 if ($userData && password_verify($password, $userData["password"])) {
     $redirect = "index.php";
-
-    $_SESSION["userData"]["id"] = $user["id"];
-    $_SESSION["userData"]["firstName"] = $firstName;
-    $_SESSION["userData"]["lastName"] = $lastName;
+    commitUserDataToSession($userData);
 } else {
     $redirect = "login.php";
     $_SESSION["loginErrorMsgs"] = "Invalid username or password. Please try again.";

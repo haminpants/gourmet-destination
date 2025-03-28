@@ -41,10 +41,7 @@ if (empty($_SESSION["signupErrorMsgs"])) {
     $stmt->execute([":email" => $email, ":password" => password_hash($password, PASSWORD_DEFAULT), ":first_name" => $firstName, ":last_name" => $lastName]);
 
     $userData = getUserByEmail($pdo, $email);
-
-    $_SESSION["userData"]["id"] = $userData["id"];
-    $_SESSION["userData"]["firstName"] = $firstName;
-    $_SESSION["userData"]["lastName"] = $lastName;
+    commitUserDataToSession($userData);
 } else {
     $redirect = "sign-up.php";
 }

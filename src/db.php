@@ -14,7 +14,7 @@ try {
     die("Oops! The database connection failed :(");
 }
 
-/** Returns `true` if an email is not registered in the database, otherwise returns `false` */
+/** @return bool Returns `true` if an email is not registered in the database, otherwise returns `false` */
 function emailIsUnique(PDO $pdo, string $email)
 {
     $stmt = $pdo->prepare("SELECT email FROM users WHERE email=:email");
@@ -22,9 +22,24 @@ function emailIsUnique(PDO $pdo, string $email)
     return empty($stmt->fetch(PDO::FETCH_ASSOC));
 }
 
+/** @return mixed Returns an associative array containing all of a user's data for a given email, otherwise returns `false` on failure  */
 function getUserByEmail(PDO $pdo, string $email)
 {
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
     $stmt->execute([":email" => $email]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function commitUserDataToSession (array $userData) {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+
+    $err = "Failed to commit user data to session. Missing value: ";
+    if (!isset($userData["id"])) die("{$err} id");
+    if (!isset($userData["firstName"])) die("{$err} firstName");
+    if (!isset($userData["lastName"])) die("{$err} lastName");
+
+    $_SESSION["userData"] = [];
+    $_SESSION["userData"]["id"] = $userData["id"];
+    $_SESSION["userData"]["firstName"] = $userData["firstName"];
+    $_SESSION["userData"]["lastName"] = $userData["lastName"];
 }
