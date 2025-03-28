@@ -122,49 +122,34 @@ body {
     justify-content: center;
 }
 
-.login-form{
-
-    width: 360px;
-    margin: 100px auto;
-    background: #fff;
+.login-form {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-.login-form{
-    display: flex;
-    flex-direction:column ;
-}
-
-.login-form{
-    font-weight: 600;
-    margin-bottom: 6px;
-    margin-top: 14px;
-    color: #333;
-
-}
-
-.login-form input {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.login-form input:focus {
-    border-color: #0077cc;
-}
-.login-form button {
-    margin-top: 20px;
-    padding: 12px;
-    background-color: #0077cc;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    width: 350px;
     color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s;
+}
+/* Login title */
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: white;
+    font-size: 24px;
+}
+/* Labels */
+.login-form label {
+    display: block;
+    font-weight: 500;
+    margin: 15px 0 6px;
+}
+
+/*Login-Fields*/
+.login-form input{
+
+    width: 100%;
+    
+
 }
