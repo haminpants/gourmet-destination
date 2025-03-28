@@ -21,12 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] !== "GET") {
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) $profileData = getUserById($pdo, intval($_GET["id"]));
 else if (isset($_SESSION["userData"])) $profileData = getUserById($pdo, $_SESSION["userData"]["id"]);
+else header("Location: login.php");
 
-if (isset($profileData)) {
+if (!empty($profileData)) {
     include "../includes/nav-bar.php";
-
-    if ($profileData["role_id"] === 1) include "../includes/profiles/tourist.php";
-    else if ($profileData["role_id"] === 2) include "../includes/profiles/host.php";
+    include "../includes/profiles/profile-banner.php";
 } else include "../includes/profiles/no-profile-found.php";
 ?>
 

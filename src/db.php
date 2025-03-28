@@ -31,13 +31,18 @@ function getUserByEmail(PDO $pdo, string $email)
 }
 
 /** @return mixed Returns an associative array containing all of a user's data for a given email, otherwise returns `false` on failure  */
-function getUserById(PDO $pdo, int $userId) {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id=:id");
+function getUserById(PDO $pdo, int $userId)
+{
+    $stmt = $pdo->prepare("SELECT user.id, user.email, user.password, user.first_name, user.last_name, user.bio, user.profile_picture, user.signup_date, 
+    user.country_id, user.subdivision_id, user.role_id, role.name AS role_name
+    FROM users AS user, roles as role WHERE user.id=:id AND user.role_id=role.id");
+
     $stmt->execute([":id" => $userId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function commitUserDataToSession (array $userData) {
+function commitUserDataToSession(array $userData)
+{
     if (session_status() === PHP_SESSION_NONE) session_start();
 
     $err = "Failed to commit user data to session. Missing value: ";
@@ -49,4 +54,5 @@ function commitUserDataToSession (array $userData) {
     $_SESSION["userData"]["id"] = $userData["id"];
     $_SESSION["userData"]["firstName"] = $userData["first_name"];
     $_SESSION["userData"]["lastName"] = $userData["last_name"];
+    $_SESSION["userData"]["profilePicture"] = $userData["profile_picture"];
 }

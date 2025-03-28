@@ -98,6 +98,27 @@ h1, h2, h3, h4, h5, h6, p {
     color: red;
 }
 
+.profile-container {
+    display: flex;
+    flex-direction: column;
+}
+.profile-banner {
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr;
+
+    padding: 40px 0px 40px 0px;
+    background-color: lightgrey;
+}
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    background-color: whitesmoke;
+}
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
 /* --- Misc Rules --- */
 .full-width {
     width: 100%;
