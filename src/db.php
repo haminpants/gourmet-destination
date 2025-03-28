@@ -30,6 +30,13 @@ function getUserByEmail(PDO $pdo, string $email)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+/** @return mixed Returns an associative array containing all of a user's data for a given email, otherwise returns `false` on failure  */
+function getUserById(PDO $pdo, int $userId) {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id=:id");
+    $stmt->execute([":id" => $userId]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function commitUserDataToSession (array $userData) {
     if (session_status() === PHP_SESSION_NONE) session_start();
 
