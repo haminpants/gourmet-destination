@@ -5,7 +5,7 @@ $_SESSION["signUpMessages"] = [];
 
 // Validate that the script is called from a POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: sign-up.php");
+    header("Location: ../sign-up.php");
     die();
 }
 
