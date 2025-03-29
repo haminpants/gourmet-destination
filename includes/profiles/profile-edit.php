@@ -38,8 +38,8 @@ if (empty($_POST["id"]) || $_POST["id"] != $_SESSION["userData"]["id"]) return;
             <select name="subdivision" id="subdivision">
                 <?php foreach ($subdivisionData as $country) { ?>
                     <optgroup label="<?php echo $country["name"] ?>">
-                        <?php foreach ($country["subdivisions"] as $subdivision) { ?>
-                            <option value="<?php echo $subdivision[0] ?>" <?php echo $subdivision[0] === $profileData["subdivision_id"] ? "selected" : "" ?>><?php echo $subdivision[1] ?></option>
+                        <?php foreach ($country["subdivisions"] as $subdivisionId => $subdivisionName) { ?>
+                            <option value="<?php echo $subdivisionId ?>" <?php echo $subdivisionId === $profileData["subdivision_id"] ? "selected" : "" ?>><?php echo $subdivisionName ?></option>
                         <?php } ?>
                     </optgroup>
                 <?php } ?>
@@ -57,7 +57,7 @@ if (empty($_POST["id"]) || $_POST["id"] != $_SESSION["userData"]["id"]) return;
         </div>
 
         <div class="cancel">
-            <a href="">Cancel</a>
+            <button name="action" value="cancel">Cancel</button>
         </div>
     </form>
 </div>
