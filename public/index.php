@@ -14,11 +14,12 @@ require_once '../src/db.php';
 
 <body>
     <?php include "../includes/nav-bar.php" ?>
-    <h1>Gournmet Destination</h1>
+    <h1>Gourmet Destination</h1>
     
     <div id="search">
-       <form method="POST" action="index.php">
-            <input list="searchItem" name="searchBar">
+        <?php echo $_SESSION['searchError'] ?>
+        <form method="POST" action="search-action.php">
+            <input list="searchItem" name="searchBar" placeholder="Search by: Pronvinces, States, Users, and Experieneces">
             <datalist id="searchItem">
                 <option value="AB">Alberta</option>
                 <option value="BC">British Columbia</option>
@@ -87,23 +88,12 @@ require_once '../src/db.php';
 
                 <?php
                 
-                    echo "<option>Testing</option>";
-
-                    // $stmt = $pdo->prepare("SELECT first_name, last_name, role_id FROM users");
-                    // $stmt->execute();
-
+                //diplays existing users and their roles in the search bar
                     $stmt = $pdo->prepare("SELECT users.first_name, users.last_name, roles.name
                                            FROM users
                                            JOIN roles ON users.role_id = roles.id
                                            ");
                     $stmt->execute();
-
-                    // $stmt2 = $pdo->prepare("SELECT roles.names
-                    //                         FROM roles
-                    //                         JOIN users
-                    //                         ON roles.id = users.role_id
-                    //                         ");
-                    // $stmt2->execute();
 
                     while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         echo "<option value='" . htmlspecialchars($user['first_name']) . " " . htmlspecialchars($user['last_name']) . "'>"
@@ -111,8 +101,14 @@ require_once '../src/db.php';
                                     
                     }
 
-                   
+                    //displays existing experiences
+                    $stmt2 = $pdo->prepare("SELECT name, description FROM experiences");
+                    $stmt2->execute();
 
+                    while ($experience = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='" . htmlspecialchars($experience['name']) . "'>"
+                                . htmlspecialchars($experience['description']) . "</option>";
+                    }
                     
                 ?>
             </datalist>
