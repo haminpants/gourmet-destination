@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gourmet Destiation | Sign Up</title>
-
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
@@ -46,7 +45,7 @@ if (!isset($_SESSION["signupFormData"])) $_SESSION["signupFormData"] = [];
                 <label for="tac">I accept the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a></label>
             </div>
             <div class="submit">
-                <button>Sign Up </button>
+                <button>Sign Up</button>
             </div>
         </form>
     </div>
