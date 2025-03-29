@@ -4,20 +4,6 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-body.login-page,
-body.signup-page {
-    background-image: url('Kitchen_Background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-}
-
 h1, h2, h3, h4, h5, h6, p {
     margin: 0px;
 }
@@ -31,11 +17,13 @@ h1, h2, h3, h4, h5, h6, p {
     background-color: white;
     height: 40px;
 }
+
 .nav-bar > a {
     color: black;
     text-decoration: none;
     margin-right: 20px;
 }
+
 .nav-bar > a:hover {
     text-decoration: underline;
 }
@@ -46,7 +34,19 @@ h1, h2, h3, h4, h5, h6, p {
     align-items: center;
 }
 
-/* --- Login & Sign-up Shared Background --- */
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+/* --- Background for Login and Sign-up Pages --- */
 body.login-page,
 body.signup-page {
     background-image: url('Kitchen_Background.jpg');
@@ -61,76 +61,6 @@ body.signup-page {
 
 /* --- Login Page Styling --- */
 body.login-page .login-form {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    width: 350px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* --- Sign-up Page Styling --- */
-.sign-up-form {
-    display: grid;
-    grid-template-areas: 
-        "form-title form-title"
-        "form-error-msgs form-error-msgs"
-        "first-name last-name"
-        "email email"
-        "password password"
-        "confirm-password confirm-password"
-        "policies policies"
-        "submit submit";
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: min-content;
-    column-gap: 16px;
-    row-gap: 8px;
-    padding: 30px;
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    width: 400px;
-    color: white;
-}
-
-.sign-up-form > div.form-title { grid-area: form-title; }
-.sign-up-form > div.form-error-msgs { grid-area: form-error-msgs; }
-.sign-up-form > div.first-name { grid-area: first-name; }
-.sign-up-form > div.last-name { grid-area: last-name; }
-.sign-up-form > div.email { grid-area: email; }
-.sign-up-form > div.password { grid-area: password; }
-.sign-up-form > div.confirm-password { grid-area: confirm-password; }
-.sign-up-form > div.policies { grid-area: policies; }
-.sign-up-form > div.submit { grid-area: submit; }
-
-/* Error Message Styling */
-.error-msg {
-    background-color: rgba(255, 80, 80, 0.9);
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-
-/* Utility Classes */
-.full-width {
-    width: 100%;
-}
-.full-height {
-    height: 100%;
-}
-.text-align-center {
-    text-align: center;
-}
-
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -169,8 +99,7 @@ body.login-page .login-form input {
     box-sizing: border-box;
 }
 
-/* Icon styling for login inputs */
-input[name="email"] {
+body.login-page input[name="email"] {
     background-image: url('https://fonts.gstatic.com/s/i/materialicons/mail/v14/24px.svg');
     background-repeat: no-repeat;
     background-position: 10px center;
@@ -178,7 +107,7 @@ input[name="email"] {
     padding-left: 40px;
 }
 
-input[name="password"] {
+body.login-page input[name="password"] {
     background-image: url('https://fonts.gstatic.com/s/i/materialicons/lock/v17/24px.svg');
     background-repeat: no-repeat;
     background-position: 10px center;
