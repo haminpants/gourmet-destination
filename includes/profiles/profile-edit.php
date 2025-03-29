@@ -1,8 +1,12 @@
 <?php
 include __DIR__ . "/../../src/subdivision-data.php";
-if ($_SERVER["REQUEST_METHOD"] !== "POST") return;
-if (empty($_POST["action"]) || $_POST["action"] !== "edit_profile") return;
-if (empty($_POST["id"]) || $_POST["id"] != $_SESSION["userData"]["id"]) return;
+
+if (isset($_SESSION["profileAction"]) && $_SESSION["profileAction"] === "editProfile") unset($_SESSION["profileAction"]);
+else if (
+    $_SERVER["REQUEST_METHOD"] !== "POST" ||
+    empty($_POST["action"]) || $_POST["action"] !== "edit_profile" ||
+    empty($_POST["id"]) || $_POST["id"] != $_SESSION["userData"]["id"]
+) return
 ?>
 
 <div class="profile-edit">

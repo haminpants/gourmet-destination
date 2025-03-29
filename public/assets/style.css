@@ -101,18 +101,23 @@ h1, h2, h3, h4, h5, h6, p {
 .profile-banner {
     display: grid;
     grid-template-columns: 1fr 4fr 2fr;
+    column-gap: 20px;
 
-    padding: 40px 0px 40px 0px;
+    padding: 40px 20px 40px 20px;
     background-color: lightgrey;
 }
 .profile-picture {
+    display: flex;
+    justify-content: right;
+}
+.profile-picture > img {
     width: 100px;
     height: 100px;
-    background-color: whitesmoke;
 }
 .profile-info {
     display: flex;
     flex-direction: column;
+    min-width: 400px;
 }
 .profile-actions {
     display: flex;

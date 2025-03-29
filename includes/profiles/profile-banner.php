@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
 <div class="profile-banner">
     <div class="profile-picture">
-
+        <img src="assets/icons/default_profile_picture.png" alt="">
     </div>
     <div class="profile-info">
         <h2><?php echo htmlspecialchars("{$profileData["first_name"]} {$profileData["last_name"]}") ?></h2>
