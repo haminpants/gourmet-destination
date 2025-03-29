@@ -15,7 +15,7 @@ require "../src/db.php";
 
 // Validate that this page was navigated to by a GET request
 if ($_SERVER["REQUEST_METHOD"] !== "GET") {
-    header("index.php");
+    header("Location: index.php");
     die();
 }
 
