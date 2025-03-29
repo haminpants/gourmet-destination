@@ -98,10 +98,6 @@ h1, h2, h3, h4, h5, h6, p {
     color: red;
 }
 
-.profile-container {
-    display: flex;
-    flex-direction: column;
-}
 .profile-banner {
     display: grid;
     grid-template-columns: 1fr 4fr 2fr;
@@ -117,6 +113,74 @@ h1, h2, h3, h4, h5, h6, p {
 .profile-info {
     display: flex;
     flex-direction: column;
+}
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+}
+.profile-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 40px 0px 40px 0px;
+    background-color: white;
+}
+
+.edit-profile-form {
+    display: grid;
+    grid-template-areas:
+    "first-name bio"
+    "last-name bio"
+    "country bio"
+    "subdivision profile-picture"
+    "submit submit"
+    "cancel cancel"
+    ;
+    grid-template-columns: 1fr 2fr;
+    grid-auto-rows: min-content;
+    column-gap: 20px;
+    row-gap: 10px;
+}
+.edit-profile-form > div {
+    display: flex;
+    flex-direction: column;
+}
+.edit-profile-form > div > label {
+    margin-bottom: 3px;
+}
+.edit-profile-form > div.first-name {
+    grid-area: first-name;
+}
+.edit-profile-form > div.last-name {
+    grid-area: last-name;
+}
+.edit-profile-form > div.bio {
+    grid-area: bio;
+}
+.edit-profile-form > div.bio > textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+}
+.edit-profile-form > div.country {
+    grid-area: country;
+}
+.edit-profile-form > div.subdivision {
+    grid-area: subdivision;
+}
+.edit-profile-form > div.profile-picture {
+    grid-area: profile-picture;
+    background-color: white;
+    width: fit-content;
+    height: min-content;
+}
+.edit-profile-form > div.submit {
+    grid-area: submit;
+}
+.edit-profile-form > div.cancel {
+    grid-area: cancel;
+    text-align: center;
 }
 
 /* --- Misc Rules --- */
