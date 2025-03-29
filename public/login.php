@@ -15,7 +15,7 @@ if (!isset($_SESSION["loginErrorMsgs"])) $_SESSION["loginErrorMsgs"] = [];
 if (!isset($_SESSION["loginFormData"])) $_SESSION["loginFormData"] = [];
 ?>
 
-<body class="auth-page">
+<body class="login-page">
     <div class="login-form">
         <h2>Log In</h2>
         <?php foreach ($_SESSION["loginErrorMsgs"] as $msg) { ?>
