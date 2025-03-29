@@ -17,15 +17,16 @@ if (!isset($_SESSION["loginFormData"])) $_SESSION["loginFormData"] = [];
 
 <body class="login-page">
     <div class="login-form">
+        <h2>Log In</h2>
         <?php foreach ($_SESSION["loginErrorMsgs"] as $msg) { ?>
             <p class="error-msg"><?php echo $msg ?></p>
         <?php } ?>
         <form action="actions/login-action.php" method="POST">
-            <label>Email</label><br>
-            <input type="email" placeholder="Email" name="email"> <br>
-            <label>Password</label><br>
-            <input type="password" placeholder="Password" name="password"> <br>
-            <button type="submit" placeholder="Password">Login</button>
+            <label>Email</label>
+            <input type="email" placeholder="Email" name="email">
+            <label>Password</label>
+            <input type="password" placeholder="Password" name="password">
+            <button type="submit" placeholder="Password">Log In</button>
             <p>Don't have an account? <a href="sign-up.php">Sign Up</a></p>
         </form>
     </div>

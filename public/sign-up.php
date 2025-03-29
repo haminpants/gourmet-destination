@@ -15,7 +15,7 @@ if (!isset($_SESSION["signupErrorMsgs"])) $_SESSION["signupErrorMsgs"] = [];
 if (!isset($_SESSION["signupFormData"])) $_SESSION["signupFormData"] = [];
 ?>
 
-<body>
+<body class="auth-page">
     <div class="centered-container">
         <form action="actions/sign-up-action.php" method="POST" class="sign-up-form">
             <div class="form-title">
