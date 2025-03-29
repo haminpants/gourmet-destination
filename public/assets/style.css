@@ -2,7 +2,20 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: white;
+}
+
+body.login-page,
+body.signup-page {
+    background-image: url('Kitchen_Background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -18,7 +31,7 @@ h1, h2, h3, h4, h5, h6, p {
     background-color: white;
     height: 40px;
 }
-.nav-bar > a { 
+.nav-bar > a {
     color: black;
     text-decoration: none;
     margin-right: 20px;
@@ -33,18 +46,21 @@ h1, h2, h3, h4, h5, h6, p {
     align-items: center;
 }
 
-/* --- Login Page Styling --- */
-body.login-page {
+/* --- Login & Sign-up Shared Background --- */
+body.login-page,
+body.signup-page {
     background-image: url('Kitchen_Background.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.login-form {
+/* --- Login Page Styling --- */
+body.login-page .login-form {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -74,11 +90,14 @@ body.login-page {
     grid-auto-rows: min-content;
     column-gap: 16px;
     row-gap: 8px;
-
-    margin: 100px 0px 100px 0px;
     padding: 30px;
-    border-radius: 20px;
-    background-color: white;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    width: 400px;
+    color: white;
 }
 
 .sign-up-form > div.form-title { grid-area: form-title; }
@@ -91,6 +110,7 @@ body.login-page {
 .sign-up-form > div.policies { grid-area: policies; }
 .sign-up-form > div.submit { grid-area: submit; }
 
+/* Error Message Styling */
 .error-msg {
     background-color: rgba(255, 80, 80, 0.9);
     color: white;
@@ -100,6 +120,7 @@ body.login-page {
     font-size: 14px;
 }
 
+/* Utility Classes */
 .full-width {
     width: 100%;
 }
@@ -110,12 +131,6 @@ body.login-page {
     text-align: center;
 }
 
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-}
-
-.login-form {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -129,31 +144,32 @@ body.login-page {
     gap: 15px;
 }
 
-.login-form h2 {
+body.login-page .login-form h2 {
     text-align: center;
     margin-bottom: 25px;
     color: white;
     font-size: 24px;
 }
 
-.login-form label {
+body.login-page .login-form label {
     display: block;
     font-weight: 500;
     margin: 15px 0 6px;
 }
 
-.login-form input {
+body.login-page .login-form input {
     width: 100%;
-    padding: 10px 10px 10px 40px; 
+    padding: 10px 10px 10px 40px;
     border-radius: 8px;
     border: none;
     outline: none;
     margin-bottom: 10px;
     background: rgba(255, 255, 255, 0.8);
     font-size: 14px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
+/* Icon styling for login inputs */
 input[name="email"] {
     background-image: url('https://fonts.gstatic.com/s/i/materialicons/mail/v14/24px.svg');
     background-repeat: no-repeat;
@@ -170,7 +186,7 @@ input[name="password"] {
     padding-left: 40px;
 }
 
-.login-form button {
+body.login-page .login-form button {
     width: 100%;
     padding: 12px;
     background-color: #333;
@@ -184,30 +200,30 @@ input[name="password"] {
     transition: background-color 0.3s ease;
 }
 
-.login-form button:hover {
+body.login-page .login-form button:hover {
     background-color: #555;
 }
 
-.login-form p {
+body.login-page .login-form p {
     text-align: center;
     margin-top: 15px;
     font-size: 13px;
     color: white;
 }
 
-.login-form a {
+body.login-page .login-form a {
     color: #fff;
     text-decoration: underline;
 }
 
-.login-form a:hover {
+body.login-page .login-form a:hover {
     color: #ddd;
 }
 
-/* --- Sign-up Form Styling --- */
+/* --- Sign-up Page Styling --- */
 .sign-up-form {
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         "form-title form-title"
         "form-error-msgs form-error-msgs"
         "first-name last-name"
@@ -315,6 +331,7 @@ input[name="password"] {
     background-color: #555;
 }
 
+/* Error messages */
 .error-msg {
     background-color: rgba(255, 80, 80, 0.9);
     color: white;
