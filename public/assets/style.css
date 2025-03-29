@@ -110,16 +110,17 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 /*login page*/
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-image: url('Kitchen_Background.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+body.auth-page {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background-image: url('Kitchen_Background.jpg');
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 .login-form {
