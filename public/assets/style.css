@@ -113,9 +113,20 @@ h1, h2, h3, h4, h5, h6, p {
     border-radius: 20px;
     border-color: black;
     padding: 4px;
-    width: 500px;
+    width: 1000px;
     height: 20px;
-
 }
-    
+#search p {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
 
+/* -- Display Searched Users */
+#searchUsers {
+    background-color: white;
+    display: inline-table;
+    justify-content: left;
+    padding: 50px;
+    margin: 20px;
+}
