@@ -249,6 +249,23 @@ body.login-page .login-form a:hover {
     padding-left: 40px;
 }
 
+.sign-up-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign-up-form button:hover {
+    background-color: #555;
+}
+
 /* Hero Section */
 .hero {
     background-image: url('../assets/Kitchen_Background.jpg');
@@ -616,8 +633,7 @@ body.login-page .login-form a:hover {
     flex-direction: column;
     align-items: center;
 
-    padding: 40px 0px 40px 0px;
-    background-color: white;
+    padding: 20px 0px 20px 0px;
 }
 
 .edit-profile-form {
@@ -676,21 +692,39 @@ body.login-page .login-form a:hover {
     text-align: center;
 }
 
-.sign-up-form button {
-    width: 100%;
-    padding: 12px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.profile-experience-display {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    padding: 20px 20px 20px 20px;
+    background-color: white;
+}
+.profile-experience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 300px;
+    column-gap: 30px;
+    row-gap: 30px;
+
+    min-width: 900px;
+
+    padding: 40px 60px 40px 60px;
 }
 
-.sign-up-form button:hover {
-    background-color: #555;
+.create-new-experience {
+    width: 100%;
+    height: 100%;
+}
+.create-new-experience > button {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border: 3px dashed grey;
+    cursor: pointer;
+}
+.create-new-experience > button:hover {
+    background-color: whitesmoke;
 }
 
 /* Error messages */
