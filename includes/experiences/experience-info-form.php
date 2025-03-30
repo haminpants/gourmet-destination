@@ -8,7 +8,7 @@ require_once __DIR__ . "/../../src/db.php";
     <form action="actions/experience-info-form-action.php" method="POST" enctype="multipart/form-data" class="experience-form">
         <div class="title">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title" required>
+            <input type="text" name="title" id="title">
         </div>
 
         <div class="description">
@@ -18,17 +18,17 @@ require_once __DIR__ . "/../../src/db.php";
 
         <div class="min-participants">
             <label for="min_participants">Min. Participants</label>
-            <input type="number" name="min_participants" id="min_participants" min="1" max="255" required>
+            <input type="number" name="min_participants" id="min_participants" min="1" max="255">
         </div>
 
         <div class="max-participants">
             <label for="max_participants">Max Participants</label>
-            <input type="number" name="max_participants" id="max_participants" min="1" max="255" required>
+            <input type="number" name="max_participants" id="max_participants" min="1" max="255">
         </div>
 
         <div class="price">
             <label for="price">Price</label>
-            <input type="number" name="price" id="price" min="0" max="9999.99" step="0.01" required>
+            <input type="number" name="price" id="price" min="0" max="9999.99" step="0.01">
         </div>
 
         <div class="pricing-method">
@@ -76,6 +76,10 @@ require_once __DIR__ . "/../../src/db.php";
 
         <div class="submit">
             <button name="action" value="create_experience">Create Experience</button>
+        </div>
+
+        <div class="cancel">
+            <button name="action" value="cancel">Cancel</button>
         </div>
     </form>
 </div>

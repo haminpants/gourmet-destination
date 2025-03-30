@@ -752,6 +752,7 @@ body.login-page .login-form a:hover {
     "bookable-days bookings-open-end description"
     "banner-img banner-img description"
     "submit submit submit"
+    "cancel cancel cancel"
     ;
     grid-template-columns: 1fr 1fr 5fr;
     grid-auto-rows: min-content;
@@ -811,6 +812,9 @@ body.login-page .login-form a:hover {
 }
 .experience-form > div.submit {
     grid-area: submit;
+}
+.experience-form > div.cancel {
+    grid-area: cancel;
 }
 
 /* Error messages */
