@@ -27,7 +27,7 @@ if (!isset($_SESSION["loginFormData"])) $_SESSION["loginFormData"] = [];
             <label>Password</label>
             <input type="password" placeholder="Password" name="password">
             <button type="submit" placeholder="Password">Log In</button>
-            <p>Don't have an account? <a href="sign-up.php">Sign Up</a></p>
+            <p>Don’t have an account? <a href="sign-up.php">Sign Up</a></p>
         </form>
     </div>
 </body>
