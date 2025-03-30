@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 /*login page*/
 body.login-page,
-body.auth-page {
+body.signup-page {
     display: flex;
     align-items: center;
     justify-content: center;
