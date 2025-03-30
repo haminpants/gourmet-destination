@@ -35,7 +35,10 @@ else if (
 
         <div class="country">
             <label for="country">Country</label>
-            <select name="country" id="country">
+            <select name="country" id="country" <?php if ($profileData["role_id"] === 2) echo "required" ?>>
+                <?php if ($profileData["role_id"] !== 2 || $profileData["country_id"] == 0) { ?>
+                    <option value="<?php echo $profileData["role_id"] !== 2 ? "0" : "" ?>" <?php echo $profileData["country_id"] == 0 ? "selected" : "" ?> <?php echo $profileData["role_id"] === 2 ? "disabled" : "" ?>>Hidden</option>
+                <?php } ?>
                 <?php foreach (array_keys($subdivisionData) as $country) { ?>
                     <option value="<?php echo $country ?>" <?php echo (isset($_SESSION["editProfileFormData"]["country_id"]) && $_SESSION["editProfileFormData"]["country_id"] === $country) || $profileData["country_id"] === $country ? "selected" : "" ?>><?php echo $subdivisionData[$country]["name"] ?></option>
                 <?php } ?>
@@ -44,7 +47,10 @@ else if (
 
         <div class="subdivision">
             <label for="subdivision">State/Province</label>
-            <select name="subdivision" id="subdivision">
+            <select name="subdivision" id="subdivision" <?php if ($profileData["role_id"] === 2) echo "required" ?>>
+                <?php if ($profileData["role_id"] !== 2 || $profileData["subdivision_id"] == 0) { ?>
+                    <option value="<?php echo $profileData["role_id"] !== 2 ? "0" : "" ?>" <?php echo $profileData["subdivision_id"] == 0 ? "selected" : "" ?> <?php echo $profileData["role_id"] === 2 ? "disabled" : "" ?>>Hidden</option>
+                <?php } ?>
                 <?php foreach ($subdivisionData as $country) { ?>
                     <optgroup label="<?php echo $country["name"] ?>">
                         <?php foreach ($country["subdivisions"] as $subdivisionId => $subdivisionName) { ?>

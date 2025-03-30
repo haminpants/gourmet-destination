@@ -30,7 +30,8 @@ else $_SESSION["editProfileFormData"]["firstName"] = $firstName;
 if (empty($lastName)) $_SESSION["editProfileErrorMsgs"]["lastName"] = "Last name cannot be blank";
 else $_SESSION["editProfileFormData"]["lastName"] = $lastName;
 
-if (!array_key_exists($subdivisionId, $subdivisionData[$countryId]["subdivisions"])) {
+if ($countryId == 0) $subdivisionId = 0;
+if ($countryId != 0 && $subdivisionId != 0 && !array_key_exists($subdivisionId, $subdivisionData[$countryId]["subdivisions"])) {
     if ($countryId === "CAN") $_SESSION["editProfileErrorMsgs"]["subdivision"] = "Selected option is not a province";
     else if ($countryId === "USA") $_SESSION["editProfileErrorMsgs"]["subdivision"] = "Selected option is not a state";
 } else {
