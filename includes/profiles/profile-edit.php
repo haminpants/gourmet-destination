@@ -20,24 +20,24 @@ else if (
     <form action="actions/edit-profile-action.php" method="POST" enctype="multipart/form-data" class="edit-profile-form">
         <div class="first-name">
             <label for="firstName">First Name</label>
-            <input type="text" name="firstName" id="firstName" required value="<?php echo htmlspecialchars($profileData["first_name"]); ?>">
+            <input type="text" name="firstName" id="firstName" required value="<?php echo htmlspecialchars(isset($_SESSION["editProfileFormData"]["firstName"]) ? $_SESSION["editProfileFormData"]["firstName"] : $profileData["first_name"]); ?>">
         </div>
 
         <div class="last-name">
             <label for="lastName">Last Name</label>
-            <input type="text" name="lastName" id="lastName" required value="<?php echo htmlspecialchars($profileData["last_name"]); ?>">
+            <input type="text" name="lastName" id="lastName" required value="<?php echo htmlspecialchars(isset($_SESSION["editProfileFormData"]["lastName"]) ? $_SESSION["editProfileFormData"]["lastName"] : $profileData["last_name"]); ?>">
         </div>
 
         <div class="bio">
             <label for="bio">Bio</label>
-            <textarea name="bio" id="bio" maxlength="512"><?php echo !empty($profileData["bio"]) ? htmlspecialchars($profileData["bio"]) : "" ?></textarea>
+            <textarea name="bio" id="bio" maxlength="512"><?php echo !empty($profileData["bio"]) ? htmlspecialchars(isset($_SESSION["editProfileFormData"]["bio"]) ? $_SESSION["editProfileFormData"]["bio"] : $profileData["bio"]) : "" ?></textarea>
         </div>
 
         <div class="country">
             <label for="country">Country</label>
             <select name="country" id="country">
                 <?php foreach (array_keys($subdivisionData) as $country) { ?>
-                    <option value="<?php echo $country ?>" <?php echo $profileData["country_id"] === $country ? "selected" : "" ?>><?php echo $subdivisionData[$country]["name"] ?></option>
+                    <option value="<?php echo $country ?>" <?php echo (isset($_SESSION["editProfileFormData"]["country_id"]) && $_SESSION["editProfileFormData"]["country_id"] === $country) || $profileData["country_id"] === $country ? "selected" : "" ?>><?php echo $subdivisionData[$country]["name"] ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -48,7 +48,7 @@ else if (
                 <?php foreach ($subdivisionData as $country) { ?>
                     <optgroup label="<?php echo $country["name"] ?>">
                         <?php foreach ($country["subdivisions"] as $subdivisionId => $subdivisionName) { ?>
-                            <option value="<?php echo $subdivisionId ?>" <?php echo $subdivisionId === $profileData["subdivision_id"] ? "selected" : "" ?>><?php echo $subdivisionName ?></option>
+                            <option value="<?php echo $subdivisionId ?>" <?php echo (isset($_SESSION["editProfileFormData"]["subdivision_id"]) && $_SESSION["editProfileFormData"]["subdivision_id"] === $subdivisionId) || $profileData["subdivision_id"] === $subdivisionId ? "selected" : "" ?>><?php echo $subdivisionName ?></option>
                         <?php } ?>
                     </optgroup>
                 <?php } ?>

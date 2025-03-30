@@ -34,8 +34,8 @@ if (!array_key_exists($subdivisionId, $subdivisionData[$countryId]["subdivisions
     if ($countryId === "CAN") $_SESSION["editProfileErrorMsgs"]["subdivision"] = "Selected option is not a province";
     else if ($countryId === "USA") $_SESSION["editProfileErrorMsgs"]["subdivision"] = "Selected option is not a state";
 } else {
-    $_SESSION["editProfileFormData"]["country"] = $countryId;
-    $_SESSION["editProfileFormData"]["subdivision"] = $subdivisionId;
+    $_SESSION["editProfileFormData"]["country_id"] = $countryId;
+    $_SESSION["editProfileFormData"]["subdivision_id"] = $subdivisionId;
 }
 
 if ($_FILES["profilePicture"]["error"] !== UPLOAD_ERR_NO_FILE) {
