@@ -1,5 +1,7 @@
 <?php
 include __DIR__ . "/../../src/subdivision-data.php";
+if (!isset($_SESSION["editProfileErrorMsgs"])) $_SESSION["editProfileErrorMsgs"] = [];
+if (!isset($_SESSION["editProfileFormData"])) $_SESSION["editProfileFormData"] = [];
 
 if (isset($_SESSION["profileAction"]) && $_SESSION["profileAction"] === "editProfile") unset($_SESSION["profileAction"]);
 else if (
@@ -12,7 +14,9 @@ else if (
 <div class="profile-edit">
     <h2>Edit Profile</h2>
     <p>Edit your profile information!</p>
-    <?php isset($_SESSION["editProfileErrorMsgs"]) ? print_r($_SESSION["editProfileErrorMsgs"]) : "" ?>
+    <?php foreach ($_SESSION["editProfileErrorMsgs"] as $msg) { ?>
+        <p class="error-msg"><?php echo $msg ?></p>
+    <?php } ?>
     <form action="actions/edit-profile-action.php" method="POST" enctype="multipart/form-data" class="edit-profile-form">
         <div class="first-name">
             <label for="firstName">First Name</label>
