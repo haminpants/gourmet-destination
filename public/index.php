@@ -13,6 +13,9 @@ unset($_SESSION["loginErrorMsgs"]);
 unset($_SESSION["loginFormData"]);
 unset($_SESSION["signupErrorMsgs"]);
 unset($_SESSION["signupFormData"]);
+unset($_SESSION["profileAction"]);
+unset($_SESSION["editProfileErrorMsgs"]);
+unset($_SESSION["editProfileFormData"]);
 ?>
 
 <body>
