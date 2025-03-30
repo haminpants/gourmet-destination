@@ -19,6 +19,9 @@ $profilePicturePath = __DIR__ . "/../../public/uploads/pfp/{$profileData["id"]}.
                 <input type="hidden" name="id" value="<?php echo $profileData["id"] ?>">
                 <button name="action" value="edit_profile" <?php echo isset($_POST["id"]) ? "disabled" : "" ?>>Edit Profile</button>
             </form>
+            <form action="actions/logout-action.php">
+                <button>Log Out</button>
+            </form>
         <?php } ?>
     </div>
 </div>
