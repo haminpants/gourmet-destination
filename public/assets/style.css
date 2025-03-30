@@ -10,22 +10,43 @@ h1, h2, h3, h4, h5, h6, p {
 
 /* --- Container Rules --- */
 .nav-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    align-items: center;
-    background-color: white;
-    height: 40px;
-}
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 
-.nav-bar > a {
-    color: black;
-    text-decoration: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    height: 50px;
+    background-color: white;
+}
+.nav-bar > div {
+    display: flex;
+}
+.nav-bar > .left {
+    justify-content: left;
+    margin-left: 20px;
+}
+.nav-bar > .right {
+    justify-content: right;
     margin-right: 20px;
 }
-
-.nav-bar > a:hover {
+.nav-bar > div > a {
+    color: black;
+    text-decoration: none;
+    margin: 0px 10px 0px 10px;
+}
+.nav-bar > div > a:hover {
     text-decoration: underline;
+}
+.nav-profile-picture {
+    display: inline-block;
+}
+
+.nav-spacer {
+    display: flex;
+    margin-bottom: 50px;
 }
 
 .centered-container {
