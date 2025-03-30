@@ -38,14 +38,14 @@ if (!array_key_exists($subdivisionId, $subdivisionData[$countryId]["subdivisions
     $_SESSION["editProfileFormData"]["subdivision"] = $subdivisionId;
 }
 
-$uploadedImage = uploadIsImage($_FILES["profilePicture"]);
-if (!$uploadedImage) $_SESSION["editProfileErrorMsgs"]["profilePicture"] = "Profile picture is not valid (Max 5kb)";
-
-// If no errors so far, attempt to save the image
-if (empty($_SESSION["editProfileErrorMsgs"])) {
-    $uploadDir = __DIR__ . "/../../public/uploads/pfp/";
-    if (!file_exists($uploadDir)) mkdir($uploadDir, 077, true);
-    if (!imagepng($uploadedImage, $uploadDir . "{$_POST["id"]}.png")) $_SESSION["editProfileErrorMsgs"]["profilePicture"] = "Failed to save profile picture. Please try again!";
+if ($_FILES["profilePicture"]["error"] !== UPLOAD_ERR_NO_FILE) {
+    $uploadedImage = uploadIsImage($_FILES["profilePicture"]);
+    if (empty($uploadedImage)) $_SESSION["editProfileErrorMsgs"]["profilePicture"] = "Profile picture upload failed (Max 5kb)";
+    if (empty($_SESSION["editProfileErrorMsgs"])) {
+        $uploadDir = __DIR__ . "/../../public/uploads/pfp/";
+        if (!file_exists($uploadDir)) mkdir($uploadDir, 077, true);
+        if (!imagepng($uploadedImage, $uploadDir . "{$_POST["id"]}.png")) $_SESSION["editProfileErrorMsgs"]["profilePicture"] = "Failed to save profile picture. Please try again!";
+    }
 }
 
 if (empty($_SESSION["editProfileErrorMsgs"])) {
