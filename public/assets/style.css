@@ -43,6 +43,10 @@ h1, h2, h3, h4, h5, h6, p {
 
 .nav-spacer {
     display: flex;
+    margin-bottom: 40px;
+}
+
+.footer-spacer {
     margin-bottom: 50px;
 }
 
@@ -668,6 +672,7 @@ body.login-page .login-form a:hover {
     grid-area: bio;
 }
 .edit-profile-form > div.bio > textarea {
+    box-sizing: border-box;
     resize: none;
     width: 100%;
     height: 100%;
@@ -702,14 +707,15 @@ body.login-page .login-form a:hover {
 }
 .profile-experience-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
     grid-auto-rows: 300px;
     column-gap: 30px;
     row-gap: 30px;
 
-    min-width: 900px;
-
     padding: 40px 60px 40px 60px;
+}
+.profile-experience-grid > div {
+    min-width: 300px;
 }
 
 .create-new-experience {
@@ -725,6 +731,86 @@ body.login-page .login-form a:hover {
 }
 .create-new-experience > button:hover {
     background-color: whitesmoke;
+    border: 3px dashed black;
+}
+
+.experience-info-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 20px 20px;
+}
+
+.experience-form {
+    display: grid;
+    grid-template-areas: 
+    "title title description"
+    "min-participants max-participants description"
+    "price pricing-method description"
+    "bookable-days duration description"
+    "bookable-days bookings-open-start description"
+    "bookable-days bookings-open-end description"
+    "banner-img banner-img description"
+    "submit submit submit"
+    ;
+    grid-template-columns: 1fr 1fr 5fr;
+    grid-auto-rows: min-content;
+    column-gap: 20px;
+    row-gap: 10px;
+    width: min-content;
+}
+.experience-form > div {
+    display: flex;
+    flex-direction: column;
+}
+.experience-form > div > .info {
+    font-size: small;
+}
+.experience-form > div.title {
+    grid-area: title;
+}
+.experience-form > div.description {
+    grid-area: description;
+    min-width: 600px;
+}
+.experience-form > div.description > textarea {
+    box-sizing: border-box;
+    resize: none;
+    width: 100%;
+    height: 100%;
+}
+.experience-form > div.min-participants {
+    grid-area: min-participants;
+    min-width: max-content;
+}
+.experience-form > div.max-participants {
+    grid-area: max-participants;
+    min-width: max-content;
+}
+.experience-form > div.price {
+    grid-area: price;
+}
+.experience-form > div.pricing-method {
+    grid-area: pricing-method;
+}
+.experience-form > div.bookable-days {
+    grid-area: bookable-days;
+    justify-content: center;
+}
+.experience-form > div.duration {
+    grid-area: duration;
+}
+.experience-form > div.bookings-open-start {
+    grid-area: bookings-open-start;
+}
+.experience-form > div.bookings-open-end {
+    grid-area: bookings-open-end;
+}
+.experience-form > div.banner-img {
+    grid-area: banner-img;
+}
+.experience-form > div.submit {
+    grid-area: submit;
 }
 
 /* Error messages */

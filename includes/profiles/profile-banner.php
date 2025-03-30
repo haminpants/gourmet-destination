@@ -15,7 +15,7 @@ $profilePicturePath = __DIR__ . "/../../public/uploads/pfp/{$profileData["id"]}.
     </div>
     <div class="profile-actions">
         <?php if (!empty($_SESSION["userData"]) && $_SESSION["userData"]["id"] === $profileData["id"]) { ?>
-            <form action="" method="POST">
+            <form action="#focus-form" method="POST">
                 <input type="hidden" name="id" value="<?php echo $profileData["id"] ?>">
                 <button name="action" value="edit_profile" <?php echo isset($_POST["id"]) ? "disabled" : "" ?>>Edit Profile</button>
             </form>
