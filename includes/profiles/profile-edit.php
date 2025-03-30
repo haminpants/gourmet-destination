@@ -6,12 +6,13 @@ else if (
     $_SERVER["REQUEST_METHOD"] !== "POST" ||
     empty($_POST["action"]) || $_POST["action"] !== "edit_profile" ||
     empty($_POST["id"]) || $_POST["id"] != $_SESSION["userData"]["id"]
-) return
+) return;
 ?>
 
 <div class="profile-edit">
     <h2>Edit Profile</h2>
     <p>Edit your profile information!</p>
+    <?php isset($_SESSION["editProfileErrorMsgs"]) ? print_r($_SESSION["editProfileErrorMsgs"]) : "" ?>
     <form action="actions/edit-profile-action.php" method="POST" enctype="multipart/form-data" class="edit-profile-form">
         <div class="first-name">
             <label for="firstName">First Name</label>
@@ -52,6 +53,7 @@ else if (
 
         <div class="profile-picture">
             <label for="profilePicture">Update Profile Picture<br></label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="5000">
             <input type="file" name="profilePicture" id="profilePicture" accept="image/png, image/jpeg">
         </div>
 

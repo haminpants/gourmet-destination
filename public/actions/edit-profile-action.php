@@ -1,6 +1,7 @@
 <?php
 require "../../src/db.php";
-include "../../src/subdivision-data.php";
+require "../../src/upload-checker.php";
+require "../../src/subdivision-data.php";
 
 session_start();
 $_SESSION["editProfileErrorMsgs"] = [];
@@ -29,7 +30,7 @@ else $_SESSION["editProfileFormData"]["firstName"] = $firstName;
 if (empty($lastName)) $_SESSION["editProfileErrorMsgs"]["lastName"] = "Last name cannot be blank";
 else $_SESSION["editProfileFormData"]["lastName"] = $lastName;
 
-if (!array_key_exists($subdivisionId, $subdivisionData[$countryId])) {
+if (!array_key_exists($subdivisionId, $subdivisionData[$countryId]["subdivisions"])) {
     if ($countryId === "CAN") $_SESSION["editProfileErrorMsgs"]["subdivision"] = "Selected option is not a province";
     else if ($countryId === "USA") $_SESSION["editProfileErrorMsgs"]["subdivision"] = "Selected option is not a state";
 } else {
@@ -37,6 +38,24 @@ if (!array_key_exists($subdivisionId, $subdivisionData[$countryId])) {
     $_SESSION["editProfileFormData"]["subdivision"] = $subdivisionId;
 }
 
-// TODO: continue working on validating profile picture, if bad picture log error message
-// then if no error messages, do the stuff
-// if error messages, set session variable
+$uploadedImage = uploadIsImage($_FILES["profilePicture"]);
+if (!$uploadedImage) $_SESSION["editProfileErrorMsgs"]["profilePicture"] = "Profile picture is not valid (Max 5kb)";
+
+// If no errors so far, attempt to save the image
+if (empty($_SESSION["editProfileErrorMsgs"])) {
+    $uploadDir = __DIR__ . "/../../public/uploads/pfp/";
+    if (!file_exists($uploadDir)) mkdir($uploadDir, 077, true);
+    if (!imagepng($uploadedImage, $uploadDir . "{$_POST["id"]}.png")) $_SESSION["editProfileErrorMsgs"]["profilePicture"] = "Failed to save profile picture. Please try again!";
+}
+
+if (empty($_SESSION["editProfileErrorMsgs"])) {
+    unset($_SESSION["editProfileFormData"]);
+    unset($_SESSION["profileAction"]);
+
+    $stmt = $pdo->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, country_id=:country_id, subdivision_id=:subdivision_id, bio=:bio");
+    $stmt->execute([":first_name" => $firstName, ":last_name" => $lastName, ":country_id" => $countryId, ":subdivision_id" => $subdivisionId, ":bio" => $_POST["bio"]]);
+} else $_SESSION["profileAction"] = "editProfile";
+
+header("Location: ../profile.php");
+$pdo = null;
+die();
