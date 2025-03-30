@@ -52,8 +52,8 @@ if (empty($_SESSION["editProfileErrorMsgs"])) {
     unset($_SESSION["editProfileFormData"]);
     unset($_SESSION["profileAction"]);
 
-    $stmt = $pdo->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, country_id=:country_id, subdivision_id=:subdivision_id, bio=:bio");
-    $stmt->execute([":first_name" => $firstName, ":last_name" => $lastName, ":country_id" => $countryId, ":subdivision_id" => $subdivisionId, ":bio" => $_POST["bio"]]);
+    $stmt = $pdo->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, country_id=:country_id, subdivision_id=:subdivision_id, bio=:bio WHERE id=:id");
+    $stmt->execute([":first_name" => $firstName, ":last_name" => $lastName, ":country_id" => $countryId, ":subdivision_id" => $subdivisionId, ":bio" => $_POST["bio"], ":id" => $_POST["id"]]);
 } else $_SESSION["profileAction"] = "editProfile";
 
 header("Location: ../profile.php");
