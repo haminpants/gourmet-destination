@@ -19,6 +19,9 @@ if (!empty($_GET["err"]) && is_numeric($_GET["err"])) {
         case 2:
             echo "Failed to create booking in database";
             break;
+        case 3:
+            echo "Value of experience_id must be an integer";
+            break;
     }
     echo("<br>Redirecting to home page in 5 seconds...<br><a href=\"index.php\">Click here if not redirected</a>");
     header("Refresh:5; URL=index.php");
@@ -37,7 +40,9 @@ if (empty($_SESSION["userData"]["id"])) {
 $userInfo = getUserById($pdo, $_SESSION["userData"]["id"]);
 
 // If an experience id is provided, if the user doesn't have a booking for that experience already, create one
-if (!empty($_GET["experience_id"]) && is_numeric($_GET["experience_id"])) {
+if (!empty($_GET["experience_id"])) {
+    if (!is_numeric($_GET["experience_id"])) redirectToError(3, $pdo); // Value of experience_id must be an integer
+
     // Check if the experience exists
     $stmt = $pdo->prepare("SELECT * FROM experiences WHERE id=:id");
     $stmt->execute([":id" => intval($_GET["experience_id"])]);
@@ -65,6 +70,8 @@ if (!empty($_GET["experience_id"]) && is_numeric($_GET["experience_id"])) {
     $pdo = null;
     die();
 }
+
+//
 
 ?>
 
