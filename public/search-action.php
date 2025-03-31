@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $searchItem = trim($_POST['searchBar']);
     echo $searchItem;
 
-    $stmt = $pdo->prepare("SELECT users.first_name, users.last_name, users.country_id, users.subdivision_id, roles.name
+    $stmt = $pdo->prepare("SELECT users.id, users.first_name, users.last_name, users.country_id, users.subdivision_id, roles.name
                             FROM users
                             JOIN roles ON users.role_id = roles.id
                             WHERE users.subdivision_id = :subdivision
