@@ -1205,8 +1205,8 @@ body.login-page .login-form a:hover {
 
 .tag-checkboxes input[type="checkbox"]:checked + label {
   background-color: #d9f6e3;
-  border-color: #5cbf84;
-  color: #2c7a4b;
+  border-color: #eab893;
+  color: #6b3d1f;
 }
 
 .tag-checkboxes label:hover {
@@ -1219,7 +1219,7 @@ body.login-page .login-form a:hover {
   padding: 5px 12px;
   margin: 5px 5px 0 0;
   border-radius: 20px;
-  background-color: #f5e9f0; /* soft pastel pink */
+  background-color: #f5e9f0; 
   color: #5a2a4d;
   font-size: 13px;
   font-weight: 500;
@@ -1232,8 +1232,8 @@ body.login-page .login-form a:hover {
 }
 
 .tag.cuisine {
-  background-color: #f8d3b0; /* soft coral-beige */
-  color: #6b3d1f;            /* deep brown for contrast */
+  background-color: #f8d3b0; 
+  color: #6b3d1f;           
   border: 1px solid #eab893;
 }
 
