@@ -94,7 +94,7 @@ $profileSelctedTagIds = array_map(fn($tag) => $tag["tag_id"], $profileSelectedTa
                     <label><?php echo $tagType ?></label>
                     <div class="tag-checkboxes">
                         <?php foreach ($tags[$tagType] as $tag) { ?>
-                            <label><input type="checkbox" name="tag[]" value="<?php echo $tag["id"] ?>" <?php echo in_array($tag["id"], $profileSelctedTagIds) ? "checked" : "" ?>> <?php echo $tag["name"] ?></label>
+                            <label><input type="checkbox" name="tag[]" value="<?php echo $tag["id"] ?>" <?php echo in_array($tag["id"], $_SESSION["editProfileFormData"]["tags"] ?? $profileSelctedTagIds) ? "checked" : "" ?>> <?php echo $tag["name"] ?></label>
                         <?php } ?>
                     </div>
                 </div>

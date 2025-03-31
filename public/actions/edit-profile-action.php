@@ -23,6 +23,7 @@ $selectedTags = array_map(fn($tag) => intval($tag), $_POST["tag"] ?? []);
 // Save form fields that don't need to be validated
 $_SESSION["editProfileFormData"]["bio"] = $_POST["bio"];
 $_SESSION["editProfileFormData"]["countryId"] = $countryId;
+$_SESSION["editProfileFormData"]["tags"] = $selectedTags;
 
 // Validate form fields
 if (empty($firstName)) $_SESSION["editProfileErrorMsgs"]["firstName"] = "First name cannot be blank";
