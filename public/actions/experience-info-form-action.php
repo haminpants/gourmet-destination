@@ -6,6 +6,9 @@ session_start();
 $_SESSION["experienceErrorMsgs"] = [];
 $_SESSION["experienceFormData"] = [];
 
+$_SESSION["log"][] = "Made it to login form action";
+$_SESSION["log"][] = "Action: " . $_POST["action"];
+
 function formatTime($time)
 {
     if (empty($time)) return false;
@@ -17,6 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["
     header("Location: ../profile.php");
     die();
 }
+
+$_SESSION["log"][] = "Made it past post checks";
 
 // Get and format form fields
 $title = trim($_POST["title"]);
@@ -68,15 +73,34 @@ if ($fileIsUploaded) {
 }
 
 if (empty($_SESSION["experienceErrorMsgs"])) {
+    $_SESSION["log"][] = "Successfully validated all form fields";
     unset($_SESSION["experienceFormData"]);
     unset($_SESSION["profileAction"]);
+    unset($_SESSION["experienceId"]);
 
-    $stmt = $pdo->prepare("INSERT INTO experiences 
-    (host_id, title, description, min_participants, max_participants, bookable_days, bookings_open_start, bookings_open_end, duration, price, pricing_method_id)
-    VALUES (:host_id, :title, :description, :min_participants, :max_participants, :bookable_days, :bookings_open_start, :bookings_open_end, :duration, :price, :pricing_method_id)");
-    $stmt->execute(
-        [
-            ":host_id" => $_POST["id"],
+    if ($_POST["action"] === "create_experience") {
+        $stmt = $pdo->prepare("INSERT INTO experiences 
+            (host_id, title, description, min_participants, max_participants, bookable_days, bookings_open_start, bookings_open_end, duration, price, pricing_method_id)
+            VALUES (:host_id, :title, :description, :min_participants, :max_participants, :bookable_days, :bookings_open_start, :bookings_open_end, :duration, :price, :pricing_method_id)");
+        $stmt->execute(
+            [
+                ":host_id" => $_POST["id"],
+                ":title" => $title,
+                ":description" => $description,
+                ":min_participants" => $minParticipants,
+                ":max_participants" => $maxParticipants,
+                ":bookable_days" => $bookableDays,
+                ":bookings_open_start" => $bookingsOpenStart,
+                ":bookings_open_end" => $bookingsOpenEnd,
+                ":duration" => $duration,
+                ":price" => $price,
+                ":pricing_method_id" => $pricingMethod
+            ]
+        );
+        $experienceId = $pdo->lastInsertId();
+    } else if ($_POST["action"] === "edit_experience") {
+        $stmt = $pdo->prepare("UPDATE experiences SET title=:title, description=:description, min_participants=:min_participants, max_participants=:max_participants, bookable_days=:bookable_days, bookings_open_start=:bookings_open_start, bookings_open_end=:bookings_open_end, duration=:duration, price=:price, pricing_method_id=:pricing_method_id WHERE id=:id");
+        $stmt->execute([
             ":title" => $title,
             ":description" => $description,
             ":min_participants" => $minParticipants,
@@ -86,10 +110,11 @@ if (empty($_SESSION["experienceErrorMsgs"])) {
             ":bookings_open_end" => $bookingsOpenEnd,
             ":duration" => $duration,
             ":price" => $price,
-            ":pricing_method_id" => $pricingMethod
-        ]
-    );
-    $experienceId = $pdo->lastInsertId();
+            ":pricing_method_id" => $pricingMethod,
+            ":id" => $_POST["experience_id"]
+        ]);
+        $experienceId = $_POST["experience_id"];
+    }
 
     if ($fileIsUploaded) {
         $uploadDir = __DIR__ . "/../../public/uploads/experience/{$experienceId}/";
@@ -98,6 +123,7 @@ if (empty($_SESSION["experienceErrorMsgs"])) {
     }
 } else {
     $_SESSION["profileAction"] = "manage_experience";
+    if (isset($_POST["experience_id"])) $_SESSION["experienceId"] = $_POST["experience_id"];
 }
 
 $targetSelector = isset($_SESSION["experienceErrorMsgs"]) ? "#focus-form" : "";

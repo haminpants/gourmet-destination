@@ -18,6 +18,7 @@ unset($_SESSION["editProfileErrorMsgs"]);
 unset($_SESSION["editProfileFormData"]);
 unset($_SESSION["experienceErrorMsgs"]);
 unset($_SESSION["experienceFormData"]);
+unset($_SESSION["experienceId"]);
 ?>
 
 <body>
