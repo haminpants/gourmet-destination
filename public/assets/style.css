@@ -950,6 +950,22 @@ body.login-page .login-form a:hover {
   transition: background-color 0.3s ease;
 }
 
+.profile-tag-display {
+  display: flex;
+  gap: 5px;
+}
+.profile-tag-display .tag {
+  font-size: x-small;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+.profile-tag-display .tag.cuisine {
+  background-color: lightgreen;
+}
+.profile-tag-display .tag.host-type {
+  background-color: whitesmoke;
+}
+
 .profile-actions button:hover {
   background-color: #555;
 }
