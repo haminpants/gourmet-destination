@@ -1115,3 +1115,12 @@ body.login-page .login-form a:hover {
 .star-rating input {
   display: none;
 }
+
+.star-rating input:checked ~ label {
+  color: gold;
+}
+
+.star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffcc00;
+        }
