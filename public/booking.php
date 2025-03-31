@@ -93,6 +93,12 @@ else if (!empty($_GET["booking_id"])) {
     $experience = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $host = getUserById($pdo, $experience["host_id"]);
+
+    if (file_exists("uploads/pfp/{$host["id"]}.png")) $hostPfp = "uploads/pfp/{$host["id"]}.png";
+    else $hostPfp = "assets/icons/person.png";
+
+    if (file_exists("uploads/experience/{$experience["id"]}/banner.png")) $experienceBanner = "uploads/experience/{$experience["id"]}/banner.png";
+    else $experienceBanner = "assets/default_banner.png";
 }
 // Otherwise, redirect to unknown error
 else redirectToError(100, $pdo);
@@ -100,13 +106,20 @@ else redirectToError(100, $pdo);
 
 <body class="booking-page">
     <section class="header">
-
+        <div class="background-img centered-container"><img src="<?php echo $experienceBanner ?>" alt=""></div>
+        <div class="content">
+            <h1><?php echo htmlspecialchars($experience["title"]) ?></h1>
+            <div class="host-details">
+                <div class="profile-picture centered-container"><img src="<?php echo $hostPfp ?>" alt=""></div>
+                <h3><?php echo htmlspecialchars("{$host["first_name"]} {$host["last_name"]}") ?></h3>
+            </div>
+        </div>
     </section>
-    <section class="experience_details">
+    <section class="details">
+        <div class="booking">
 
-    </section>
-    <section class="booking_details">
-
+        </div>
+        <p><?php echo htmlspecialchars($experience["description"]); ?></p>
     </section>
     <section class="reviews">
 

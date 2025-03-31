@@ -1090,6 +1090,54 @@ body.login-page .login-form a:hover {
   font-family: inherit;
 }
 
+.booking-page {
+}
+.booking-page > .header {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 250px;
+}
+.booking-page > .header > div {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+.booking-page > .header > .background-img {
+  overflow: hidden;
+}
+.booking-page > .header > .background-img > img {
+  width: 100%;
+  height: auto;
+  filter: blur(10px);
+  z-index: -1;
+}
+.booking-page > .header > .content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: end;
+
+  box-sizing: border-box;
+  padding: 40px 60px;
+
+  background-color: rgba(255,255,255,0.6);
+}
+.booking-page > .header > .content > .host-details {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+.booking-page > .header > .content > .host-details > .profile-picture {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 100px;
+}
+
+.booking-page > .experience-details {
+  display: grid;
+}
+
 /* Responsive: Stack on mobile */
 @media (max-width: 600px) {
   .edit-profile-form {
