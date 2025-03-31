@@ -12,7 +12,6 @@ function formatTime($time)
     $tempTime = new DateTime($time);
     return $tempTime->format("H:i:s");
 }
-
 // Validate that the script is called from a POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["action"] === "cancel") {
     header("Location: ../profile.php");
@@ -40,7 +39,7 @@ if (empty($title)) $_SESSION["experienceErrorMsgs"]["title"] = "Title cannot be 
 else $_SESSION["experienceFormData"]["title"] = $title;
 
 if (empty($minParticipants) || empty($maxParticipants)) $_SESSION["experienceErrorMsgs"]["participants"] = "Minimum and maximum participants cannot be blank";
-else if ($minParticipants > $maxParticipants) $_SESSION["participants"] = "Max participants must be greater than or equal to min. participants";
+else if ($minParticipants > $maxParticipants) $_SESSION["experienceErrorMsgs"]["participants"] = "Max participants must be greater than or equal to min. participants";
 else {
     $_SESSION["experienceFormData"]["min_participants"] = $minParticipants;
     $_SESSION["experienceFormData"]["max_participants"] = $maxParticipants;
@@ -53,12 +52,16 @@ if (empty($duration)) $_SESSION["experienceErrorMsgs"]["duration"] = "Duration c
 else $_SESSION["experienceFormData"]["duration"] = $duration;
 
 
-if (!$bookingsOpenStart) $_SESSION["experienceErrorMsgs"]["bookings_open_start"] = "Booking opening time cannot be blank";
-else $_SESSION["experienceFormData"]["bookings_open_start"] = $bookingsOpenStart;
-if (!$bookingsOpenEnd) $_SESSION["experienceErrorMsgs"]["bookings_open_end"] = "Booking ending time cannot be blank";
-else $_SESSION["experienceFormData"]["bookings_open_end"] = $bookingsOpenEnd;
+if (!$bookingsOpenStart || !$bookingsOpenEnd) $_SESSION["experienceErrorMsgs"]["bookings_open_start"] = "Booking opening and closing times cannot be blank";
+else if (strtotime($bookingsOpenStart) >= strtotime($bookingsOpenEnd)) $_SESSION["experienceErrorMsgs"]["bookings_open_start"] = "Booking opening and closing times are not valid";
+else {
+    $_SESSION["experienceFormData"]["bookings_open_start"] = $bookingsOpenStart;
+    $_SESSION["experienceFormData"]["bookings_open_end"] = $bookingsOpenEnd;
+}
 
-if ($_FILES["banner_img"]["error"] !== UPLOAD_ERR_NO_FILE) {
+
+$fileIsUploaded = $_FILES["banner_img"]["error"] !== UPLOAD_ERR_NO_FILE;
+if ($fileIsUploaded) {
     $uploadedImage = uploadIsImage($_FILES["banner_img"]);
     if (empty($uploadedImage)) $_SESSION["experienceErrorMsgs"]["banner_img"] = "Banner image upload failed (Max 2mb)";
 }
@@ -86,14 +89,17 @@ if (empty($_SESSION["experienceErrorMsgs"])) {
         ]
     );
     $experienceId = $pdo->lastInsertId();
-    $uploadDir = __DIR__ . "/../../public/uploads/experience/{$experienceId}/";
-    if (!file_exists($uploadDir)) mkdir($uploadDir, 077, true);
-    if (!imagepng($uploadedImage, "{$uploadDir}banner.png")) $_SESSION["experienceErrorMsgs"]["banner_img"] = "Failed to save banner image. Please try again!";
+
+    if ($fileIsUploaded) {
+        $uploadDir = __DIR__ . "/../../public/uploads/experience/{$experienceId}/";
+        if (!file_exists($uploadDir)) mkdir($uploadDir, 077, true);
+        if (!imagepng($uploadedImage, "{$uploadDir}banner.png")) $_SESSION["experienceErrorMsgs"]["banner_img"] = "Failed to save banner image. Please try again!";
+    }
 } else {
     $_SESSION["profileAction"] = "manage_experience";
-    $_SESSION["experienceId"] = $experienceId;
 }
 
-header("Location: ../profile.php");
+$targetSelector = isset($_SESSION["experienceErrorMsgs"]) ? "#focus-form" : "";
+header("Location: ../profile.php{$targetSelector}");
 $pdo = null;
 die();

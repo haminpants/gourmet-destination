@@ -6,7 +6,7 @@ $profilePicturePath = __DIR__ . "/../../public/uploads/pfp/{$profileData["id"]}.
 
 <div class="profile-banner">
     <div class="profile-picture">
-        <img src="<?php echo file_exists($profilePicturePath) ? "uploads/pfp/{$profileData["id"]}.png?" . time() : "assets/icons/default_profile_picture.png" ?>" alt="">
+        <img src="<?php echo file_exists($profilePicturePath) ? "uploads/pfp/{$profileData["id"]}.png?" . time() : "assets/icons/person.png" ?>" alt="">
     </div>
     <div class="profile-info">
         <h2><?php echo htmlspecialchars("{$profileData["first_name"]} {$profileData["last_name"]}") ?></h2>

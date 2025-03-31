@@ -3,11 +3,14 @@ if (isset($_SESSION["profileAction"]) && $_SESSION["profileAction"] === "manage_
 else if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["action"] !== "manage_experience") return;
 
 require_once __DIR__ . "/../../src/db.php";
+if (!isset($_SESSION["experienceErrorMsgs"])) $_SESSION["experienceErrorMsgs"] = [];
 ?>
 
 <div class="experience-info-form" id="focus-form">
     <h2>Create Your Experience</h2>
-    <?php if (!empty($_SESSION["experienceErrorMsgs"])) print_r($_SESSION["experienceErrorMsgs"]) ?>
+    <?php foreach ($_SESSION["experienceErrorMsgs"] as $msg) { ?>
+        <p class="error-msg"><?php echo $msg ?></p>
+    <?php } ?>
     <form action="actions/experience-info-form-action.php" method="POST" enctype="multipart/form-data" class="experience-form">
         <div class="title">
             <label for="title">Title</label>
