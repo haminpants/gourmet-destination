@@ -86,6 +86,12 @@ function getExperienceById(PDO $pdo, $id)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getBookingById(PDO $pdo, $id) {
+    $stmt = $pdo->prepare("SELECT * FROM bookings WHERE id=:id");
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 // Bookable days encoding and decoding
 $daysBitMask = [
     "Monday" => 1,
