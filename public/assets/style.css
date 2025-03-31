@@ -1149,3 +1149,18 @@ body.login-page .login-form a:hover {
         .star-rating label:hover ~ label {
             color: #ffcc00;
         }
+
+/* review display in profile */
+.review-display {
+  box-shadow: 5px 2px 20px #444;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.review-display-header {
+  display: flex;
+  justify-content: center;
+}

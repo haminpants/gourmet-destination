@@ -24,6 +24,8 @@
         include "../includes/profiles/profile-edit.php";
         include "../includes/profiles/profile-experience-display.php";
         include "../includes/experiences/experience-info-form.php";
+
+        include "../public/actions/review-display-action.php";
     } else include "../includes/profiles/no-profile-found.php";
     ?>
 
