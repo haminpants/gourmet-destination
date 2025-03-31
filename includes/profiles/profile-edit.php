@@ -10,8 +10,8 @@ else if (
     empty($_POST["id"]) || $_POST["id"] != $_SESSION["userData"]["id"]
 ) return;
 
-$applicableTagTypeIds = [0];
-if ($profileData["role_id"] === 2) $applicableTagTypeIds[] = 1;
+$applicableTagTypeIds = [1];
+if ($profileData["role_id"] === 2) $applicableTagTypeIds[] = 0;
 $tags = [];
 foreach ($applicableTagTypeIds as $applicableTag) {
     $tagsByTypeId = getAllTagsByType($pdo, $applicableTag);

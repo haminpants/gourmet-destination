@@ -84,7 +84,7 @@ function getExperienceById(PDO $pdo, $id)
 
 function getAllTagsByType (PDO $pdo, int $typeId) {
     $stmt = $pdo->prepare("SELECT tag.id, tag.name, tag.type_id, tag_type.name AS type_name
-        FROM tags AS tag JOIN tag_types AS tag_type ON tag.type_id=tag_type.id WHERE tag_type.id=:id");
+        FROM tags AS tag JOIN tag_types AS tag_type ON tag.type_id=tag_type.id WHERE tag_type.id=:id ORDER BY tag.name");
     $stmt->execute([":id" => $typeId]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
