@@ -1212,3 +1212,118 @@ body.login-page .login-form a:hover {
   font-size: 0.95rem;
   text-align: center;
 }
+/* --- Review Submission Styling --- */
+.review {
+  background-color: #fefefe;
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.review p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.review label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.review textarea {
+  width: 100%;
+  min-height: 120px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+/* Star Rating */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 5px;
+  margin: 15px 0;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating input[type="radio"]:hover ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #FFD700;
+}
+
+/* Buttons */
+.review button {
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.review button[type="submit"] {
+  background-color: #333;
+  color: white;
+}
+
+.review button[type="submit"]:hover {
+  background-color: #555;
+}
+
+.review button#btnCancel {
+  background-color: #ddd;
+  color: #333;
+}
+
+.review button#btnCancel:hover {
+  background-color: #bbb;
+}
+
+/* Error Message */
+.reviewError label {
+  background-color: rgba(255, 80, 80, 0.1);
+  color: crimson;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+body.review-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f8f8f8;
+}
