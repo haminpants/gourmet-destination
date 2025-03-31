@@ -16,7 +16,7 @@ $experienceAssetsDir = __DIR__ . "/../../public/uploads/experience"
             $assetDir = "{$experienceAssetsDir}/{$experience["id"]}" ?>
             <div class="experience-container">
                 <div class="banner centered-container">
-                    <img src="<?php echo file_exists("{$assetDir}/banner.png") ? "uploads/experience/{$experience["id"]}/banner.png?" . time() : "assets/icons/flag.png?" ?>" alt="">
+                    <img src="<?php echo file_exists("{$assetDir}/banner.png") ? "uploads/experience/{$experience["id"]}/banner.png?" . time() : "assets/default_banner.png" ?>" alt="">
                 </div>
                 <div class="info-body">
                     <h3 class="title"><?php echo htmlspecialchars($experience["title"]); ?></h3>
