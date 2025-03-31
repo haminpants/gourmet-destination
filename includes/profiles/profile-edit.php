@@ -17,7 +17,7 @@ else if (
     <?php foreach ($_SESSION["editProfileErrorMsgs"] as $msg) { ?>
         <p class="error-msg"><?php echo $msg ?></p>
     <?php } ?>
-    
+
     <form action="actions/edit-profile-action.php" method="POST" enctype="multipart/form-data" class="edit-profile-form">
         <div class="first-name">
             <label for="firstName">First Name</label>
@@ -62,7 +62,6 @@ else if (
             </select>
         </div>
 
-        
         <div class="image-uploads">
             <div class="profile-picture">
                 <label for="profilePicture">Update Profile Picture</label>
