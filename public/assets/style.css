@@ -784,11 +784,23 @@ body.login-page .login-form a:hover {
     border: 3px dashed grey;
     border-radius: 20px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 .create-new-experience > button:hover {
     background-color: whitesmoke;
     border: 3px dashed black;
 }
+
+.create-new-experience img {
+  width: 36px;
+  height: 36px;
+}
+
+.create-new-experience h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 
 .experience-info-form {
     display: flex;
