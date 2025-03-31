@@ -34,7 +34,7 @@ function getUserByEmail(PDO $pdo, string $email)
 function getUserById(PDO $pdo, int $userId)
 {
     $stmt = $pdo->prepare("SELECT user.id, user.email, user.password, user.first_name, user.last_name, user.bio, 
-        user.country_id, country.name AS country_name, user.subdivision_id, subdivision.name AS subidivision_name, 
+        user.country_id, country.name AS country_name, user.subdivision_id, subdivision.name AS subdivision_name, 
         user.role_id, role.name AS role_name, user.signup_date
         FROM users AS user
         JOIN roles AS role ON user.role_id=role.id
