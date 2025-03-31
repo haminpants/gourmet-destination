@@ -63,7 +63,7 @@ else if (
 
         <div class="profile-picture">
             <label for="profilePicture">Update Profile Picture<br></label>
-            <input type="hidden" name="MAX_FILE_SIZE" value="5000">
+            <input type="hidden" name="MAX_FILE_SIZE" value="100000">
             <input type="file" name="profilePicture" id="profilePicture" accept="image/png, image/jpeg">
         </div>
 

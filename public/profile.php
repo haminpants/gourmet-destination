@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="assets/style.css">
 </head>
-
+<body class="profile-page">
 <?php
 session_start();
 require "../src/db.php";
@@ -23,5 +23,5 @@ if (!empty($profileData)) {
     include "../includes/profiles/profile-edit.php";
 } else include "../includes/profiles/no-profile-found.php";
 ?>
-
+</body>
 </html>
