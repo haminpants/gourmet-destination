@@ -1116,6 +1116,8 @@ body.login-page .login-form a:hover {
   padding: 20px;
   width: 400px;
   height: auto;
+  margin-left: 40%;
+  margin-top: 20px;
 }
 .review textarea {
   resize: none;
