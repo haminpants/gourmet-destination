@@ -33,10 +33,13 @@ function getUserByEmail(PDO $pdo, string $email)
 /** @return mixed Returns an associative array containing all of a user's data for a given email, otherwise returns `false` on failure  */
 function getUserById(PDO $pdo, int $userId)
 {
-    $stmt = $pdo->prepare("SELECT user.id, user.email, user.password, user.first_name, user.last_name, user.bio, user.signup_date, 
-    user.country_id, country.name AS country_name, user.subdivision_id, subdivision.name AS subdivision_name, user.role_id, role.name AS role_name
-    FROM users AS user, roles AS role, countries AS country, subdivisions AS subdivision 
-    WHERE user.id=:id AND user.role_id=role.id AND user.country_id=country.id AND user.subdivision_id=subdivision.id");
+    $stmt = $pdo->prepare("SELECT user.id, user.email, user.password, user.first_name, user.last_name, user.bio, 
+        user.country_id, country.name AS country_name, user.subdivision_id, subdivision.name AS subidivision_name, user.signup_date
+        FROM users AS user
+        JOIN roles AS role ON user.role_id=role.id
+        JOIN countries AS country ON user.country_id=country.id
+        JOIN subdivisions AS subdivision ON user.subdivision_id=subdivision.id AND subdivision.country_id=country.id
+        WHERE user.id=:id");
 
     $stmt->execute([":id" => $userId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
