@@ -6,9 +6,6 @@ session_start();
 $_SESSION["experienceErrorMsgs"] = [];
 $_SESSION["experienceFormData"] = [];
 
-$_SESSION["log"][] = "Made it to login form action";
-$_SESSION["log"][] = "Action: " . $_POST["action"];
-
 function formatTime($time)
 {
     if (empty($time)) return false;
@@ -20,8 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["
     header("Location: ../profile.php");
     die();
 }
-
-$_SESSION["log"][] = "Made it past post checks";
 
 // Get and format form fields
 $title = trim($_POST["title"]);
@@ -73,7 +68,6 @@ if ($fileIsUploaded) {
 }
 
 if (empty($_SESSION["experienceErrorMsgs"])) {
-    $_SESSION["log"][] = "Successfully validated all form fields";
     unset($_SESSION["experienceFormData"]);
     unset($_SESSION["profileAction"]);
     unset($_SESSION["experienceId"]);

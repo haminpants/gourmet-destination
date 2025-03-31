@@ -2,7 +2,6 @@
 if (empty($profileData)) die("Missing profile data");
 if ($profileData["role_id"] !== 2) return;
 if (session_status() === PHP_SESSION_NONE) session_start();
-if (!isset($_SESSION["log"])) $_SESSION["log"] = [];
 
 require_once __DIR__ . "/../../src/db.php";
 $isHostView = isset($_SESSION["userData"]) && $_SESSION["userData"]["id"] === $profileData["id"] && $profileData["role_id"] === 2;
@@ -11,7 +10,6 @@ $experienceAssetsDir = __DIR__ . "/../../public/uploads/experience"
 
 <section class="profile-experience-display">
     <h2><?php echo $isHostView ? "My" : htmlspecialchars("{$profileData["first_name"]}'s") ?> Experiences</h2>
-    <?php if(isset($_SESSION["log"])) { print_r($_SESSION["log"]); } unset($_SESSION["log"]);  ?>
 
     <div class="profile-experience-grid">
         <?php foreach (getExperiencesByUserId($pdo, $profileData["id"]) as $experience) {
