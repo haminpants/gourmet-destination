@@ -950,6 +950,22 @@ body.login-page .login-form a:hover {
   transition: background-color 0.3s ease;
 }
 
+.profile-tag-display {
+  display: flex;
+  gap: 5px;
+}
+.profile-tag-display .tag {
+  font-size: x-small;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+.profile-tag-display .tag.cuisine {
+  background-color: lightgreen;
+}
+.profile-tag-display .tag.host-type {
+  background-color: whitesmoke;
+}
+
 .profile-actions button:hover {
   background-color: #555;
 }
@@ -989,6 +1005,7 @@ body.login-page .login-form a:hover {
     "bio bio"
     "country subdivision"
     "image-uploads image-uploads"
+    "profile-tags profile-tags"
     "submit submit"
     "cancel cancel";
   grid-template-columns: 1fr 1fr;
@@ -1001,7 +1018,8 @@ body.login-page .login-form a:hover {
   flex-direction: column;
 }
 
-.edit-profile-form > div > label {
+.edit-profile-form > div > label,
+.edit-profile-form > div > div > label {
   margin-bottom: 3px;
   font-weight: 600;
   color: #444;
@@ -1034,6 +1052,16 @@ body.login-page .login-form a:hover {
 .edit-profile-form .image-uploads { grid-area: image-uploads; }
 .edit-profile-form .submit { grid-area: submit; }
 .edit-profile-form .cancel { grid-area: cancel; }
+
+.edit-profile-form .profile-tags { 
+  grid-area: profile-tags; 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.edit-profile-form .profile-tags .tag-checkboxes {
+  display: flex;
+  flex-direction: column;
+}  
 
 .edit-profile-form button {
   padding: 12px;
@@ -1101,6 +1129,7 @@ body.login-page .login-form a:hover {
       "country"
       "subdivision"
       "image-uploads"
+      "profile-tags"
       "submit"
       "cancel";
   }
