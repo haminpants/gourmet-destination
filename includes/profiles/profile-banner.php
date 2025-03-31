@@ -1,6 +1,7 @@
 <?php
 if (empty($profileData)) die("Missing profile data");
 if (session_status() === PHP_SESSION_NONE) session_start();
+
 $profilePicturePath = __DIR__ . "/../../public/uploads/pfp/{$profileData["id"]}.png";
 ?>
 

@@ -9,6 +9,18 @@ else if (
     empty($_POST["action"]) || $_POST["action"] !== "edit_profile" ||
     empty($_POST["id"]) || $_POST["id"] != $_SESSION["userData"]["id"]
 ) return;
+
+$applicableTagTypeIds = [0];
+if ($profileData["role_id"] === 2) $applicableTagTypeIds[] = 1;
+$tags = [];
+foreach ($applicableTagTypeIds as $applicableTag) {
+    $tagsByTypeId = getAllTagsByType($pdo, $applicableTag);
+    if (empty($tagsByTypeId)) continue;
+    $tags[$tagsByTypeId[0]["type_name"]] = $tagsByTypeId;
+}
+
+$profileSelectedTags = getUserTags($pdo, $profileData["id"]);
+$profileSelctedTagIds = array_map(fn($tag) => $tag["tag_id"], $profileSelectedTags);
 ?>
 
 <div class="profile-edit" id="focus-form">
@@ -74,6 +86,19 @@ else if (
                 <input type="hidden" name="MAX_BACKGROUND_SIZE" value="1000000">
                 <input type="file" name="backgroundPicture" id="backgroundPicture" accept="image/png, image/jpeg">
             </div>
+        </div>
+
+        <div class="profile-tags">
+            <?php foreach (array_keys($tags) as $tagType) { ?>
+                <div class="tag-group">
+                    <label><?php echo $tagType ?></label>
+                    <div class="tag-checkboxes">
+                        <?php foreach ($tags[$tagType] as $tag) { ?>
+                            <label><input type="checkbox" name="tag[]" value="<?php echo $tag["id"] ?>" <?php echo in_array($tag["id"], $profileSelctedTagIds) ? "checked" : "" ?>> <?php echo $tag["name"] ?></label>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
 
         <div class="submit">
