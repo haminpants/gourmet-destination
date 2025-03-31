@@ -17,11 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $_SESSION['searchData'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($_SESSION['searchData'])) {
-        // $_SESSION['searchError'] = "Sorry, we couldn't find any results. Please try Again.";
-        // header("Location: index.php?error=invalid_searach");
-        echo "testing";
+        $_SESSION['searchError'] = "Sorry, we couldn't find any results. Please try Again.";
+        header("Location: index.php?error=invalid_searach");
+        exit;
     } else {
-        echo "testing2";
         header("Location: ../search-results.php");
         exit;
     }
