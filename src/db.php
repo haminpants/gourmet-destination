@@ -86,8 +86,10 @@ function getExperienceById(PDO $pdo, $id)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getBookingById(PDO $pdo, $id) {
-    $stmt = $pdo->prepare("SELECT * FROM bookings WHERE id=:id");
+function getBookingById(PDO $pdo, int $id)
+{
+    $stmt = $pdo->prepare("SELECT booking.id, booking.created_at, booking.user_id, booking.experience_id, booking.status_id, bs.status AS status_name, 
+        booking.participants, booking.booking_time FROM bookings AS booking JOIN booking_status AS bs ON booking.status_id=bs.id WHERE booking.id=:id");
     $stmt->execute([":id" => $id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
