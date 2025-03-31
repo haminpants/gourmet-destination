@@ -21,7 +21,11 @@ if (!empty($profileData)) {
     include "../includes/nav-bar.php";
     include "../includes/profiles/profile-banner.php";
     include "../includes/profiles/profile-edit.php";
+    include "../includes/profiles/profile-experience-display.php";
+    include "../includes/experiences/experience-info-form.php";
 } else include "../includes/profiles/no-profile-found.php";
 ?>
+  
 </body>
+
 </html>

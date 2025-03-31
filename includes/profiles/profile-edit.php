@@ -11,7 +11,7 @@ else if (
 ) return;
 ?>
 
-<div class="profile-edit">
+<div class="profile-edit" id="focus-form">
     <h2>Edit Profile</h2>
     <p>Edit your profile information!</p>
     <?php foreach ($_SESSION["editProfileErrorMsgs"] as $msg) { ?>

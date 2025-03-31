@@ -57,3 +57,38 @@ function commitUserDataToSession(array $userData)
     $_SESSION["userData"]["lastName"] = $userData["last_name"];
     $_SESSION["userData"]["profilePicture"] = $userData["profile_picture"];
 }
+
+function getPricingMethods(PDO $pdo)
+{
+    $stmt = $pdo->prepare("SELECT * FROM pricing_methods");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getExperiencesByUserId(PDO $pdo, $id)
+{
+    if (empty(getUserById($pdo, $id))) return [];
+    $stmt = $pdo->prepare("SELECT e.id, e.title, e.description, e.min_participants, e.max_participants, e.bookable_days, e.bookings_open_start, e.bookings_open_end, e.duration, e.price, e.pricing_method_id, p.name AS pricing_method_name, p.description AS pricing_method_description
+    FROM experiences AS e, pricing_methods AS p WHERE e.host_id=:id AND e.pricing_method_id=p.id");
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getExperienceById(PDO $pdo, $id)
+{
+    $stmt = $pdo->prepare("SELECT e.id, e.title, e.description, e.min_participants, e.max_participants, e.bookable_days, e.bookings_open_start, e.bookings_open_end, e.duration, e.price, e.pricing_method_id, p.description AS pricing_method_desc
+    FROM experiences AS e, pricing_methods AS p WHERE e.id=:id AND e.pricing_method_id=p.id");
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Bookable days encoding and decoding
+$daysBitMask = [
+    "Monday" => 1,
+    "Tuesday" => 2,
+    "Wednesday" => 4,
+    "Thursday" => 8,
+    "Friday" => 16,
+    "Saturday" => 32,
+    "Sunday" => 64
+];
