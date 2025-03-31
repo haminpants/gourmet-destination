@@ -1105,3 +1105,13 @@ body.login-page .login-form a:hover {
       "cancel";
   }
 }
+
+/* Review */
+.star-rating {
+  display: inline-block;
+  /* direction: rtl; */
+}
+
+.star-rating input {
+  display: none;
+}
