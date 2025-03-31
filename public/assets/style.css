@@ -1105,84 +1105,51 @@ body.login-page .login-form a:hover {
       "cancel";
   }
 }
-.review-form-section {
+/* --- Review Submission Styling --- */
+.review {
   background-color: #fefefe;
-  padding: 60px 20px;
   max-width: 700px;
   margin: 60px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', sans-serif;
-}
-
-.review-form-section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 25px;
-  text-align: center;
   color: #333;
 }
 
-.review-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.review p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.review-form label {
+.review label {
+  display: block;
   font-weight: bold;
+  margin-bottom: 8px;
   color: #444;
-  font-size: 0.95rem;
 }
 
-.review-form textarea {
-  resize: vertical;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  font-family: inherit;
-  background-color: #fafafa;
+.review textarea {
+  width: 100%;
   min-height: 120px;
-}
-
-.review-form input[type="number"] {
-  padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #ccc;
+  padding: 12px;
   font-size: 1rem;
-  font-family: inherit;
-  background-color: #fafafa;
-  width: 150px;
+  background-color: #f9f9f9;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
+/* Star Rating */
 .star-rating {
-  font-size: 1.8rem;
-  color: #FFD700;
-  letter-spacing: 8px;
-  user-select: none;
-}
-
-.review-form button[type="submit"] {
-  background-color: #333;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.review-form button[type="submit"]:hover {
-  background-color: #555;
-}
-.star-rating {
-  direction: rtl;
   display: flex;
-  justify-content: start;
-  gap: 8px;
-  font-size: 2rem;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 5px;
+  margin: 15px 0;
 }
 
 .star-rating input[type="radio"] {
@@ -1190,14 +1157,58 @@ body.login-page .login-form a:hover {
 }
 
 .star-rating label {
-  cursor: pointer;
+  font-size: 2rem;
   color: #ccc;
-  transition: color 0.2s ease;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .star-rating input[type="radio"]:checked ~ label,
+.star-rating input[type="radio"]:hover ~ label,
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-  color: #FFD700; /* gold */
+  color: #FFD700;
 }
 
+/* Buttons */
+.review button {
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.review button[type="submit"] {
+  background-color: #333;
+  color: white;
+}
+
+.review button[type="submit"]:hover {
+  background-color: #555;
+}
+
+.review button#btnCancel {
+  background-color: #ddd;
+  color: #333;
+}
+
+.review button#btnCancel:hover {
+  background-color: #bbb;
+}
+
+/* Error Message */
+.reviewError label {
+  background-color: rgba(255, 80, 80, 0.1);
+  color: crimson;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+}
