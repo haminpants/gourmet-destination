@@ -15,14 +15,14 @@ session_start();
     <div id="searchFilter">
         <button type="button" onclick="toggleVisibility()" style="border-style: none;">X</button><br><br>
         <h4>Filter Options</h4>
-        <form>
+        <form method="POST" action="actions/filter-result-action.php">
             <!-- Host Roles -->
             <hr>
             <h4>Hosting Offered</h4><br>
-            <input type="checkbox" name="role" value="Local Guide">
-            <label>Local Guide</label>
-            <input type="checkbox" name="role" value="Local Guide">
-            <label>Local Home Chef</label>
+            <input type="checkbox" name="role" value="Tourist">
+            <label>Tourist</label>
+            <input type="checkbox" name="role" value="Host">
+            <label>Host</label>
             
             <!-- Availability Filter -->
             <hr>
@@ -50,7 +50,7 @@ session_start();
                 <input type="radio" id="3+" name="filterRating" value="3+">
                 <label for="3+"><span class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>3+</label><br>
                 <br>
-                <button>Filter Results</button>
+                <button type="submit">Filter Results</button>
             </div>
         </form>
         
@@ -64,12 +64,14 @@ session_start();
             if (isset($_SESSION['searchData']) && (!empty($_SESSION['searchData']))) {
                 foreach ($_SESSION['searchData'] as $user) {
                     echo '<div id="searchUsers">';
-                    echo "<div id='profilePic'>IMAGE</div>";
+                    echo "<div id='profilePic'></div>";
                     // echo !empty($user['profile_picture']) ? htmlspecialchars($user['profile_picture']) : '';
+                    echo "<div id='profileInfo'>";
                     echo htmlspecialchars($user['first_name']) . " " . htmlspecialchars($user['last_name']) . "<br>";
                     echo htmlspecialchars($user['country_id']) . ", " . htmlspecialchars($user['subdivision_id']) . "<br>";
                     echo htmlspecialchars($user['name']) . "<br>";
-                    echo "<button><a href='profile.php?id=" . htmlspecialchars($user['id']) . "'>View</button>";
+                    echo "<button><a href='profile.php?id=" . htmlspecialchars($user['id']) . "'>View</a></button>";
+                    echo "</div>";
                     echo "</div>";
                 }
                 
