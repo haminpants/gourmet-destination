@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if (empty($_SESSION['searchData'])) {
         $_SESSION['searchError'] = "Sorry, we couldn't find any results. Please try Again.";
-        header("Location: index.php?error=invalid_searach");
+        header("Location: index.php?error=invalid_search");
         exit;
     } else {
         header("Location: ../search-results.php");
