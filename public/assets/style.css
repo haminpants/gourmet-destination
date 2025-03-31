@@ -959,9 +959,7 @@ body.login-page .login-form a:hover {
   padding: 1px 6px;
   border-radius: 10px;
 }
-.profile-tag-display .tag.cuisine {
-  background-color: lightgreen;
-}
+
 .profile-tag-display .tag.host-type {
   background-color: whitesmoke;
 }
@@ -1134,3 +1132,108 @@ body.login-page .login-form a:hover {
       "cancel";
   }
 }
+/* --- Feature Tags Styling --- */
+
+/* Display on Profile Banner */
+.profile-tag-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.profile-tag-display .tag {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.profile-tag-display .tag:hover {
+  background-color: #e4e4e4;
+}
+
+
+.tag.cuisine {
+  background-color: #fde2e2;
+  color: #c44444;
+}
+
+
+/* Inside the Profile Edit Form */
+.profile-tags {
+  margin-top: 20px;
+}
+
+.tag-group {
+  margin-bottom: 20px;
+}
+
+.tag-group label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: #444;
+}
+
+.tag-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tag-checkboxes input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.tag-checkboxes label {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.tag-checkboxes input[type="checkbox"]:checked + label {
+  background-color: #d9f6e3;
+  border-color: #5cbf84;
+  color: #2c7a4b;
+}
+
+.tag-checkboxes label:hover {
+  background-color: #eee;
+}
+
+.tag {
+  all: unset;
+  display: inline-block;
+  padding: 5px 12px;
+  margin: 5px 5px 0 0;
+  border-radius: 20px;
+  background-color: #f5e9f0; /* soft pastel pink */
+  color: #5a2a4d;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #e5c6dc;
+  transition: background-color 0.2s ease;
+}
+
+.tag:hover {
+  background-color: #e9d3e0;
+}
+
+.tag.cuisine {
+  background-color: #f8d3b0; /* soft coral-beige */
+  color: #6b3d1f;            /* deep brown for contrast */
+  border: 1px solid #eab893;
+}
+
