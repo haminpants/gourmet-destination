@@ -15,7 +15,7 @@ $isHostView = isset($_SESSION["userData"]) && $_SESSION["userData"]["id"] === $p
         <?php if ($isHostView) { ?>
             <div>
                 <form action="#focus-form" method="POST" class="create-new-experience">
-                    <button name="action" value="add_experience" <?php echo !empty($_POST["action"]) && $_POST["action"] === "add_experience" ? "disabled" : "" ?>>
+                    <button name="action" value="manage_experience" <?php echo !empty($_POST["action"]) && $_POST["action"] === "manage_experience" ? "disabled" : "" ?>>
                         <img src="assets/icons/add.png" alt="">
                         <h3>Add An Experience</h3>
                     </button>

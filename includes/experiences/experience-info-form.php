@@ -1,10 +1,13 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["action"] !== "add_experience") return;
+if (isset($_SESSION["profileAction"]) && $_SESSION["profileAction"] === "manage_experience") unset($_SESSION["profileAction"]);
+else if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["action"] !== "manage_experience") return;
+
 require_once __DIR__ . "/../../src/db.php";
 ?>
 
 <div class="experience-info-form" id="focus-form">
     <h2>Create Your Experience</h2>
+    <?php if (!empty($_SESSION["experienceErrorMsgs"])) print_r($_SESSION["experienceErrorMsgs"]) ?>
     <form action="actions/experience-info-form-action.php" method="POST" enctype="multipart/form-data" class="experience-form">
         <div class="title">
             <label for="title">Title</label>
@@ -13,7 +16,7 @@ require_once __DIR__ . "/../../src/db.php";
 
         <div class="description">
             <label for="description">Description</label>
-            <textarea name="description" id="description"></textarea>
+            <textarea name="description" id="description" maxlength="50000"></textarea>
         </div>
 
         <div class="min-participants">
@@ -44,7 +47,7 @@ require_once __DIR__ . "/../../src/db.php";
             <label for="">Bookable Days</label>
             <?php foreach ($bookableDays as $day => $bit) { ?>
                 <div>
-                    <input type="checkbox" name="bookable_days" id="<?php echo $day ?>" value="<?php echo $bit ?>">
+                    <input type="checkbox" name="bookable_days[]" id="<?php echo $day ?>" value="<?php echo $bit ?>">
                     <label for="<?php echo $day ?>"><?php echo $day ?></label>
                 </div>
             <?php } ?>
@@ -70,11 +73,12 @@ require_once __DIR__ . "/../../src/db.php";
 
         <div class="banner-img">
             <label for="banner_img">Banner Image</label>
-            <input type="hidden" name="MAX_FILE_SIZE" value="100000">
+            <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
             <input type="file" name="banner_img" id="banner_img">
         </div>
 
         <div class="submit">
+            <input type="hidden" name="id" value="<?php echo $profileData["id"] ?>">
             <button name="action" value="create_experience">Create Experience</button>
         </div>
 
