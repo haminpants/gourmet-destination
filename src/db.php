@@ -74,7 +74,7 @@ function getExperiencesByUserId (PDO $pdo, $id) {
 }
 
 // Bookable days encoding and decoding
-$bookableDays = [
+$daysBitMask = [
     "Monday" => 1,
     "Tuesday" => 2,
     "Wednesday" => 4,

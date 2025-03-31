@@ -33,6 +33,7 @@ $bookingsOpenEnd = formatTime($_POST["bookings_open_end"]);
 // Save form fields that don't require validating
 $_SESSION["experienceFormData"]["description"] = $description;
 $_SESSION["experienceFormData"]["pricing_method"] = $pricingMethod;
+$_SESSION["experienceFormData"]["bookable_days"] = $bookableDays;
 
 // Validate form data
 if (empty($title)) $_SESSION["experienceErrorMsgs"]["title"] = "Title cannot be blank";
