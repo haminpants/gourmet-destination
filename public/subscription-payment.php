@@ -1,25 +1,24 @@
-<!-- <?php
+<?php
 require_once '../src/db.php';
-
-//fetch roles and pricing for subscription from DB
-// $stmt = $pdo->prepare("SELECT user.role_id, ")
-
 require '../vendor/autoload.php';
-// Stripe\Stripe::setApiKey('sk_test_51QrrBG4MkqdKTMhEtiDrqFfBXfBt3EMKqN34r5dopIPrgXzNq2QrM0FppS9dKZuPAYYjs7zP5nbVovF7gWcrs5rn00lUYOWFY5');
-// // echo "stripe sucess";
-// $session = \Stripe\Checkout\Session::create([
-//     'payment_method_types' => ['card'],
-//     'line_items' => array_map(function())
-// ]);
+
+// Set your secret key. Remember to switch to your live secret key in production.
+// See your keys here: https://dashboard.stripe.com/apikeys
+// $stripe = new \Stripe\StripeClient([
+//     "api_key" => "sk_test_51QrrB5GD9MOU8zP2kVhQOpa2GkB7z1pDTqgKFC7qeXorAbptHQ1JcKnf1eLQ53zKlDqV1GjhPX0Q7KsSsyhBYKAp00zLVoYeJZ""sk_test_51QrrB5GD9MOU8zP2kV...SsyhBYKAp00zLVoYeJZ",
+//     "stripe_version" => "2025-01-27.acacia; custom_checkout_beta=v1;"
+//   ]);
 
 
-?> -->
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gourmet Destination | Subscription Page</title>
+    <title>Gourmet Destination | Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+  
 </head>
 <body>
     <form method="POST" action="subscription-payment-action.php">
@@ -27,39 +26,16 @@ require '../vendor/autoload.php';
             <label for="email">Email</label>
             <input  id="email" name="email" type="email" placeholder="Email Address" required>
         </div>
-            <!-- <script async
-                src="https://js.stripe.com/v3/buy-button.js">
-            </script>
-
-            <stripe-buy-button
-                buy-button-id="buy_btn_1R90564MkqdKTMhEX3za696r"
-                publishable-key="pk_test_51QrrBG4MkqdKTMhEyW1yGDUdNCcvNjoijFgK23X164oPHHdEVNYwpXbDtHoAZV0SZJrJ19vQGypkfnFsL0s2xCkX00bD2g4UYl"
-                
-            >
-            </stripe-buy-button> -->
-
-        <?php
-
-
-
-            $checkout_session = $stripe->checkout->sessions->create([
-            'ui_mode' => 'embedded',
-            'line_items' => [[
-                # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-                'price' => 'price_1R8zWo4MkqdKTMhEuCaif2iR',
-                'quantity' => 1,
-            ]],
-            'mode' => 'subscription',
-            'return_url' =>  'success.php/return.html?session_id={CHECKOUT_SESSION_ID}',
-            'automatic_tax' => [
-                'enabled' => true,
-            ],
-            ]);
-
-        ?>
-
+    
+        <h2>Subscriptions</h2>
+        <div class="button-container">
+            <label>Local Guide & Home Chef Subscription</label>
+            <a href="https://buy.stripe.com/test_dR69C09ud3As2bu7ss" class="pay-button" target="_blank">Subscribe Now</a><br>
+            <label>Tourist Subscription</label>
+            <a href="https://buy.stripe.com/test_eVa3dC5dX0ogcQ8aEF"class="pay-button" target="_blank">Subscribe Now</a><br>
         </div>
-    </form>
+
+          
 
 </body>
 </html>
