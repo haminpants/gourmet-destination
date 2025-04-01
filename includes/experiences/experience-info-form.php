@@ -132,6 +132,10 @@ else $bookingsOpenEnd = "23:59:00";
             <button name="action" value="<?php echo isset($experienceData) ? "edit_experience" : "create_experience" ?>"><?php echo isset($experienceData) ? "Save Changes" : "Create Experience" ?></button>
         </div>
 
+        <div class="delete">
+            <button name="action" value="delete" onclick="confirm('Are you sure you want to delete this experience?')">Delete</button>
+        </div>
+
         <div class="cancel">
             <button name="action" value="cancel">Cancel</button>
         </div>
