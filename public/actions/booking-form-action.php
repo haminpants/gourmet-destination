@@ -1,5 +1,8 @@
 <?php
 // Make sure this page is only reached by a post request
+
+use Stripe\Stripe;
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("index.php");
     $pdo = null;
@@ -41,7 +44,7 @@ $now->setTimezone(new DateTimeZone("America/Vancouver"));
 if (!$bookingDateTime) $_SESSION["bookingErrorMsgs"][] = "Invalid date and time provided";
 else if ($now > $bookingDateTime) $_SESSION["bookingErrorMsgs"][] = "Booking date is in the past";
 else if (!(intval($experience["bookable_days"]) & $daysBitMask[$bookingDateTime->format("l")])) $_SESSION["bookingErrorMsgs"][] = "Booking date is not supported by the host";
-else if (!isTimeAvailableToBook($pdo, $bookingDateTime)) $_SESSION["bookingErrorMsgs"][] = "Selected booking time has already been booked";
+else if (!isTimeAvailableToBook($pdo, $experience["id"], $bookingDateTime)) $_SESSION["bookingErrorMsgs"][] = "Selected booking time has already been booked";
 
 // Everything is valid in here
 if (empty($_SESSION["bookingErrorMsgs"])) {
@@ -49,12 +52,29 @@ if (empty($_SESSION["bookingErrorMsgs"])) {
         $_SESSION["bookingSuccessMsg"] = "This booking is open!";
         $_SESSION["bookingFormData"] = ["participants" => $participants, "booking_date" => $bookingDateTime->format("Y-m-d"), "booking_time" => $bookingDateTime->format("H:i")];
     }
-    if ($isSaveBooking) {
+    if ($isSaveBooking || $isConfirmBooking) {
         $stmt = $pdo->prepare("UPDATE bookings SET participants=:participants, booking_time=:booking_time WHERE id=:id");
         $success = $stmt->execute([":participants" => $participants, ":booking_time" => $bookingDateTime->format("Y-m-d H:i:s"), ":id" => $booking["id"]]);
-        if ($success) $_SESSION["bookingSuccessMsg"] = "Your booking information has been saved!";
+        if ($success && !$isConfirmBooking) $_SESSION["bookingSuccessMsg"] = "Your booking information has been saved!";
     }
     if ($isConfirmBooking) {
+        require_once(__DIR__ . "/../../src/stripe-api.php");
+        $challenge = random_bytes(16);
+        $checkoutSession = createCheckoutSessionForBooking($stripe, $pdo, $booking["id"], $challenge);
+        if ($checkoutSession) {
+            $_SESSION["transactionInfo"] = [
+                "challenge" => $challenge,
+                "bookingId" => $booking["id"],
+                "userId" => $user["id"]
+            ];
+
+            header("HTTP/1.1 303 See Other");
+            header("Location: " . $checkoutSession->url);
+            $pdo = null;
+            die();
+        }
+
+        $_SESSION["bookingErrorMsgs"][] = "Failed to initiate payment through Stripe";
     }
 }
 
