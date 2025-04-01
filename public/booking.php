@@ -99,6 +99,13 @@ else if (!empty($_GET["booking_id"])) {
 
     if (file_exists("uploads/experience/{$experience["id"]}/banner.png")) $experienceBanner = "uploads/experience/{$experience["id"]}/banner.png";
     else $experienceBanner = "assets/default_banner.png";
+
+    $errorMsgs = $_SESSION["bookingErrorMsgs"] ?? [];
+    $successMsg = $_SESSION["bookingSuccessMsg"] ?? [];
+    $formData = $_SESSION["bookingFormData"] ?? [];
+    unset($_SESSION["bookingErrorMsgs"]);
+    unset($_SESSION["bookingSuccessMsg"]);
+    unset($_SESSION["bookingFormData"]);
 }
 // Otherwise, redirect to unknown error
 else redirectToError(100, $pdo);
@@ -165,22 +172,31 @@ else redirectToError(100, $pdo);
         <div class="booking-info centered-container">
             <div class="blob">
                 <h2>Your Booking</h2>
-                <form action="" method="POST">
+                <?php foreach ($errorMsgs as $msg) { ?>
+                    <p class="error-msg"><?php echo $msg ?></p>
+                <?php } ?>
+                <?php if (!empty($successMsg)) { ?>
+                    <p class="success-msg"><?php echo $successMsg ?></p>
+                <?php } ?>
+                <form action="actions/booking-form-action.php" method="POST">
                     <input type="hidden" name="booking_id" value="<?php echo $booking["id"] ?>">
                     <div>
                         <label for="participants">Participants</label>
-                        <input type="number" name="participants" id="participants" min="<?php echo $experience["min_participants"] ?>" max="<?php echo $experience["max_participants"] ?>" value="<?php echo $booking["participants"] ?>" required>
+                        <input type="number" name="participants" id="participants" min="<?php echo $experience["min_participants"] ?>" max="<?php echo $experience["max_participants"] ?>" value="<?php echo $formData["participants"] ?? $booking["participants"] ?>" required>
                     </div>
                     <div>
                         <label for="time">Booking Date</label>
-                        <input type="date" name="booking_date" id="booking_date" value="<?php echo formatDateInput($booking["booking_time"]) ?>">
+                        <input type="date" name="booking_date" id="booking_date" value="<?php echo $formData["booking_date"] ?? formatDateInput($booking["booking_time"]) ?>" required>
                     </div>
                     <div>
                         <label for="time">Booking Time</label>
-                        <input type="time" name="booking_time" id="booking_time" value="<?php echo formatTimeInput($booking["booking_time"]) ?>">
+                        <input type="time" name="booking_time" id="booking_time" value="<?php echo $formData["booking_time"] ?? formatTimeInput($booking["booking_time"]) ?>" required>
                     </div>
                     <div>
                         <button name="action" value="save">Save for Later</button>
+                    </div>
+                    <div>
+                        <button name="action" value="check_datetime">Check Booking</button>
                     </div>
                     <div>
                         <?php if ($booking["status_id"] === 0) { ?>

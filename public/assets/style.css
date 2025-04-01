@@ -882,6 +882,14 @@ body.login-page .login-form a:hover {
     font-size: 14px;
     margin-top: 5px;
 }
+.success-msg {
+  background-color: rgba(40, 189, 47, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
 /* --- Profile Banner Styling --- */
 .profile-banner {

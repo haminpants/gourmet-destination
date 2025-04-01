@@ -103,6 +103,13 @@ function getBookingsByUserId(PDO $pdo, int $id)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function isTimeAvailableToBook (PDO $pdo, DateTime $time) {
+    $stmt = $pdo->prepare("SELECT b.booking_time FROM bookings AS b JOIN experiences AS e ON b.experience_id=e.id
+        WHERE b.experience_id=15 AND ABS(TIMESTAMPDIFF(MINUTE, b.booking_time, :test)) <= 240");
+    $stmt->execute([":test" => $time->format("Y-m-d H:i:s")]);
+    return empty($stmt->fetch());
+}
+
 // Bookable days encoding and decoding
 $daysBitMask = [
     "Monday" => 1,
