@@ -101,7 +101,7 @@ function getBookingsByUserId(PDO $pdo, int $id)
         ORDER BY booking.created_at DESC");
     $stmt->execute([":id" => $id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+}
 function getAllTagsByType (PDO $pdo, int $typeId) {
     $stmt = $pdo->prepare("SELECT tag.id, tag.name, tag.type_id, tag_type.name AS type_name
         FROM tags AS tag JOIN tag_types AS tag_type ON tag.type_id=tag_type.id WHERE tag_type.id=:id ORDER BY tag.name");
@@ -109,7 +109,8 @@ function getAllTagsByType (PDO $pdo, int $typeId) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getUserTags (PDO $pdo, int $id) {
+function getUserTags(PDO $pdo, int $id)
+{
     $stmt = $pdo->prepare("SELECT user_tags.user_id, user_tags.tag_id, tag.name AS tag_name, tag.type_id, tag_type.name AS type_name
         FROM user_tags JOIN tags AS tag ON user_tags.tag_id=tag.id JOIN tag_types AS tag_type ON tag.type_id=tag_type.id
         WHERE user_tags.user_id=:id ORDER BY tag_type.id ASC, tag_name ASC");
