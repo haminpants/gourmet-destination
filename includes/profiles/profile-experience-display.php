@@ -53,7 +53,7 @@ $experienceAssetsDir = __DIR__ . "/../../public/uploads/experience"
                                 <button name="action" value="manage_experience">Edit</button>
                             </form>
                         <?php } ?>
-                        <form action="">
+                        <form action="booking.php">
                             <input type="hidden" name="experience_id" value="<?php echo $experience["id"] ?>">
                             <button>Book</button>
                         </form>
