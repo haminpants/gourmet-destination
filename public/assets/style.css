@@ -1224,9 +1224,11 @@ body.login-page .login-form a:hover {
   color: #444;
 }
 
-.info-block .availability,
+.info-block .availability {
+  width: 110px;
+}
 .info-block .booking-time {
-  width: 100px;
+  width: 130px;
 }
 
 /* --- Experience Description --- */
