@@ -6,6 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $rating = isset($_POST['rating']) ? $_POST['rating'] : null;
     $comment = isset($_POST['comment']) ? $_POST['comment'] : null;
 
+    if (empty($comment) && empty($rating)) {
+        header("Location: ../review-submission.php");
+        $_SESSION['error'] = "Both fields cannot be empty upon submitting";
+    }
+
     $charCount = strlen($comment);
     if ($charCount > 255) {
         $_SESSION['error'] = "Your comment has exceed the character limit";
@@ -13,9 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $_SESSION['comment'] = $comment;
         header("Location: ../review-submission.php");
         exit;
-    } else {
-        session_unset();
-    }
+    } 
 
     if ($rating || $comment) {
         // Checks if the comment exceeds the character limit
@@ -27,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                     ");
             $stmt->execute([':user_id' => $_GET('user_id'), ':rating' => $rating, ':description' => $comment]);
             
-
+            session_unset();
             header("Location: ../review-submission.php");
             exit;
         }
