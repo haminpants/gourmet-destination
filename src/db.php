@@ -102,8 +102,7 @@ function getBookingsByUserId(PDO $pdo, int $id)
     $stmt->execute([":id" => $id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function getAllTagsByType(PDO $pdo, int $typeId)
-{
+function getAllTagsByType (PDO $pdo, int $typeId) {
     $stmt = $pdo->prepare("SELECT tag.id, tag.name, tag.type_id, tag_type.name AS type_name
         FROM tags AS tag JOIN tag_types AS tag_type ON tag.type_id=tag_type.id WHERE tag_type.id=:id ORDER BY tag.name");
     $stmt->execute([":id" => $typeId]);
