@@ -1,8 +1,5 @@
 <?php
 // Make sure this page is only reached by a post request
-
-use Stripe\Stripe;
-
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("index.php");
     $pdo = null;
@@ -23,10 +20,31 @@ $booking = getBookingById($pdo, intval($_POST["booking_id"]));
 if (!$booking) redirectWithError("No booking found for given booking_id");
 
 session_start();
-if (empty($_SESSION["userData"]["id"]) || $_SESSION["userData"]["id"] != $booking["user_id"]) redirectWithError("You do not have access to this resource");
-// ===================================================
 $_SESSION["bookingErrorMsgs"] = [];
+if (empty($_SESSION["userData"]["id"]) || $_SESSION["userData"]["id"] != $booking["user_id"]) redirectWithError("You do not have access to this resource");
 
+// Check if this is a delete or cancel action
+if ($_POST["action"] === "delete_booking") {
+    $stmt = $pdo->prepare("DELETE FROM bookings WHERE id=:id AND status_id<3");
+    $stmt->execute([":id" => $booking["id"]]);
+    header("Location: ../profile.php");
+    $pdo = null;
+    die();
+} else if ($_POST["action"] === "cancel_booking") {
+    require_once(__DIR__ . "/../../src/stripe-api.php");
+    $challenge = random_bytes(16);
+    $checkoutSession = createCheckoutSessionForCancelBooking($stripe, $pdo, $booking["id"], $challenge);
+    if ($checkoutSession) {
+        header("HTTP/1.1 303 See Other");
+        header("Location: " . $checkoutSession->url);
+        $pdo = null;
+        die();
+    }
+
+    $_SESSION["bookingErrorMsgs"][] = "Failed to initiate payment through stripe";
+}
+
+// ===================================================
 $isConfirmBooking = $_POST["action"] === "confirm_booking";
 $isSaveBooking = $_POST["action"] === "save";
 $isCheckBooking = $_POST["action"] === "check_datetime";
@@ -66,12 +84,6 @@ if (empty($_SESSION["bookingErrorMsgs"])) {
         $challenge = random_bytes(16);
         $checkoutSession = createCheckoutSessionForBooking($stripe, $pdo, $booking["id"], $challenge);
         if ($checkoutSession) {
-            $_SESSION["transactionInfo"] = [
-                "challenge" => $challenge,
-                "bookingId" => $booking["id"],
-                "userId" => $user["id"]
-            ];
-
             header("HTTP/1.1 303 See Other");
             header("Location: " . $checkoutSession->url);
             $pdo = null;

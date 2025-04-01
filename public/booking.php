@@ -28,6 +28,9 @@ if (!empty($_GET["err"]) && is_numeric($_GET["err"])) {
         case 5:
             echo "No booking found for the given booking_id";
             break;
+        case 6:
+            echo "You do not have permission to view this booking";
+            break;
         default:
             echo "Unsupported action";
             break;
@@ -86,6 +89,9 @@ else if (!empty($_GET["booking_id"])) {
     // Check if the booking exists
     $booking = getBookingById($pdo, intval($_GET["booking_id"]));
     if (!$booking) redirectToError(5, $pdo); // No booking for given booking_id
+
+    // Check that the user accessing the booking is also the person who created the booking
+    if ($booking["user_id"] !== $user["id"]) redirectToError(6, $pdo);
 
     // By this point, we can display the booking, just fetch the remaining necessary data
     $experience = getExperienceById($pdo, $booking["experience_id"]);
@@ -182,29 +188,39 @@ else redirectToError(100, $pdo);
                     <input type="hidden" name="booking_id" value="<?php echo $booking["id"] ?>">
                     <div>
                         <label for="participants">Participants</label>
-                        <input type="number" name="participants" id="participants" min="<?php echo $experience["min_participants"] ?>" max="<?php echo $experience["max_participants"] ?>" value="<?php echo $formData["participants"] ?? $booking["participants"] ?>" required>
+                        <input type="number" name="participants" id="participants" min="<?php echo $experience["min_participants"] ?>" max="<?php echo $experience["max_participants"] ?>" value="<?php echo $formData["participants"] ?? $booking["participants"] ?>" <?php echo $booking["status_id"] === 3 ? "readonly" : "" ?> required>
                     </div>
                     <div>
                         <label for="time">Booking Date</label>
-                        <input type="date" name="booking_date" id="booking_date" value="<?php echo $formData["booking_date"] ?? formatDateInput($booking["booking_time"]) ?>" required>
+                        <input type="date" name="booking_date" id="booking_date" value="<?php echo $formData["booking_date"] ?? formatDateInput($booking["booking_time"]) ?>" <?php echo $booking["status_id"] === 3 ? "readonly" : "" ?> required>
                     </div>
                     <div>
                         <label for="time">Booking Time</label>
-                        <input type="time" name="booking_time" id="booking_time" value="<?php echo $formData["booking_time"] ?? formatTimeInput($booking["booking_time"]) ?>" required>
+                        <input type="time" name="booking_time" id="booking_time" value="<?php echo $formData["booking_time"] ?? formatTimeInput($booking["booking_time"]) ?>" <?php echo $booking["status_id"] === 3 ? "readonly" : "" ?> required>
                     </div>
-                    <div>
-                        <button name="action" value="save">Save for Later</button>
-                    </div>
-                    <div>
-                        <button name="action" value="check_datetime">Check Booking</button>
-                    </div>
-                    <div>
-                        <?php if ($booking["status_id"] === 0) { ?>
+                    <?php if ($booking["status_id"] < 3) { ?>
+                        <div>
+                            <button name="action" value="save">Save for Later</button>
+                        </div>
+                        <div>
+                            <button name="action" value="check_datetime">Check Booking</button>
+                        </div>
+                    <?php } ?>
+                    <?php if ($booking["status_id"] === 0) { ?>
+                        <div>
                             <button name="action" value="confirm_booking">Confirm Booking</button>
-                        <?php } else { ?>
-                            <button name="action" value="cancel">Cancel Booking</button>
-                        <?php } ?>
-                    </div>
+                        </div>
+                    <?php } ?>
+                    <?php if ($booking["status_id"] === 3) { ?>
+                        <div>
+                            <button name="action" value="cancel_booking" onclick="return confirm('Are you sure you want to cancel this booking?\nA 10% cancellation fee will apply.')">Cancel Booking</button>
+                        </div>
+                    <?php } ?>
+                    <?php if ($booking["status_id"] < 3) { ?>
+                        <div class="delete">
+                            <button name="action" value="delete_booking" onclick="return confirm('Are you sure you want to delete this booking?')">Delete Booking</button>
+                        </div>
+                    <?php } ?>
                 </form>
             </div>
         </div>

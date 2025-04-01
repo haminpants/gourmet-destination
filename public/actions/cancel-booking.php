@@ -16,7 +16,7 @@ if (
 }
 
 require_once("../../src/db.php");
-$stmt = $pdo->prepare("UPDATE bookings SET status_id=3 WHERE id=:id");
+$stmt = $pdo->prepare("DELETE FROM bookings WHERE id=:id");
 $stmt->execute([":id" => $bookingId]);
-header("Location: ../booking.php?booking_id={$bookingId}");
+header("Location: ../profile.php");
 die();
