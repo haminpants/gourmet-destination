@@ -6,16 +6,15 @@ session_start();
 $_SESSION["experienceErrorMsgs"] = [];
 $_SESSION["experienceFormData"] = [];
 
-function formatTime($time)
-{
-    if (empty($time)) return false;
-    $tempTime = new DateTime($time);
-    return $tempTime->format("H:i:s");
-}
 // Validate that the script is called from a POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["action"] === "cancel") {
     header("Location: ../profile.php");
     die();
+}
+
+if ($_POST["action"] === "delete" && isset($_POST["experience_id"])) {
+    $stmt = $pdo->prepare("DELETE FROM experiences WHERE id=:id");
+    $stmt->execute([":id" => $_POST["experience_id"]]);
 }
 
 // Get and format form fields
@@ -124,3 +123,10 @@ $targetSelector = isset($_SESSION["experienceErrorMsgs"]) ? "#focus-form" : "";
 header("Location: ../profile.php{$targetSelector}");
 $pdo = null;
 die();
+
+function formatTime($time)
+{
+    if (empty($time)) return false;
+    $tempTime = new DateTime($time);
+    return $tempTime->format("H:i:s");
+}
