@@ -94,6 +94,15 @@ function getBookingById(PDO $pdo, int $id)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getBookingsByUserId(PDO $pdo, int $id)
+{
+    $stmt = $pdo->prepare("SELECT booking.id, booking.created_at, booking.user_id, booking.experience_id, booking.status_id, bs.status AS status_name, 
+        booking.participants, booking.booking_time FROM bookings AS booking JOIN booking_status AS bs ON booking.status_id=bs.id WHERE booking.user_id=:id 
+        ORDER BY booking.created_at DESC");
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 // Bookable days encoding and decoding
 $daysBitMask = [
     "Monday" => 1,
