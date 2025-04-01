@@ -1277,3 +1277,167 @@ body.login-page .login-form a:hover {
 .action-row button:hover {
   background-color: #555;
 }
+.experience-info-form {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 40px;
+  background: #fff8f3; /* Soft pastel background */
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.experience-info-form h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.experience-form {
+  display: grid;
+  grid-template-areas:
+    "title title description"
+    "min-participants max-participants description"
+    "price pricing-method description"
+    "bookable-days duration description"
+    "bookable-days bookings-open-start description"
+    "bookable-days bookings-open-end description"
+    "banner-img banner-img description"
+    "submit submit submit"
+    "cancel cancel cancel";
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.experience-form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.experience-form input,
+.experience-form select,
+.experience-form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.experience-form input:focus,
+.experience-form textarea:focus,
+.experience-form select:focus {
+  border-color: #f7b4a9; /* Soft coral highlight */
+  outline: none;
+}
+
+.experience-form textarea {
+  min-height: 250px;
+  resize: vertical;
+  background-color: #fefefe;
+}
+
+.experience-form .info {
+  font-size: 12px;
+  color: #888;
+  margin: -4px 0 6px;
+}
+
+.experience-form .bookable-days {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.experience-form .bookable-days > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fceeea;
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.experience-form input[type="checkbox"] {
+  accent-color: #f7b4a9; /* Matches pastel coral tone */
+}
+
+.experience-form .title { grid-area: title; }
+.experience-form .description { grid-area: description; }
+.experience-form .min-participants { grid-area: min-participants; }
+.experience-form .max-participants { grid-area: max-participants; }
+.experience-form .price { grid-area: price; }
+.experience-form .pricing-method { grid-area: pricing-method; }
+.experience-form .bookable-days { grid-area: bookable-days; }
+.experience-form .duration { grid-area: duration; }
+.experience-form .bookings-open-start { grid-area: bookings-open-start; }
+.experience-form .bookings-open-end { grid-area: bookings-open-end; }
+.experience-form .banner-img { grid-area: banner-img; }
+.experience-form .submit { grid-area: submit; }
+.experience-form .cancel { grid-area: cancel; }
+
+.experience-form .submit button,
+.experience-form .cancel button {
+  padding: 12px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.experience-form .submit button {
+  background-color: #333;
+  color: white;
+}
+
+.experience-form .submit button:hover {
+  background-color: #555;
+}
+
+.experience-form .cancel button {
+  background-color: #ddd;
+  color: #333;
+}
+
+.experience-form .cancel button:hover {
+  background-color: #bbb;
+}
+
+@media (max-width: 768px) {
+  .experience-form {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "description"
+      "min-participants"
+      "max-participants"
+      "price"
+      "pricing-method"
+      "bookable-days"
+      "duration"
+      "bookings-open-start"
+      "bookings-open-end"
+      "banner-img"
+      "submit"
+      "cancel";
+  }
+
+  .experience-info-form {
+    padding: 20px;
+  }
+}
