@@ -1287,6 +1287,12 @@ body.login-page .login-form a:hover {
   text-align: center;
 }
 
+.booking-page .booking-info form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .experience-info .blob>div {
   display: flex;
   justify-content: center;
@@ -1371,6 +1377,14 @@ body.login-page .login-form a:hover {
 
 .booking-page .booking-info button:hover {
   background-color: #b67f4e;
+}
+
+.booking-page .booking-info .delete button {
+  background-color: #d44848;
+}
+
+.booking-page .booking-info .delete button:hover {
+  background-color: #b33838;
 }
 
 
