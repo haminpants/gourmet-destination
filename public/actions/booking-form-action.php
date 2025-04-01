@@ -39,11 +39,15 @@ if ($participants < $experience["min_participants"]) $_SESSION["bookingErrorMsgs
 else if ($participants > $experience["max_participants"]) $_SESSION["bookingErrorMsgs"][] = "The maximum number of participants is {$experience["max_participants"]}";
 
 $bookingDateTime = DateTime::createFromFormat("Y-m-d H:i", "{$_POST["booking_date"]} {$_POST["booking_time"]}", new DateTimeZone("America/Vancouver"));
-$now = new DateTime();
-$now->setTimezone(new DateTimeZone("America/Vancouver"));
+$bookingDate = $bookingDateTime->format("Y-m-d");
+$now = new DateTime("now", new DateTimeZone("America/Vancouver"));
+$bookingsOpenStart = DateTime::createFromFormat("Y-m-d H:i:s", "{$bookingDate} {$experience["bookings_open_start"]}", new DateTimeZone("America/Vancouver"));
+$bookingsOpenEnd = DateTime::createFromFormat("Y-m-d H:i:s", "{$bookingDate} {$experience["bookings_open_end"]}", new DateTimeZone("America/Vancouver"));
+
 if (!$bookingDateTime) $_SESSION["bookingErrorMsgs"][] = "Invalid date and time provided";
 else if ($now > $bookingDateTime) $_SESSION["bookingErrorMsgs"][] = "Booking date is in the past";
 else if (!(intval($experience["bookable_days"]) & $daysBitMask[$bookingDateTime->format("l")])) $_SESSION["bookingErrorMsgs"][] = "Booking date is not supported by the host";
+else if (!($bookingDateTime > $bookingsOpenStart && $bookingDateTime < $bookingsOpenEnd)) $_SESSION["bookingErrorMsgs"][] = "Booking time is not supported by the host";
 else if (!isTimeAvailableToBook($pdo, $experience["id"], $bookingDateTime)) $_SESSION["bookingErrorMsgs"][] = "Selected booking time has already been booked";
 
 // Everything is valid in here
