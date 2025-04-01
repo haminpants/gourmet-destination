@@ -24,6 +24,16 @@ if (!$booking) redirectWithError("No booking found for given booking_id");
 
 session_start();
 if (empty($_SESSION["userData"]["id"]) || $_SESSION["userData"]["id"] != $booking["user_id"]) redirectWithError("You do not have access to this resource");
+
+// Check if this is a delete or cancel action
+if ($_POST["action"] === "delete_booking") {
+    $stmt = $pdo->prepare("DELETE FROM bookings WHERE id=:id AND status_id<3");
+    $stmt->execute([":id" => $booking["id"]]);
+    header("Location: ../profile.php");
+    $pdo = null;
+    die();
+}
+
 // ===================================================
 $_SESSION["bookingErrorMsgs"] = [];
 
