@@ -2,14 +2,6 @@
 require_once '../src/db.php';
 require '../vendor/autoload.php';
 
-// Set your secret key. Remember to switch to your live secret key in production.
-// See your keys here: https://dashboard.stripe.com/apikeys
-// $stripe = new \Stripe\StripeClient([
-//     "api_key" => "sk_test_51QrrB5GD9MOU8zP2kVhQOpa2GkB7z1pDTqgKFC7qeXorAbptHQ1JcKnf1eLQ53zKlDqV1GjhPX0Q7KsSsyhBYKAp00zLVoYeJZ""sk_test_51QrrB5GD9MOU8zP2kV...SsyhBYKAp00zLVoYeJZ",
-//     "stripe_version" => "2025-01-27.acacia; custom_checkout_beta=v1;"
-//   ]);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
