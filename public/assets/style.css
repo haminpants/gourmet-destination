@@ -1405,10 +1405,14 @@ body.login-page .login-form a:hover {
 
 .info-item {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 8px;
-  flex: 1;
   min-width: 100px;
+}
+
+.info-item > p {
+  margin: auto 0px auto 0px;
 }
 
 .info-item .icon {
