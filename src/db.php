@@ -118,6 +118,13 @@ function getUserTags(PDO $pdo, int $id)
     return $stmt->fetchAll();
 }
 
+function isTimeAvailableToBook (PDO $pdo, int $experienceId, DateTime $time) {
+    $stmt = $pdo->prepare("SELECT b.booking_time FROM bookings AS b JOIN experiences AS e ON b.experience_id=e.id
+        WHERE b.experience_id=:experience_id AND b.status_id=3 AND ABS(TIMESTAMPDIFF(MINUTE, b.booking_time, :test)) <= 240");
+    $stmt->execute([":experience_id" => $experienceId, ":test" => $time->format("Y-m-d H:i:s")]);
+    return empty($stmt->fetch());
+}
+
 // Bookable days encoding and decoding
 $daysBitMask = [
     "Monday" => 1,
