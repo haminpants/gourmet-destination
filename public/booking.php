@@ -88,11 +88,11 @@ else if (!empty($_GET["booking_id"])) {
     if (!$booking) redirectToError(5, $pdo); // No booking for given booking_id
 
     // By this point, we can display the booking, just fetch the remaining necessary data
-    $stmt = $pdo->prepare("SELECT * FROM experiences WHERE id=:id");
-    $stmt->execute([":id" => $booking["experience_id"]]);
-    $experience = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    $experience = getExperienceById($pdo, $booking["experience_id"]);
     $host = getUserById($pdo, $experience["host_id"]);
+
+    $decodedBookableDays = [];
+    foreach ($daysBitMask as $day => $bit) if ($experience["bookable_days"] & $bit) $decodedBookableDays[] = $day;
 
     if (file_exists("uploads/pfp/{$host["id"]}.png")) $hostPfp = "uploads/pfp/{$host["id"]}.png";
     else $hostPfp = "assets/icons/person.png";
@@ -105,7 +105,7 @@ else redirectToError(100, $pdo);
 ?>
 
 <body class="booking-page">
-    <section class="header">
+    <div class="header">
         <div class="background-img centered-container"><img src="<?php echo $experienceBanner ?>" alt=""></div>
         <div class="content">
             <h1><?php echo htmlspecialchars($experience["title"]) ?></h1>
@@ -114,16 +114,54 @@ else redirectToError(100, $pdo);
                 <h3><?php echo htmlspecialchars("{$host["first_name"]} {$host["last_name"]}") ?></h3>
             </div>
         </div>
-    </section>
-    <section class="details">
-        <div class="booking">
-
+    </div>
+    <div class="body">
+        <div class="experience-info centered-container">
+            <div class="bar">
+                <h4>Experience Info</h4>
+                <div>
+                    <div class="info-block">
+                        <img src="assets/icons/calendar.png" alt="">
+                        <div class="text-container availability">
+                            <p class="title">Availability</p>
+                            <p class="description"><?php echo implode(" ", array_map(fn($day) => substr($day, 0, 3), $decodedBookableDays)) ?></p>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <img src="assets/icons/clock.png" alt="">
+                        <div class="text-container booking-time">
+                            <p class="title">Booking Times</p>
+                            <p class="description"><?php echo formatTime($experience["bookings_open_start"]) ?> Open</p>
+                            <p class="description"><?php echo formatTime($experience["bookings_open_end"]) ?> Close</p>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <img src="assets/icons/person.png" alt="">
+                        <div class="text-container participants">
+                            <p class="title">Participants</p>
+                            <p class="description"><?php echo "{$experience["min_participants"]} - {$experience["max_participants"]}" ?></p>
+                            <p class="description">Per booking</p>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <img src="assets/icons/cash.png" alt="">
+                        <div class="text-container price">
+                            <p class="title">Price</p>
+                            <p class="description">$<?php echo $experience["price"] ?></p>
+                            <p class="description"><?php echo $experience["pricing_method_name"] ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p><?php echo htmlspecialchars($experience["description"]); ?></p>
-    </section>
-    <section class="reviews">
-
-    </section>
+        <div class="experience-description">
+            <p>hello</p>
+            <p><?php echo htmlspecialchars($experience["description"]); ?></p>
+        </div>
+        <div class="booking-info">
+            <h2>Your Booking</h2>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -134,5 +172,15 @@ function redirectToError(int $errorCode, PDO $pdo = null)
     header("Location: booking.php?err={$errorCode}");
     $pdo = null;
     die();
+}
+function formatDate(string $dateTime)
+{
+    $date = new DateTime($dateTime);
+    return $date->format("D, M d");
+}
+function formatTime(string $dateTime)
+{
+    $time = new DateTime($dateTime);
+    return $time->format("g:i A");
 }
 ?>

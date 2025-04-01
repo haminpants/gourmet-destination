@@ -1091,26 +1091,27 @@ body.login-page .login-form a:hover {
 }
 
 .booking-page {
+  min-width: 1080px;
 }
-.booking-page > .header {
+.booking-page .header {
   display: grid;
   grid-template-columns: 1fr;
   height: 250px;
 }
-.booking-page > .header > div {
+.booking-page .header > div {
   grid-column-start: 1;
   grid-row-start: 1;
 }
-.booking-page > .header > .background-img {
+.booking-page .background-img {
   overflow: hidden;
 }
-.booking-page > .header > .background-img > img {
+.booking-page .background-img > img {
   width: 100%;
   height: auto;
   filter: blur(10px);
   z-index: -1;
 }
-.booking-page > .header > .content {
+.booking-page .content {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1118,24 +1119,89 @@ body.login-page .login-form a:hover {
 
   box-sizing: border-box;
   padding: 40px 60px;
-
   background-color: rgba(255,255,255,0.6);
 }
-.booking-page > .header > .content > .host-details {
+.booking-page .host-details {
   display: flex;
   flex-direction: row;
   gap: 15px;
   align-items: center;
 }
-.booking-page > .header > .content > .host-details > .profile-picture {
+.booking-page .profile-picture {
   width: 50px;
   height: 50px;
   overflow: hidden;
   border-radius: 100px;
 }
-
-.booking-page > .experience-details {
+.booking-page .body {
   display: grid;
+  grid-template-areas: 
+  "experience-info booking-info"
+  "experience-description booking-info"
+  ;
+  grid-template-columns: minmax(700px, 1fr) 350px;
+  column-gap: 10px;
+  row-gap: 10px;
+
+  margin: 20px;
+}
+.booking-page .experience-info {
+  grid-area: experience-info;
+  background-color: lightpink;
+  padding: 15px 10px;
+}
+.experience-info .bar {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  
+  box-sizing: border-box;
+  width: 100%;
+  min-width: max-content;
+  height: fit-content;
+  padding: 10px 45px;
+  background-color: white;
+  border-radius: 150px;
+
+  text-align: center;
+}
+.experience-info .bar > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+}
+.bar .info-block {
+  display: flex;
+  flex-direction: row;
+}
+.bar .info-block > img {
+  width: 60px;
+  height: 60px;
+}
+.bar .info-block .text-container {
+  display: flex;
+  flex-direction: column;
+}
+.info-block .availability {
+  width: 80px;
+}
+.info-block .booking-time {
+  width: 104px;
+}
+.info-block .participants {
+  
+}
+.info-block .description {
+  font-size: 12px;
+}
+.booking-page .experience-description {
+  grid-area: experience-description;
+  background-color: lightgreen;
+}
+.booking-page .booking-info {
+  grid-area: booking-info;
+  background-color: lightskyblue;
 }
 
 .bookings-display {
