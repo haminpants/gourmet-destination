@@ -117,7 +117,7 @@ else redirectToError(100, $pdo);
     </div>
     <div class="body">
         <div class="experience-info centered-container">
-            <div class="bar">
+            <div class="blob">
                 <h4>Experience Info</h4>
                 <div>
                     <div class="info-block">
@@ -154,12 +154,43 @@ else redirectToError(100, $pdo);
                 </div>
             </div>
         </div>
+
         <div class="experience-description">
-            <p>hello</p>
-            <p><?php echo htmlspecialchars($experience["description"]); ?></p>
+            <div class="blob">
+                <h3>Description</h3>
+                <p><?php echo htmlspecialchars($experience["description"]); ?></p>
+            </div>
         </div>
-        <div class="booking-info">
-            <h2>Your Booking</h2>
+
+        <div class="booking-info centered-container">
+            <div class="blob">
+                <h2>Your Booking</h2>
+                <form action="" method="POST">
+                    <input type="hidden" name="booking_id" value="<?php echo $booking["id"] ?>">
+                    <div>
+                        <label for="participants">Participants</label>
+                        <input type="number" name="participants" id="participants" min="<?php echo $experience["min_participants"] ?>" max="<?php echo $experience["max_participants"] ?>" value="<?php echo $booking["participants"] ?>" required>
+                    </div>
+                    <div>
+                        <label for="time">Booking Date</label>
+                        <input type="date" name="booking_date" id="booking_date" value="<?php echo formatDateInput($booking["booking_time"]) ?>">
+                    </div>
+                    <div>
+                        <label for="time">Booking Time</label>
+                        <input type="time" name="booking_time" id="booking_time" value="<?php echo formatTimeInput($booking["booking_time"]) ?>">
+                    </div>
+                    <div>
+                        <button name="action" value="save">Save for Later</button>
+                    </div>
+                    <div>
+                        <?php if ($booking["status_id"] === 0) { ?>
+                            <button name="action" value="confirm_booking">Confirm Booking</button>
+                        <?php } else { ?>
+                            <button name="action" value="cancel">Cancel Booking</button>
+                        <?php } ?>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
@@ -178,9 +209,19 @@ function formatDate(string $dateTime)
     $date = new DateTime($dateTime);
     return $date->format("D, M d");
 }
+function formatDateInput($date)
+{
+    $date = new DateTime($date);
+    return $date->format("Y-m-d");
+}
 function formatTime(string $dateTime)
 {
     $time = new DateTime($dateTime);
     return $time->format("g:i A");
+}
+function formatTimeInput(string $time)
+{
+    $time = new DateTime($time);
+    return $time->format("H:i");
 }
 ?>

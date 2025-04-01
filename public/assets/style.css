@@ -1142,22 +1142,23 @@ body.login-page .login-form a:hover {
   grid-template-columns: minmax(700px, 1fr) 350px;
   column-gap: 10px;
   row-gap: 10px;
-
-  margin: 20px;
+  
+  margin: 0px 20px;
+  background-color: #ddd;
 }
+
 .booking-page .experience-info {
   grid-area: experience-info;
-  background-color: lightpink;
   padding: 15px 10px;
 }
-.experience-info .bar {
+
+.booking-page .body .blob {
   display: flex;
   flex-direction: column;
   gap: 2px;
   
   box-sizing: border-box;
   width: 100%;
-  min-width: max-content;
   height: fit-content;
   padding: 10px 45px;
   background-color: white;
@@ -1165,21 +1166,21 @@ body.login-page .login-form a:hover {
 
   text-align: center;
 }
-.experience-info .bar > div {
+.experience-info .blob > div {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 15px;
 }
-.bar .info-block {
+.blob .info-block {
   display: flex;
   flex-direction: row;
 }
-.bar .info-block > img {
+.blob .info-block > img {
   width: 60px;
   height: 60px;
 }
-.bar .info-block .text-container {
+.blob .info-block .text-container {
   display: flex;
   flex-direction: column;
 }
@@ -1189,19 +1190,16 @@ body.login-page .login-form a:hover {
 .info-block .booking-time {
   width: 104px;
 }
-.info-block .participants {
-  
-}
 .info-block .description {
   font-size: 12px;
 }
+
 .booking-page .experience-description {
   grid-area: experience-description;
-  background-color: lightgreen;
 }
+
 .booking-page .booking-info {
   grid-area: booking-info;
-  background-color: lightskyblue;
 }
 
 .bookings-display {
