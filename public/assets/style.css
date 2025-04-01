@@ -41,7 +41,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .nav-spacer {
     display: flex;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 .footer-spacer {
@@ -1130,8 +1130,328 @@ body.login-page .login-form a:hover {
   font-family: inherit;
 }
 
-/* Responsive: Stack on mobile */
+/* ---------------------------------------------------
+   Booking Page Styling (booking.php)
+-----------------------------------------------------*/
+
+.booking-page {
+  min-width: 1080px;
+}
+
+/* --- Booking Header Banner --- */
+.booking-page .header {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.booking-page .background-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.booking-page .background-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(10px);
+  opacity: 0.8;
+}
+
+.booking-page .background-img::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.9));
+  z-index: 1;
+}
+
+.booking-page .content {
+  position: relative;
+  z-index: 2;
+  padding: 30px 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
+.booking-page .content h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.booking-page .host-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #444;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.booking-page .host-details img {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Booking Body Layout --- */
+.booking-page .body {
+  display: grid;
+  grid-template-areas: 
+    "experience-info booking-info"
+    "experience-description booking-info";
+  grid-template-columns: minmax(700px, 1fr) 350px;
+  column-gap: 20px;
+  row-gap: 20px;
+  padding: 40px;
+  margin: 30px auto;
+  max-width: 1200px;
+  background-color: #fffaf6;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Experience Info Blob --- */
+.booking-page .experience-info {
+  grid-area: experience-info;
+  padding: 15px 10px;
+}
+
+.booking-page .body .blob {
+  background-color: #fbe6d4;
+  padding: 25px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.experience-info .blob > div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.blob .info-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 100px;
+}
+
+.blob .info-block > img {
+  width: 40px;
+  height: 40px;
+}
+
+.blob .info-block .text-container {
+  font-size: 14px;
+  color: #444;
+}
+
+.info-block .availability {
+  width: 110px;
+}
+.info-block .booking-time {
+  width: 130px;
+}
+
+/* --- Experience Description --- */
+.booking-page .experience-description {
+  grid-area: experience-description;
+  background-color: #ffe7cc;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* --- Booking Info Sidebar --- */
+.booking-page .booking-info {
+  grid-area: booking-info;
+  background-color: #ffe7cc;
+  border-radius: 20px;
+  padding: 25px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.booking-page .booking-info h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.booking-page .booking-info input,
+.booking-page .booking-info select {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+}
+
+.booking-page .booking-info button {
+  padding: 10px 16px;
+  background-color: #d09e6e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.booking-page .booking-info button:hover {
+  background-color: #b67f4e;
+}
+
+
+/* ---------------------------------------------------
+   Bookings Display Styling (profile-bookings-display.php)
+-----------------------------------------------------*/
+
+.bookings-display {
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.bookings-display h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #333;
+}
+
+.bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.booking {
+  background-color: #fffaf6;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.booking:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.banner-img {
+  background-color: #fbe6d4;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.banner-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  padding: 20px;
+}
+
+.body .title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #5c3a1f;
+}
+
+.body p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.info-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 100px;
+}
+
+.info-item .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.action-row {
+  padding: 15px 20px 20px;
+  margin-top: auto;
+}
+
+.action-row button {
+  padding: 10px 20px;
+  background-color: #d09e6e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-row button:hover {
+  background-color: #b67f4e;
+}
+
+
+/* ---------------------------------------------------
+   Responsive Adjustments
+-----------------------------------------------------*/
+
 @media (max-width: 600px) {
+  .booking-page .body {
+    grid-template-areas:
+      "experience-info"
+      "experience-description"
+      "booking-info";
+    grid-template-columns: 1fr;
+  }
+
   .edit-profile-form {
     grid-template-columns: 1fr;
     grid-template-areas:
