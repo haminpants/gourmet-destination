@@ -82,6 +82,23 @@ function getExperienceById(PDO $pdo, $id)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getHostReviews(PDO $pdo, int $hostId)
+{
+    $stmt = $pdo->prepare("SELECT review.rating, review.user_id, user.first_name, user.last_name, review.description, review.created_at 
+        FROM host_reviews as hr JOIN reviews AS review ON hr.review_id=review.id JOIN users AS user ON review.user_id=user.id WHERE hr.user_id=:id");
+    $stmt->execute([":id" => $hostId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function getHostReviewStats(PDO $pdo, $hostId)
+{
+    $stmt = $pdo->prepare("SELECT ROUND(AVG(review.rating), 1) AS average_rating, COUNT(*) AS total_ratings, SUM(IF(review.rating=5, 1, 0)) AS five_star_ratings, 
+        SUM(IF(review.rating=4, 1, 0)) AS four_star_ratings, SUM(IF(review.rating=3, 1, 0)) AS three_star_ratings, SUM(IF(review.rating=2, 1, 0)) AS two_star_ratings, 
+        SUM(IF(review.rating=1, 1, 0)) AS one_star_ratings 
+        FROM host_reviews as hr JOIN reviews AS review ON hr.review_id=review.id WHERE hr.user_id=:id");
+    $stmt->execute([":id" => $hostId]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 // Bookable days encoding and decoding
 $daysBitMask = [
     "Monday" => 1,
