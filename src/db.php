@@ -81,7 +81,7 @@ function getExperiencesByUserId(PDO $pdo, $id)
 
 function getExperienceById(PDO $pdo, $id)
 {
-    $stmt = $pdo->prepare("SELECT e.id, e.title, e.description, e.host_id, e.min_participants, e.max_participants, e.bookable_days, e.bookings_open_start, e.bookings_open_end, e.duration, e.price, e.pricing_method_id, p.name AS pricing_method_name, p.description AS pricing_method_desc
+    $stmt = $pdo->prepare("SELECT e.id, e.title, e.description, e.host_id, e.min_participants, e.max_participants, e.bookable_days, e.bookings_open_start, e.bookings_open_end, e.duration, e.price, e.cuisine_tag_id, e.pricing_method_id, p.name AS pricing_method_name, p.description AS pricing_method_desc
     FROM experiences AS e, pricing_methods AS p WHERE e.id=:id AND e.pricing_method_id=p.id");
     $stmt->execute([":id" => $id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
