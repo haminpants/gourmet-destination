@@ -36,13 +36,13 @@ if ($subscription) {
             <form action="actions/premium-subscription-action.php" method="POST">
                 <input type="hidden" name="user_id" value="<?php echo $user["id"] ?>">
                 <input type="hidden" name="subscription_id" value="<?php echo $subscription->id ?>">
-                <button name="action" value="unsubscribe">Unsubscribe</button>
+                <button name="action" value="unsubscribe" class="unsubscribe">Unsubscribe</button>
             </form>
         <?php } else if (!$subscription) { ?>
             <p>Elevate your experience on GourmetDestination with a premium subscription! Gain access to exclusive experiences and discounts!</p>
             <form action="actions/premium-subscription-action.php" method="POST">
                 <input type="hidden" name="user_id" value="<?php echo $user["id"] ?>">
-                <button name="action" value="subscribe">Subscribe Now</button>
+                <button name="action" value="subscribe" class="subscribe">Subscribe Now</button>
             </form>
         <?php } ?>
     </div>
