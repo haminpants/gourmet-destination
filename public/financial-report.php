@@ -1,16 +1,17 @@
 <?php
 session_start();
-// session_unset();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Report</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
     <div class="financial-report">
         <form method="POST" action="actions/financial-report-action.php">
@@ -40,7 +41,7 @@ session_start();
             <tr>
                 <th class="subheading">Tourist Subscription</th>
                 <td><?php echo isset($_SESSION['touristAmount']) ? $_SESSION['touristAmount'] : 0; ?></td>
-            </tr> 
+            </tr>
             <tr>
                 <th>BOOKING & COMISSION REVENUE</th>
             </tr>
@@ -66,5 +67,7 @@ session_start();
             </tr>
         </table>
     </div>
+    <a href="index.php">Back to Home</a>
 </body>
+
 </html>

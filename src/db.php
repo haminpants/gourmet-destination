@@ -60,6 +60,7 @@ function commitUserDataToSession(array $userData)
     $_SESSION["userData"]["firstName"] = $userData["first_name"];
     $_SESSION["userData"]["lastName"] = $userData["last_name"];
     $_SESSION["userData"]["profilePicture"] = $userData["profile_picture"];
+    $_SESSION["userData"]["roleId"] = $userData["role_id"];
 }
 
 function getPricingMethods(PDO $pdo)

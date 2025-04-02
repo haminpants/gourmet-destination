@@ -17,21 +17,12 @@ $stmt = $pdo->prepare("SELECT SUM(amount) as total_amount, COUNT(*) AS total_cou
                        ");
 $stmt->execute();
 
-$hostResults = $stmt->fetch(PDO::FETCH_ASSOC); 
+$hostResults = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Handle NULL cases, if no matching rows
-$_SESSION['hostAmount'] = number_format(($hostResults['total_amount'] ?? 0) /1.12,2); 
-$_SESSION['hostCount'] = $hostResults['total_count'] ?? 0 ;
+$_SESSION['hostAmount'] = number_format(($hostResults['total_amount'] ?? 0) / 1.12, 2);
+$_SESSION['hostCount'] = $hostResults['total_count'] ?? 0;
 $_SESSION['hostTotalRevenue'] =  $_SESSION['hostAmount'] * $_SESSION['hostCount'];
-
-
-// Retrieve tourist subscription, gross revenue, and count
-// $stmt2 = $pdo->prepare("SELECT amount FROM transactions WHERE type = 'Tourist Premium Subscription'");
-// $stmt2->execute();
-
-// while ($touristResults = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-//     $_SESSION['touristAmount'] = $touristResults['amount'];
-// }
 
 //====
 $stmt2 = $pdo->prepare("SELECT COUNT(*) AS total_count, SUM(amount) as total_amount
@@ -43,9 +34,9 @@ $stmt2->execute();
 $touristResults = $stmt2->fetch(PDO::FETCH_ASSOC);
 
 // Validate query results for NULL
-    $_SESSION['touristAmount'] = number_format(($touristResults['total_amount'] ?? 0) / 1.12,2);
-    $_SESSION['touristCount'] = $touristResults['total_count'] ?? 0;
-    $_SESSION['touristTotalRevenue'] = $_SESSION['touristAmount'] * $_SESSION['touristCount'];
+$_SESSION['touristAmount'] = number_format(($touristResults['total_amount'] ?? 0) / 1.12, 2);
+$_SESSION['touristCount'] = $touristResults['total_count'] ?? 0;
+$_SESSION['touristTotalRevenue'] = $_SESSION['touristAmount'] * $_SESSION['touristCount'];
 
 //====
 
@@ -58,7 +49,7 @@ $stmt3 = $pdo->prepare("SELECT COUNT(*) as total_count, SUM(amount) AS total_amo
 
 $bookingResults = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-$_SESSION['bookingAmount'] = number_format(($bookingResults['total_amount'] ?? 0) / 1.12,2);
+$_SESSION['bookingAmount'] = number_format(($bookingResults['total_amount'] ?? 0) / 1.12, 2);
 $_SESSION['bookingCount'] = $bookingResults['total_count'] ?? 0;
 
 $stmt5 = $pdo->prepare("SELECT amount FROM transactions WHERE type = 'booking'");
@@ -74,10 +65,3 @@ $_SESSION['totalRevenue'] = $_SESSION['hostTotalRevenue'] + $_SESSION['touristTo
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     header("Location: ../financial-report.php");
 }
-
-?>
-
-
-
-
-
