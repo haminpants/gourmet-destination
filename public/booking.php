@@ -172,6 +172,8 @@ else redirectToError(100, $pdo);
             <div class="blob">
                 <h3>Description</h3>
                 <p><?php echo htmlspecialchars($experience["description"]); ?></p>
+                <h3>Cancellation Policy</h3>
+                <p>Bookings can not be cancelled on the day of the booking. Cancelling bookings incurs a 10% cancellation fee.</p>
             </div>
         </div>
 
