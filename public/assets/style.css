@@ -2437,6 +2437,7 @@ p.section-subtitle {
   grid-area: profile-tags;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
 }
 
 .edit-profile-form .profile-tags .tag-checkboxes {
@@ -3066,9 +3067,6 @@ p.section-subtitle {
 
 
 /* Inside the Profile Edit Form */
-.profile-tags {
-  margin-top: 20px;
-}
 
 .tag-group {
   margin-bottom: 20px;
@@ -3076,7 +3074,6 @@ p.section-subtitle {
 
 .tag-group label {
   font-weight: bold;
-  margin-bottom: 8px;
   display: block;
   color: #444;
 }
