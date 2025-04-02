@@ -44,15 +44,15 @@ $_SESSION['touristTotalRevenue'] = $_SESSION['touristAmount'] * $_SESSION['touri
 // Retrieve total number of bookings, revenue   
 $stmt3 = $pdo->prepare("SELECT COUNT(*) as total_count, SUM(amount) AS total_amount
                         FROM transactions
-                        WHERE type = 'booking'
+                        WHERE type = 'Experience Booking'
                         ");
-
+$stmt3->execute();
 $bookingResults = $stmt3->fetch(PDO::FETCH_ASSOC);
 
 $_SESSION['bookingAmount'] = number_format(($bookingResults['total_amount'] ?? 0) / 1.12, 2);
 $_SESSION['bookingCount'] = $bookingResults['total_count'] ?? 0;
 
-$stmt5 = $pdo->prepare("SELECT amount FROM transactions WHERE type = 'booking'");
+$stmt5 = $pdo->prepare("SELECT amount FROM transactions WHERE type = 'Experience Booking'");
 $stmt5->execute();
 // fetch the commission calculation for each booking in a seperate loop 
 
