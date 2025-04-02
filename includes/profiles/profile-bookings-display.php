@@ -8,7 +8,7 @@ foreach ($bookings as $booking) $experiences[$booking["id"]] = getExperienceById
 ?>
 
 <div class="bookings-display">
-    <h2>Your Bookings</h2>
+    <h2>Recently Viewed Experiences</h2>
     <div class="container">
         <div class="bookings-grid">
             <?php foreach ($bookings as $booking) {

@@ -80,12 +80,6 @@ $profileSelctedTagIds = array_map(fn($tag) => $tag["tag_id"], $profileSelectedTa
                 <input type="hidden" name="MAX_PROFILE_SIZE" value="500000">
                 <input type="file" name="profilePicture" id="profilePicture" accept="image/png, image/jpeg">
             </div>
-
-            <div class="background-picture">
-                <label for="backgroundPicture">Update Background Picture</label>
-                <input type="hidden" name="MAX_BACKGROUND_SIZE" value="1000000">
-                <input type="file" name="backgroundPicture" id="backgroundPicture" accept="image/png, image/jpeg">
-            </div>
         </div>
 
         <div class="profile-tags">

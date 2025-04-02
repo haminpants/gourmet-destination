@@ -59,16 +59,6 @@ if ($_FILES["profilePicture"]["error"] !== UPLOAD_ERR_NO_FILE) {
     }
 }
 
-if ($_FILES["backgroundPicture"]["error"] !== UPLOAD_ERR_NO_FILE) {
-    $uploadedImage = uploadIsImage($_FILES["backgroundPicture"]);
-    if (empty($uploadedImage)) $_SESSION["editProfileErrorMsgs"]["backgroundPicture"] = "Profile picture upload failed (Max 1MB)";
-    if (empty($_SESSION["editProfileErrorMsgs"])) {
-        $uploadDir = __DIR__ . "/../../public/uploads/profileBackground/";
-        if (!file_exists($uploadDir)) mkdir($uploadDir, 077, true);
-        if (!imagepng($uploadedImage, $uploadDir . "{$_POST["id"]}.png")) $_SESSION["editProfileErrorMsgs"]["backgroundPicture"] = "Failed to save background picture. Please try again!";
-    }
-}
-
 if (empty($_SESSION["editProfileErrorMsgs"])) {
     unset($_SESSION["editProfileFormData"]);
     unset($_SESSION["profileAction"]);
