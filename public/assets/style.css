@@ -760,6 +760,11 @@ body.login-page .login-form a:hover {
   background-color: white;
 }
 
+.profile-experience-display h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
 .profile-experience-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
@@ -1508,7 +1513,8 @@ body.login-page .login-form a:hover {
   display: flex;
   justify-content: space-between;
 }
-.experience-container>.info-body>.action-row > button {
+
+.experience-container>.info-body>.action-row>button {
   width: 100%;
 }
 
@@ -1551,6 +1557,7 @@ body.login-page .login-form a:hover {
   font-size: 14px;
   margin-top: 5px;
 }
+
 .success-msg {
   background-color: rgba(40, 189, 47, 0.9);
   color: white;
@@ -1834,6 +1841,11 @@ h4 {
   text-align: center;
 }
 
+.profile-reviews h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
 .profile-reviews .summary {
   width: fit-content;
 }
@@ -1916,7 +1928,7 @@ h4 {
 }
 
 /* --- Booking Header Banner --- */
-.booking-page > .header {
+.booking-page>.header {
   position: relative;
   height: 250px;
   overflow: hidden;
@@ -2347,6 +2359,7 @@ h4 {
 .general-review-form .error-msg {
   text-align: center;
 }
+
 /* === END OF General Review Form STYLING === */
 
 /* --- Feature Tags Styling --- */
@@ -2604,6 +2617,7 @@ h4 {
 .experience-form .submit {
   grid-area: submit;
 }
+
 .experience-form .delete {
   grid-area: delete;
 }
@@ -2673,4 +2687,63 @@ h4 {
   .experience-info-form {
     padding: 20px;
   }
+}
+
+/* === Premium Subscription Styling (premium-subscription-display.php) === */
+.premium-subscription {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  box-sizing: border-box;
+  margin: 0px 0px 40px 0px;
+  padding: 20px 40px;
+  border-radius: 40px;
+  background-color: #f2f3f4;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.premium-subscription h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.premium-subscription h2,
+.premium-subscription p {
+  text-align: center;
+}
+
+.premium-subscription form {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px 0px 0px;
+}
+
+.premium-subscription button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+  transition: background-color 0.25s;
+}
+
+.premium-subscription button.unsubscribe {
+  background-color: #c0392b;
+}
+
+.premium-subscription button.unsubscribe:hover {
+  background-color: #a93226;
+  cursor: pointer;
+}
+
+.premium-subscription button.subscribe {
+  background-color: #28b463;
+}
+
+.premium-subscription button.subscribe:hover {
+  background-color: #239b56;
+  cursor: pointer;
 }
