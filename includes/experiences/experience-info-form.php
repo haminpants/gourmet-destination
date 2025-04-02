@@ -48,6 +48,13 @@ else $bookingsOpenStart = "24:00:00";
 if (isset($_SESSION["experienceFormData"]["bookings_open_end"])) $bookingsOpenEnd = $_SESSION["experienceFormData"]["bookings_open_end"];
 else if (isset($experienceData)) $bookingsOpenEnd = $experienceData["bookings_open_end"];
 else $bookingsOpenEnd = "23:59:00";
+
+if (isset($_SESSION["experienceFormData"]["cuisine_tag_id"])) $cuisineTagId = $_SESSION["experienceFormData"]["cuisine_tag_id"];
+else if (isset($experienceData)) $cuisineTagId = $experienceData["cuisine_tag_id"] ?? "";
+else $cuisineTagId = "";
+
+require_once(__DIR__ . "/../../src/db.php");
+$cuisines = getAllTagsByType($pdo, 1);
 ?>
 
 <div class="experience-info-form" id="focus-form">
@@ -120,6 +127,16 @@ else $bookingsOpenEnd = "23:59:00";
             <label for="bookings_open_end">Bookings Close</label>
             <p class="info">(Latest Booking)</p>
             <input type="time" name="bookings_open_end" id="bookings_open_end" value="<?php echo date("H:i", strtotime($bookingsOpenEnd)); ?>">
+        </div>
+
+        <div class="cuisine-tag">
+            <label for="cuisine-tag-id">Cuisine Tag</label>
+            <select name="cuisine_tag_id" id="cuisine-tag-id">
+                <option value="null" <?php echo $cuisineTagId === "null" ? "selected" : "" ?>>No Cuisine</option>
+                <?php foreach($cuisines as $cuisine) { echo $cuisine["id"]; ?>
+                    <option value="<?php echo $cuisine["id"] ?>" <?php echo $cuisineTagId == $cuisine["id"] ? "selected" : "" ?>><?php echo $cuisine["name"] ?></option>
+                <?php } ?>
+            </select>
         </div>
 
         <div class="banner-img">
