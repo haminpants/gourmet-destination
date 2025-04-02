@@ -32,6 +32,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         include "../includes/experiences/experience-info-form.php";
         include "../includes/profiles/profile-bookings-display.php";
         include "../includes/profiles/profile-subscription-display.php";
+        include "../includes/profiles/profile-become-host.php";
         include "../includes/profiles/profile-review-display.php";
     } else include "../includes/profiles/no-profile-found.php";
     ?>

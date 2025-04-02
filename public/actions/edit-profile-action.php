@@ -13,6 +13,14 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST" || empty($_POST["action"]) || $_POST["
     die();
 }
 
+if ($_POST["action"] === "promote_to_host") {
+    $stmt = $pdo->prepare("UPDATE users SET role_id=2 WHERE id=:id");
+    $stmt->execute([":id" => $_POST["id"]]);
+
+    header("Location: ../profile.php");
+    die();
+}
+
 // Get and format form fields
 $firstName = trim($_POST["firstName"]);
 $lastName = trim(($_POST["lastName"]));

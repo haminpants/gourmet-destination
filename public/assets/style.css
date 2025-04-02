@@ -3537,3 +3537,45 @@ p.section-subtitle {
   background-color: #1c2833;
   cursor: pointer;
 }
+
+.become-host {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 80%;
+  box-sizing: border-box;
+  margin: 0px 0px 40px 0px;
+  padding: 20px 40px;
+  border-radius: 40px;
+  background-color: #f2f3f4;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.become-host h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+.become-host p,
+.become-host h2,
+.become-host h3 {
+  text-align: center;
+}
+
+.become-host button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+  transition: background-color 0.25s;
+}
+.become-host button {
+  background-color: #28b463;
+}
+
+.become-host button:hover {
+  background-color: #239b56;
+  cursor: pointer;
+}
