@@ -28,11 +28,13 @@ $bookableDays = !empty($_POST["bookable_days"]) ? array_reduce($_POST["bookable_
 $duration = intval($_POST["duration"]);
 $bookingsOpenStart = formatTime($_POST["bookings_open_start"]);
 $bookingsOpenEnd = formatTime($_POST["bookings_open_end"]);
+$cuisineTagId = $_POST["cuisine_tag_id"] === "null" ? null : intval($_POST["cuisine_tag_id"]);
 
 // Save form fields that don't require validating
 $_SESSION["experienceFormData"]["description"] = $description;
 $_SESSION["experienceFormData"]["pricing_method"] = $pricingMethod;
 $_SESSION["experienceFormData"]["bookable_days"] = $bookableDays;
+$_SESSION["experienceFormData"]["cuisine_tag_id"] = $cuisineTagId;
 
 // Validate form data
 if (empty($title)) $_SESSION["experienceErrorMsgs"]["title"] = "Title cannot be blank";
@@ -73,8 +75,8 @@ if (empty($_SESSION["experienceErrorMsgs"])) {
 
     if ($_POST["action"] === "create_experience") {
         $stmt = $pdo->prepare("INSERT INTO experiences 
-            (host_id, title, description, min_participants, max_participants, bookable_days, bookings_open_start, bookings_open_end, duration, price, pricing_method_id)
-            VALUES (:host_id, :title, :description, :min_participants, :max_participants, :bookable_days, :bookings_open_start, :bookings_open_end, :duration, :price, :pricing_method_id)");
+            (host_id, title, description, min_participants, max_participants, bookable_days, bookings_open_start, bookings_open_end, duration, price, pricing_method_id, cuisine_tag_id)
+            VALUES (:host_id, :title, :description, :min_participants, :max_participants, :bookable_days, :bookings_open_start, :bookings_open_end, :duration, :price, :pricing_method_id, :cuisine_tag_id)");
         $stmt->execute(
             [
                 ":host_id" => $_POST["id"],
@@ -87,12 +89,15 @@ if (empty($_SESSION["experienceErrorMsgs"])) {
                 ":bookings_open_end" => $bookingsOpenEnd,
                 ":duration" => $duration,
                 ":price" => $price,
-                ":pricing_method_id" => $pricingMethod
+                ":pricing_method_id" => $pricingMethod,
+                ":cuisine_tag_id" => $cuisineTagId
             ]
         );
         $experienceId = $pdo->lastInsertId();
     } else if ($_POST["action"] === "edit_experience") {
-        $stmt = $pdo->prepare("UPDATE experiences SET title=:title, description=:description, min_participants=:min_participants, max_participants=:max_participants, bookable_days=:bookable_days, bookings_open_start=:bookings_open_start, bookings_open_end=:bookings_open_end, duration=:duration, price=:price, pricing_method_id=:pricing_method_id WHERE id=:id");
+        $stmt = $pdo->prepare("UPDATE experiences SET title=:title, description=:description, min_participants=:min_participants, max_participants=:max_participants, 
+            bookable_days=:bookable_days, bookings_open_start=:bookings_open_start, bookings_open_end=:bookings_open_end, duration=:duration, price=:price, 
+            pricing_method_id=:pricing_method_id, cuisine_tag_id=:cuisine_tag_id WHERE id=:id");
         $stmt->execute([
             ":title" => $title,
             ":description" => $description,
@@ -104,7 +109,8 @@ if (empty($_SESSION["experienceErrorMsgs"])) {
             ":duration" => $duration,
             ":price" => $price,
             ":pricing_method_id" => $pricingMethod,
-            ":id" => $_POST["experience_id"]
+            ":id" => $_POST["experience_id"],
+            "cuisine_tag_id" => $cuisineTagId
         ]);
         $experienceId = $_POST["experience_id"];
     }

@@ -32,13 +32,23 @@ if (empty($password)) $_SESSION["signupErrorMsgs"]["password"] = "Password canno
 else if (strlen($password) < 10) $_SESSION["signupErrorMsgs"]["password"] = "Password must be at least 10 characters";
 else if ($password !== $confirmPassword) $_SESSION["signupErrorMsgs"]["confirmPassword"] = "Passwords do not match";
 
+if (empty($_SESSION["signupErrorMsgs"])) {
+    require_once(__DIR__ . "/../../src/stripe-api.php");
+    try {
+        $customer = $stripe->customers->create(["name" => "{$firstName} {$lastName}", "email" => $email]);
+    } catch (Exception $e) {
+        $_SESSION["signupErrorMsgs"]["stripe"] = "Failed to create customer in Stripe API";
+    }
+}
+
 // If there are no sign up messages, allow the user to sign up
 if (empty($_SESSION["signupErrorMsgs"])) {
     $redirect = "index.php";
     unset($_SESSION["signupFormData"]);
 
-    $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name) VALUES (:email, :password, :first_name, :last_name)");
-    $stmt->execute([":email" => $email, ":password" => password_hash($password, PASSWORD_DEFAULT), ":first_name" => $firstName, ":last_name" => $lastName]);
+    $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name, stripe_customer_id) VALUES (:email, :password, :first_name, :last_name, :stripe_customer_id)");
+    $stmt->execute([":email" => $email, ":password" => password_hash($password, PASSWORD_DEFAULT), ":first_name" => $firstName, ":last_name" => $lastName, 
+        ":stripe_customer_id" => $customer["id"]]);
 
     $userData = getUserByEmail($pdo, $email);
     commitUserDataToSession($userData);

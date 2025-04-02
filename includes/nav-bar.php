@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 <nav class="nav-bar">
     <div class="left">
         <a href="index.php">Home</a>
+        <a href="browse-experiences.php">Explore Experiences</a>
     </div>
     <div class="right">
         <?php if (empty($_SESSION["userData"])) { ?>

@@ -9,15 +9,21 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 
+<?php
+session_start();
+require "../src/db.php";
+
+if (isset($_GET["id"]) && is_numeric($_GET["id"])) $profileData = getUserById($pdo, intval($_GET["id"]));
+else if (isset($_SESSION["userData"])) $profileData = getUserById($pdo, $_SESSION["userData"]["id"]);
+else header("Location: login.php");
+
+$stmt = $pdo->prepare("SELECT stripe_customer_id FROM users WHERE id=:id");
+$stmt->execute([":id" => $_SESSION["userData"]["id"]]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+
 <body class="profile-page">
     <?php
-    session_start();
-    require "../src/db.php";
-
-    if (isset($_GET["id"]) && is_numeric($_GET["id"])) $profileData = getUserById($pdo, intval($_GET["id"]));
-    else if (isset($_SESSION["userData"])) $profileData = getUserById($pdo, $_SESSION["userData"]["id"]);
-    else header("Location: login.php");
-
     if (!empty($profileData)) {
         include "../includes/nav-bar.php";
         include "../includes/profiles/profile-banner.php";
@@ -25,6 +31,8 @@
         include "../includes/profiles/profile-experience-display.php";
         include "../includes/experiences/experience-info-form.php";
         include "../includes/profiles/profile-bookings-display.php";
+        include "../includes/profiles/profile-subscription-display.php";
+        include "../includes/profiles/profile-become-host.php";
         include "../includes/profiles/profile-review-display.php";
     } else include "../includes/profiles/no-profile-found.php";
     ?>

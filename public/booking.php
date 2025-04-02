@@ -149,6 +149,14 @@ else redirectToError(100, $pdo);
                         </div>
                     </div>
                     <div class="info-block">
+                        <img src="assets/icons/hourglass.png" alt="">
+                        <div class="text-container duration">
+                            <p class="title">Duration</p>
+                            <p class="description"><?php echo $experience["duration"] ?></p>
+                            <p class="description">Hour<?php echo $experience["duration"] > 1 ? "s" : "" ?></p>
+                        </div>
+                    </div>
+                    <div class="info-block">
                         <img src="assets/icons/person.png" alt="">
                         <div class="text-container participants">
                             <p class="title">Participants</p>
