@@ -1,6 +1,6 @@
 <?php
-if (empty($_POST["action"])) redirectShowError("action is required");
-if (empty($_POST["user_id"]) || !is_numeric($_POST["user_id"])) redirectShowError("user_id must be an integer value");
+if (empty($_POST["action"])) redirectShowError("action is required", "profile.php");
+if (empty($_POST["user_id"]) || !is_numeric($_POST["user_id"])) redirectShowError("user_id must be an integer value", "profile.php");
 
 require_once(__DIR__ . "/../../src/db.php");
 if (session_status() === PHP_SESSION_NONE) session_start();
@@ -8,7 +8,7 @@ $_SESSION["premiumErrorMsgs"] = [];
 unset($_SESSION["transactionInfo"]);
 
 $user = getUserById($pdo, intval($_POST["user_id"]));
-if (!$user) redirectShowError("user with user_id does not exist");
+if (!$user) redirectShowError("user with user_id does not exist", "profile.php");
 
 require_once(__DIR__ . "/../../src/stripe-api.php");
 
@@ -66,12 +66,24 @@ if ($_POST["action"] === "subscribe") {
     } catch (Exception $e) {
         redirectSessionError(["Stripe API failed to create checkout", "Price ID {$stripePrice->id}", "Customer ID {$customer->id}", strval($e)]);
     }
+} else if ($_POST["action"] === "unsubscribe") {
+    if (empty($_POST["subscription_id"])) redirectShowError("subscription_id is required", "profile.php");
+
+    try { $subscription = $stripe->subscriptions->cancel($_POST["subscription_id"]); }
+    catch (Exception $e) { redirectSessionError(["Stripe API failed to fetch subscription"]); }
+
+    $stmt = $pdo->prepare("UPDATE users SET stripe_subscription_id=null WHERE id=:id");
+    if (!$stmt->execute([":id" => $_POST["user_id"]])) redirectSessionError(["Failed to update database"]);
+
+    header("Location: ../profile.php");
+    $pdo = null;
+    die();
 }
 
-function redirectShowError(string $err, string $url = "../index.php")
+function redirectShowError(string $err, string $url = "index.php")
 {
-    echo "{$err}<br>Redirecting in 5 seconds...<br><a href=\"{$url}\">Click here if not redirected</a>";
-    header("Refresh: 5; URL={$url}");
+    echo "{$err}<br>Redirecting in 5 seconds...<br><a href=\"../{$url}\">Click here if not redirected</a>";
+    header("Refresh: 5; URL=\"../{$url}\"");
     die();
 }
 
