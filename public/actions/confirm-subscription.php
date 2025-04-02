@@ -28,7 +28,7 @@ if (!$stmt->execute([":subscription_id" => $stripeSubscription->id, ":id" => $tr
 $stmt = $pdo->prepare("INSERT INTO transactions (user_id, amount, type, stripe_checkout_id) VALUES (:id, :amount, :type, :checkout_id)");
 $stmt->execute([
     ":id" => $transactionInfo["userId"],
-    ":amount" => $stripeCheckout->amount_total,
+    ":amount" => $stripeCheckout->amount_total / 100,
     ":type" => "{$stripeSubscription->metadata["subscriptionType"]} Premium Subscription",
     ":checkout_id" => $stripeCheckout->id
 ]);
