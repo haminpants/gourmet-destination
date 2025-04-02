@@ -2674,3 +2674,8 @@ h4 {
     padding: 20px;
   }
 }
+
+/* Financial Report */
+.financial-report table {
+  margin-left: 20px;
+}
