@@ -16,8 +16,8 @@ $pfpDir = __DIR__ . "/../../public/uploads/pfp";
     $reviewType = "host";
     $reviewAuthorId = $_SESSION["userData"]["id"];
     $reviewTargetId = $profileData["id"];
-    $successRedirect = "asdf";
-    $failRedirect = "asdf"; ?>
+    $successRedirect = "profile.php?id={$profileData["id"]}";
+    $failRedirect = "profile.php?id={$profileData["id"]}"; ?>
     <div class="centered-container">
         <?php require(__DIR__ . "/../../includes/review-form.php"); ?>
     </div>

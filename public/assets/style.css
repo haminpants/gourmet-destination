@@ -1414,3 +1414,8 @@ h4 {
 .general-review-form button:hover {
   background-color: #1e8449;
 }
+
+.general-review-form .error-msg {
+  text-align: center;
+}
+/* === END OF General Review Form STYLING === */

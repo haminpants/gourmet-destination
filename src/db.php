@@ -117,6 +117,23 @@ function canReviewHost(PDO $pdo, int $userId, int $hostId)
     return in_array($hostId, $stmt->fetchAll(PDO::FETCH_COLUMN, 0));
 }
 
+function userHasHostReview(PDO $pdo, int $userId, int $hostId)
+{
+    $stmt = $pdo->prepare("SELECT review.id AS review_id, review.user_id AS author_id, hr.user_id AS host_id
+        FROM host_reviews AS hr JOIN reviews AS review ON hr.review_id=review.id WHERE review.user_id=:user_id AND hr.user_id=:host_id");
+    $stmt->execute([":user_id" => $userId, ":host_id" => $hostId]);
+    return !empty($stmt->fetch());
+}
+
+function addHostReview(PDO $pdo, int $userId, int $hostId, int $rating, string $description)
+{
+    $stmt = $pdo->prepare("INSERT INTO reviews (user_id, rating, description) VALUES (:user_id, :rating, :description)");
+    if (!$stmt->execute([":user_id" => $userId, ":rating" => $rating, ":description" => $description])) return false;
+    $reviewId = $pdo->lastInsertId();
+    $stmt = $pdo->prepare("INSERT INTO host_reviews (user_id, review_id) VALUES (:user_id, :review_id)");
+    return $stmt->execute([":user_id" => $hostId, ":review_id" => $reviewId]);
+}
+
 // Bookable days encoding and decoding
 $daysBitMask = [
     "Monday" => 1,
