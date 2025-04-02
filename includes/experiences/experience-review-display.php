@@ -2,14 +2,24 @@
 require_once(__DIR__ . "/../../src/db.php");
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-$isHostView = isset($_SESSION["userData"]) && $_SESSION["userData"]["id"] === $profileData["id"] && $profileData["role_id"] === 2;
-$canLeaveReview = canReviewExperience($pdo, intval($_SESSION["userData"]["id"]), $experienceData["id"]);
+$canLeaveReview = canReviewExperience($pdo, intval($_SESSION["userData"]["id"]), $experience["id"]);
 
-$review = getExperienceReviews($pdo, $experienceData["id"]);
-$reviewStats = getExperienceReviewStats($pdo, $experienceData["id"]);
+$reviews = getExperienceReviews($pdo, $experience["id"]);
+$reviewStats = getExperienceReviewStats($pdo, $experience["id"]);
 
 $pfpDir = __DIR__ . "/../../public/uploads/pfp";
 ?>
+
+<?php if ($canLeaveReview) {
+    $reviewType = "experience";
+    $reviewAuthorId = $_SESSION["userData"]["id"];
+    $reviewTargetId = $experience["id"];
+    $successRedirect = "booking.php?experience_id={$experience["id"]}";
+    $failRedirect = "booking.php?experience_id={$experience["id"]}"; ?>
+    <div class="centered-container">
+        <?php require(__DIR__ . "/../../includes/review-form.php"); ?>
+    </div>
+<?php } ?>
 
 <div class="centered-container">
     <div class="profile-reviews">

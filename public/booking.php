@@ -225,6 +225,8 @@ else redirectToError(100, $pdo);
             </div>
         </div>
     </div>
+
+    <?php include(__DIR__ . "/../includes/experiences/experience-review-display.php") ?>
 </body>
 
 </html>
@@ -263,7 +265,7 @@ function bookingHasHappened(string $bookingDateTimeStr)
 
     $nowDateTime = new DateTime("now", new DateTimeZone("America/Vancouver"));
     $nowTimeStr = $nowDateTime->format("H:i:s");
-    
+
     $compareBookingDateTime = DateTime::createFromFormat("Y-m-d H:i:s", "{$bookingDateStr} {$nowTimeStr}", new DateTimeZone("America/Vancouver"));
     return $compareBookingDateTime > $nowDateTime ? true : false;
 }

@@ -117,6 +117,7 @@ function getExperienceReviewStats (PDO $pdo, int $experienceId) {
         SUM(IF(review.rating=1, 1, 0)) AS one_star_ratings 
         FROM experience_reviews as er JOIN reviews AS review ON er.review_id=review.id WHERE er.experience_id=:id");
     $stmt->execute([":id" => $experienceId]);    
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function getUsersPastCompletedBookings(PDO $pdo, int $userId)
@@ -154,6 +155,14 @@ function userHasHostReview(PDO $pdo, int $userId, int $hostId)
     return !empty($stmt->fetch());
 }
 
+function userHasExperienceReview(PDO $pdo, int $userId, int $experienceId)
+{
+    $stmt = $pdo->prepare("SELECT review.id AS review_id, review.user_id AS author_id, er.experience_id AS experience_id
+        FROM experience_reviews AS er JOIN reviews AS review ON er.review_id=review.id WHERE review.user_id=:user_id AND er.experience_id=:experience_id");
+    $stmt->execute([":user_id" => $userId, ":experience_id" => $experienceId]);
+    return !empty($stmt->fetch());
+}
+
 function addHostReview(PDO $pdo, int $userId, int $hostId, int $rating, string $description)
 {
     $stmt = $pdo->prepare("INSERT INTO reviews (user_id, rating, description) VALUES (:user_id, :rating, :description)");
@@ -162,6 +171,16 @@ function addHostReview(PDO $pdo, int $userId, int $hostId, int $rating, string $
     $stmt = $pdo->prepare("INSERT INTO host_reviews (user_id, review_id) VALUES (:user_id, :review_id)");
     return $stmt->execute([":user_id" => $hostId, ":review_id" => $reviewId]);
 }
+
+function addExperienceReview(PDO $pdo, int $userId, int $experienceId, int $rating, string $description)
+{
+    $stmt = $pdo->prepare("INSERT INTO reviews (user_id, rating, description) VALUES (:user_id, :rating, :description)");
+    if (!$stmt->execute([":user_id" => $userId, ":rating" => $rating, ":description" => $description])) return false;
+    $reviewId = $pdo->lastInsertId();
+    $stmt = $pdo->prepare("INSERT INTO experience_reviews (experience_id, review_id) VALUES (:experience_id, :review_id)");
+    return $stmt->execute([":experience_id" => $experienceId, ":review_id" => $reviewId]);
+}
+
 function getBookingById(PDO $pdo, int $id)
 {
     $stmt = $pdo->prepare("SELECT booking.id, booking.created_at, booking.user_id, booking.experience_id, booking.status_id, bs.status AS status_name, 
