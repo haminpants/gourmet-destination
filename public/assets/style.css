@@ -919,6 +919,7 @@ body.login-page .login-form a:hover {
   resize: none;
   width: 100%;
   height: 100%;
+  font-family: inherit;
 }
 
 .experience-form>div.min-participants {
@@ -3195,6 +3196,7 @@ p.section-subtitle {
   font-size: 14px;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
+  font-family: inherit;
 }
 
 .experience-form input:focus,
@@ -3223,19 +3225,26 @@ p.section-subtitle {
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
+.experience-form .bookable-days input {
+  width: 15px;
+  height: 15px;
+}
 
 .experience-form .bookable-days>div {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  width: min-content;
+  height: min-content;
+  gap: 4px;
   background-color: #fceeea;
   border-radius: 10px;
   padding: 6px 10px;
 }
 
-.experience-form input[type="checkbox"] {
+.experience-form .bookable-days input[type="checkbox"] {
   accent-color: #f7b4a9;
-  /* Matches pastel coral tone */
 }
 
 .experience-form .title {
