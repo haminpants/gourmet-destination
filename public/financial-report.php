@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (empty($_SESSION["userData"]["roleId"]) || $_SESSION["userData"]["roleId"] !== 0) {
+    header("Location: index.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>
