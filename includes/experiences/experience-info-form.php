@@ -56,6 +56,10 @@ else $bookingsOpenEnd = "23:59:00";
         <p class="error-msg"><?php echo $msg ?></p>
     <?php } ?>
     <form action="actions/experience-info-form-action.php" method="POST" enctype="multipart/form-data" class="experience-form">
+        <?php if (isset($experienceData)) { ?>
+            <input type="hidden" name="experience_id" value="<?php echo $experienceData["id"] ?>">
+        <?php } ?>
+
         <div class="title">
             <label for="title">Title</label>
             <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($title); ?>">
@@ -125,11 +129,12 @@ else $bookingsOpenEnd = "23:59:00";
         </div>
 
         <div class="submit">
-            <?php if (isset($experienceData)) { ?>
-                <input type="hidden" name="experience_id" value="<?php echo $experienceData["id"] ?>">
-            <?php } ?>
             <input type="hidden" name="id" value="<?php echo $profileData["id"] ?>">
             <button name="action" value="<?php echo isset($experienceData) ? "edit_experience" : "create_experience" ?>"><?php echo isset($experienceData) ? "Save Changes" : "Create Experience" ?></button>
+        </div>
+
+        <div class="delete">
+            <button name="action" value="delete" onclick="return confirm('Are you sure you want to delete this experience?')" <?php echo empty($experienceData) ? "disabled" : "" ?>>Delete</button>
         </div>
 
         <div class="cancel">
