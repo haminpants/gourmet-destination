@@ -89,6 +89,14 @@ function getHostReviews(PDO $pdo, int $hostId)
     $stmt->execute([":id" => $hostId]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getExperienceReviews(PDO $pdo, int $experienceId) {
+    $stmt = $pdo->prepare("SELECT review.rating, review.user_id, user.first_name, user.last_name, review.description, review.created_at 
+        FROM experience_reviews as er JOIN reviews AS review ON er.review_id=review.id JOIN users AS user ON review.user_id=user.id WHERE er.experience_id=:id");
+    $stmt->execute([":id" => $experienceId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getHostReviewStats(PDO $pdo, $hostId)
 {
     $stmt = $pdo->prepare("SELECT ROUND(AVG(review.rating), 1) AS average_rating, COUNT(*) AS total_ratings, SUM(IF(review.rating=5, 1, 0)) AS five_star_ratings, 
@@ -97,6 +105,14 @@ function getHostReviewStats(PDO $pdo, $hostId)
         FROM host_reviews as hr JOIN reviews AS review ON hr.review_id=review.id WHERE hr.user_id=:id");
     $stmt->execute([":id" => $hostId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function getExperienceReviewStats (PDO $pdo, int $experienceId) {
+    $stmt = $pdo->prepare("SELECT ROUND(AVG(review.rating), 1) AS average_rating, COUNT(*) AS total_ratings, SUM(IF(review.rating=5, 1, 0)) AS five_star_ratings, 
+        SUM(IF(review.rating=4, 1, 0)) AS four_star_ratings, SUM(IF(review.rating=3, 1, 0)) AS three_star_ratings, SUM(IF(review.rating=2, 1, 0)) AS two_star_ratings, 
+        SUM(IF(review.rating=1, 1, 0)) AS one_star_ratings 
+        FROM experience_reviews as er JOIN reviews AS review ON er.review_id=review.id WHERE er.experience_id=:id");
+    $stmt->execute([":id" => $experienceId]);    
 }
 
 function getUsersPastCompletedBookings(PDO $pdo, int $userId)
@@ -115,6 +131,15 @@ function canReviewHost(PDO $pdo, int $userId, int $hostId)
         WHERE user.id=:user_id AND booking.status_id=3 AND booking.booking_time < NOW()");
     $stmt->execute(["user_id" => $userId]);
     return in_array($hostId, $stmt->fetchAll(PDO::FETCH_COLUMN, 0));
+}
+
+function canReviewExperience(PDO $pdo, $userId, $experienceId)
+{
+    $stmt = $pdo->prepare("SELECT experience.id FROM users AS user 
+        JOIN bookings AS booking ON user.id=booking.user_id  JOIN experiences AS experience ON experience.id=booking.experience_id 
+        WHERE user.id=:user_id AND booking.status_id=3 AND booking.booking_time < NOW()");
+    $stmt->execute([":user_id" => $userId]);
+    return in_array($experienceId, $stmt->fetchAll(PDO::FETCH_COLUMN, 0));
 }
 
 function userHasHostReview(PDO $pdo, int $userId, int $hostId)
