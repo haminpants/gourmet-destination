@@ -95,7 +95,8 @@ function getHostReviews(PDO $pdo, int $hostId)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getExperienceReviews(PDO $pdo, int $experienceId) {
+function getExperienceReviews(PDO $pdo, int $experienceId)
+{
     $stmt = $pdo->prepare("SELECT review.rating, review.user_id, user.first_name, user.last_name, review.description, review.created_at 
         FROM experience_reviews as er JOIN reviews AS review ON er.review_id=review.id JOIN users AS user ON review.user_id=user.id WHERE er.experience_id=:id");
     $stmt->execute([":id" => $experienceId]);
@@ -112,12 +113,13 @@ function getHostReviewStats(PDO $pdo, $hostId)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getExperienceReviewStats (PDO $pdo, int $experienceId) {
+function getExperienceReviewStats(PDO $pdo, int $experienceId)
+{
     $stmt = $pdo->prepare("SELECT ROUND(AVG(review.rating), 1) AS average_rating, COUNT(*) AS total_ratings, SUM(IF(review.rating=5, 1, 0)) AS five_star_ratings, 
         SUM(IF(review.rating=4, 1, 0)) AS four_star_ratings, SUM(IF(review.rating=3, 1, 0)) AS three_star_ratings, SUM(IF(review.rating=2, 1, 0)) AS two_star_ratings, 
         SUM(IF(review.rating=1, 1, 0)) AS one_star_ratings 
         FROM experience_reviews as er JOIN reviews AS review ON er.review_id=review.id WHERE er.experience_id=:id");
-    $stmt->execute([":id" => $experienceId]);    
+    $stmt->execute([":id" => $experienceId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -198,7 +200,8 @@ function getBookingsByUserId(PDO $pdo, int $id)
     $stmt->execute([":id" => $id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function getAllTagsByType (PDO $pdo, int $typeId) {
+function getAllTagsByType(PDO $pdo, int $typeId)
+{
     $stmt = $pdo->prepare("SELECT tag.id, tag.name, tag.type_id, tag_type.name AS type_name
         FROM tags AS tag JOIN tag_types AS tag_type ON tag.type_id=tag_type.id WHERE tag_type.id=:id ORDER BY tag.name");
     $stmt->execute([":id" => $typeId]);
@@ -214,7 +217,8 @@ function getUserTags(PDO $pdo, int $id)
     return $stmt->fetchAll();
 }
 
-function isTimeAvailableToBook (PDO $pdo, int $experienceId, DateTime $time) {
+function isTimeAvailableToBook(PDO $pdo, int $experienceId, DateTime $time)
+{
     $stmt = $pdo->prepare("SELECT b.booking_time FROM bookings AS b JOIN experiences AS e ON b.experience_id=e.id
         WHERE b.experience_id=:experience_id AND b.status_id=3 AND ABS(TIMESTAMPDIFF(MINUTE, b.booking_time, :test)) <= (e.duration * 60)");
     $stmt->execute([":experience_id" => $experienceId, ":test" => $time->format("Y-m-d H:i:s")]);
