@@ -2699,7 +2699,7 @@ h4 {
   padding: 20px 40px;
   border-radius: 40px;
   background-color: #f2f3f4;
-}
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
 
 .premium-subscription h2 {
   font-size: 2rem;
