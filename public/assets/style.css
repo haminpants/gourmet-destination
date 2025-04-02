@@ -2678,8 +2678,29 @@ h4 {
 /* Financial Report */
 .financial-report table {
   text-align: left;
-  column-width: 20px;
-  border-color: black;
-  border: black;
-  border-style: solid 15px black;
+  border: 2px solid black;
+  /* border-collapse: collapse;  */
+  border-collapse: separate;
+  border-spacing: 20px;
+  margin-left: 20px;
+  
+}
+.financial-report button {
+  margin-left: 20px;
+  margin-top: 10px;
+  border-style: none;
+  color:white;
+  background-color: #2c2c2c;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.financial-report td {
+  padding-left: 100px;
+}
+
+.financial-report th.subheading {
+  font-style: normal;
+  font-weight: normal;
 }
