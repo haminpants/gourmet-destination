@@ -29,6 +29,14 @@ if ($action === "review_host") {
 
     addHostReview($pdo, $authorId, $targetId, $rating, $description);
 } else if ($action === "review_experience") {
+    if (userHasExperienceReview($pdo, $authorId, $targetId)) {
+        $_SESSION["reviewErrorMsgs"][] = "You have already left a review on this profile";
+        header("Location: ../{$failRedirect}");
+        $pdo = null;
+        die();
+    }
+
+    addExperienceReview($pdo, $authorId, $targetId, $rating, $description);
 } else redirectWithError("unrecognized action");
 
 header("Location: ../{$successRedirect}");
