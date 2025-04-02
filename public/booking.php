@@ -211,7 +211,7 @@ else redirectToError(100, $pdo);
                             <button name="action" value="confirm_booking">Confirm Booking</button>
                         </div>
                     <?php } ?>
-                    <?php if ($booking["status_id"] === 3) { ?>
+                    <?php if ($booking["status_id"] === 3 && bookingHasHappened($booking["booking_time"])) { ?>
                         <div>
                             <button name="action" value="cancel_booking" onclick="return confirm('Are you sure you want to cancel this booking?\nA 10% cancellation fee will apply.')">Cancel Booking</button>
                         </div>
@@ -255,5 +255,16 @@ function formatTimeInput(string $time)
 {
     $time = new DateTime($time);
     return $time->format("H:i");
+}
+function bookingHasHappened(string $bookingDateTimeStr)
+{
+    $bookingDateTime = DateTime::createFromFormat("Y-m-d H:i:s", $bookingDateTimeStr, new DateTimeZone("America/Vancouver"));
+    $bookingDateStr = $bookingDateTime->format("Y-m-d");
+
+    $nowDateTime = new DateTime("now", new DateTimeZone("America/Vancouver"));
+    $nowTimeStr = $nowDateTime->format("H:i:s");
+    
+    $compareBookingDateTime = DateTime::createFromFormat("Y-m-d H:i:s", "{$bookingDateStr} {$nowTimeStr}", new DateTimeZone("America/Vancouver"));
+    return $compareBookingDateTime > $nowDateTime ? true : false;
 }
 ?>
