@@ -4,12 +4,24 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
 if ($profileData["role_id"] !== 2) return; // If the user is not a host, they won't have any reviews to display
 $isHostView = isset($_SESSION["userData"]) && $_SESSION["userData"]["id"] === $profileData["id"] && $profileData["role_id"] === 2;
+$canLeaveReview = canReviewHost($pdo, intval($_SESSION["userData"]["id"]), intval($profileData["id"]));
 
 $reviews = getHostReviews($pdo, $profileData["id"]);
 $reviewStats = getHostReviewStats($pdo, $profileData["id"]);
 
 $pfpDir = __DIR__ . "/../../public/uploads/pfp";
 ?>
+
+<?php if ($canLeaveReview) {
+    $reviewType = "host";
+    $reviewAuthorId = $_SESSION["userData"]["id"];
+    $reviewTargetId = $profileData["id"];
+    $successRedirect = "asdf";
+    $failRedirect = "asdf"; ?>
+    <div class="centered-container">
+        <?php require(__DIR__ . "/../../includes/review-form.php"); ?>
+    </div>
+<?php } ?>
 
 <div class="centered-container">
     <div class="profile-reviews">
@@ -47,6 +59,7 @@ $pfpDir = __DIR__ . "/../../public/uploads/pfp";
                     </div>
                 </div>
             </div>
+
             <div class="review-list">
                 <?php foreach ($reviews as $review) {
                     $datePosted = date_format(new DateTime($review["created_at"]), "F j, Y") ?>
@@ -68,15 +81,3 @@ $pfpDir = __DIR__ . "/../../public/uploads/pfp";
         <?php } ?>
     </div>
 </div>
-
-<!-- if (empty($userReviews)) {
-    echo "<div class='review-display'>";
-    echo "This users has not recieve a review/rating yet.";
-    echo "<div>";
-} else {
-    echo "Displaying reviews";
-    echo "<div class='review-display'>";
-    echo "<label>Rating: " . htmlspecialchars($userReviews['rating']) . "<label color:'gold'>&#9733;></lable>";
-    echo "<label>Description:</label><br>";
-    echo "<p>" . htmlspecialchars($userReviews['description']) . "</p>";
-} -->

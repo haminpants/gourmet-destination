@@ -99,6 +99,24 @@ function getHostReviewStats(PDO $pdo, $hostId)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getUsersPastCompletedBookings(PDO $pdo, int $userId)
+{
+    $stmt = $pdo->prepare("SELECT user.id AS user_id, booking.id AS booking_id, booking.experience_id AS experience_id, experience.host_id
+        FROM users AS user JOIN bookings AS booking ON user.id=booking.user_id JOIN experiences AS experience ON experience.id=booking.experience_id
+        WHERE user.id=:user_id AND booking.status_id=3 AND booking.booking_time < NOW()");
+    $stmt->execute([":user_id" => $userId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function canReviewHost(PDO $pdo, int $userId, int $hostId)
+{
+    $stmt = $pdo->prepare("SELECT experience.host_id FROM users AS user 
+        JOIN bookings AS booking ON user.id=booking.user_id JOIN experiences AS experience ON experience.id=booking.experience_id 
+        WHERE user.id=:user_id AND booking.status_id=3 AND booking.booking_time < NOW()");
+    $stmt->execute(["user_id" => $userId]);
+    return in_array($hostId, $stmt->fetchAll(PDO::FETCH_COLUMN, 0));
+}
+
 // Bookable days encoding and decoding
 $daysBitMask = [
     "Monday" => 1,
