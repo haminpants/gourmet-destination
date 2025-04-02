@@ -1,3 +1,4 @@
 /vendor/
 **/uploads/
 /config/db_info.ini
+/config/api_keys.ini

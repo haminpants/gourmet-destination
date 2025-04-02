@@ -33,10 +33,14 @@ function getUserByEmail(PDO $pdo, string $email)
 /** @return mixed Returns an associative array containing all of a user's data for a given email, otherwise returns `false` on failure  */
 function getUserById(PDO $pdo, int $userId)
 {
-    $stmt = $pdo->prepare("SELECT user.id, user.email, user.password, user.first_name, user.last_name, user.bio, user.signup_date, 
-    user.country_id, country.name AS country_name, user.subdivision_id, subdivision.name AS subdivision_name, user.role_id, role.name AS role_name
-    FROM users AS user, roles AS role, countries AS country, subdivisions AS subdivision 
-    WHERE user.id=:id AND user.role_id=role.id AND user.country_id=country.id AND user.subdivision_id=subdivision.id");
+    $stmt = $pdo->prepare("SELECT user.id, user.email, user.password, user.first_name, user.last_name, user.bio, 
+        user.country_id, country.name AS country_name, user.subdivision_id, subdivision.name AS subdivision_name, 
+        user.role_id, role.name AS role_name, user.signup_date
+        FROM users AS user
+        JOIN roles AS role ON user.role_id=role.id
+        JOIN countries AS country ON user.country_id=country.id
+        JOIN subdivisions AS subdivision ON user.subdivision_id=subdivision.id AND subdivision.country_id=country.id
+        WHERE user.id=:id");
 
     $stmt->execute([":id" => $userId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -76,7 +80,7 @@ function getExperiencesByUserId(PDO $pdo, $id)
 
 function getExperienceById(PDO $pdo, $id)
 {
-    $stmt = $pdo->prepare("SELECT e.id, e.title, e.description, e.min_participants, e.max_participants, e.bookable_days, e.bookings_open_start, e.bookings_open_end, e.duration, e.price, e.pricing_method_id, p.description AS pricing_method_desc
+    $stmt = $pdo->prepare("SELECT e.id, e.title, e.description, e.host_id, e.min_participants, e.max_participants, e.bookable_days, e.bookings_open_start, e.bookings_open_end, e.duration, e.price, e.pricing_method_id, p.name AS pricing_method_name, p.description AS pricing_method_desc
     FROM experiences AS e, pricing_methods AS p WHERE e.id=:id AND e.pricing_method_id=p.id");
     $stmt->execute([":id" => $id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -157,6 +161,44 @@ function addHostReview(PDO $pdo, int $userId, int $hostId, int $rating, string $
     $reviewId = $pdo->lastInsertId();
     $stmt = $pdo->prepare("INSERT INTO host_reviews (user_id, review_id) VALUES (:user_id, :review_id)");
     return $stmt->execute([":user_id" => $hostId, ":review_id" => $reviewId]);
+}
+function getBookingById(PDO $pdo, int $id)
+{
+    $stmt = $pdo->prepare("SELECT booking.id, booking.created_at, booking.user_id, booking.experience_id, booking.status_id, bs.status AS status_name, 
+        booking.participants, booking.booking_time FROM bookings AS booking JOIN booking_status AS bs ON booking.status_id=bs.id WHERE booking.id=:id");
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function getBookingsByUserId(PDO $pdo, int $id)
+{
+    $stmt = $pdo->prepare("SELECT booking.id, booking.created_at, booking.user_id, booking.experience_id, booking.status_id, bs.status AS status_name, 
+        booking.participants, booking.booking_time FROM bookings AS booking JOIN booking_status AS bs ON booking.status_id=bs.id WHERE booking.user_id=:id 
+        ORDER BY booking.created_at DESC");
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function getAllTagsByType (PDO $pdo, int $typeId) {
+    $stmt = $pdo->prepare("SELECT tag.id, tag.name, tag.type_id, tag_type.name AS type_name
+        FROM tags AS tag JOIN tag_types AS tag_type ON tag.type_id=tag_type.id WHERE tag_type.id=:id ORDER BY tag.name");
+    $stmt->execute([":id" => $typeId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getUserTags(PDO $pdo, int $id)
+{
+    $stmt = $pdo->prepare("SELECT user_tags.user_id, user_tags.tag_id, tag.name AS tag_name, tag.type_id, tag_type.name AS type_name
+        FROM user_tags JOIN tags AS tag ON user_tags.tag_id=tag.id JOIN tag_types AS tag_type ON tag.type_id=tag_type.id
+        WHERE user_tags.user_id=:id ORDER BY tag_type.id ASC, tag_name ASC");
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchAll();
+}
+
+function isTimeAvailableToBook (PDO $pdo, int $experienceId, DateTime $time) {
+    $stmt = $pdo->prepare("SELECT b.booking_time FROM bookings AS b JOIN experiences AS e ON b.experience_id=e.id
+        WHERE b.experience_id=:experience_id AND b.status_id=3 AND ABS(TIMESTAMPDIFF(MINUTE, b.booking_time, :test)) <= 240");
+    $stmt->execute([":experience_id" => $experienceId, ":test" => $time->format("Y-m-d H:i:s")]);
+    return empty($stmt->fetch());
 }
 
 // Bookable days encoding and decoding
