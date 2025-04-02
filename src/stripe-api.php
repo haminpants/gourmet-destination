@@ -53,7 +53,9 @@ function createCheckoutSessionForBooking(\Stripe\StripeClient $stripe, PDO $pdo,
         $_SESSION["transactionInfo"] = [
             "challenge" => $challenge,
             "bookingId" => $booking["id"],
-            "userId" => $booking["user_id"]
+            "userId" => $booking["user_id"],
+            "checkoutId" => $checkout->id,
+            "totalAmount" => $checkout->amount_total
         ];
     }
 
@@ -97,7 +99,9 @@ function createCheckoutSessionForCancelBooking(\Stripe\StripeClient $stripe, PDO
         $_SESSION["transactionInfo"] = [
             "challenge" => $challenge,
             "bookingId" => $booking["id"],
-            "userId" => $booking["user_id"]
+            "userId" => $booking["user_id"],
+            "checkoutId" => $checkout->id,
+            "totalAmount" => $checkout->amount_total
         ];
     }
 
