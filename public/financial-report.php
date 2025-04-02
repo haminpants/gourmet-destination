@@ -23,11 +23,11 @@ session_start();
             </tr>
             <tr>
                 <th class="subheading">Local Guide & Home Chef</th>
-                <td><?php echo $_SESSION['hostCount']?></td>
+                <td><?php echo $_SESSION['hostCount'] ? isset($_SESSION['hostCount']) : 0?></td>
             </tr>
             <tr>
             <th class="subheading">Tourist</th>
-                <td><?php echo $_SESSION['touristCount']?></td>
+                <td><?php echo $_SESSION['touristCount'] ? isset($_SESSION['touristCount']) : 0?></td>
             </tr>
             <tr></tr>
             <tr>
@@ -35,11 +35,11 @@ session_start();
             </tr>
             <tr>
                 <th class="subheading">Local Guide & Home Chef Subscription</th>
-                <td><?php echo $_SESSION['hostTotalRevenue']?></td>
+                <td><?php echo $_SESSION['hostTotalRevenue'] ? isset($_SESSION['hostTotalRevenue']) : 0?></td>
             </tr>
             <tr>
                 <th class="subheading">Tourist Subscription</th>
-                <td><?php echo $_SESSION['touristTotalRevenue']?></td>
+                <td><?php echo $_SESSION['touristTotalRevenue'] ? isset($_SESSION['touristTotalRevenue']) : 0?></td>
             </tr> 
             <tr></tr>
             <tr>
@@ -47,11 +47,11 @@ session_start();
             </tr>
             <tr>
                 <th class="subheading">Total Number of Bookings</th>
-                <td><?php echo $_SESSION['bookingCount']?></td>
+                <td><?php echo $_SESSION['bookingCount'] ? isset($_SESSION['bookingCount']) : 0?></td>
             </tr>
             <tr>
                 <th class="subheading">Total Accumulative Value of Booking</th>
-                <td><?php echo $_SESSION['bookingAmount']?></td>
+                <td><?php echo $_SESSION['bookingAmount'] ? isset($_SESSION['bookingAmount']) : 0?></td>
             </tr>
             <tr>
                 <th class="subheading">Commission Rate</th>
@@ -59,12 +59,12 @@ session_start();
             </tr>
             <tr>
                 <th class="subheading">Total Commission Revenue</th>
-                <td><?php echo $_SESSION['bookingCommission']?></td>
+                <td><?php echo $_SESSION['bookingCommission'] ? isset($_SESSION['bookingComission']) : 0?></td>
             </tr>
             <tr></tr>
             <tr>
                 <th>TOTAL REVENUE</th>
-                <td><?php echo $_SESSION['totalRevenue']?></td>
+                <td><?php echo $_SESSION['totalRevenue'] ? isset($_SESSION['totalRevenue']) : 0?></td>
             </tr>
         </table>
     </div>
