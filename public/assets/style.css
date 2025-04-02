@@ -2677,5 +2677,9 @@ h4 {
 
 /* Financial Report */
 .financial-report table {
-  margin-left: 20px;
+  text-align: left;
+  column-width: 20px;
+  border-color: black;
+  border: black;
+  border-style: solid 15px black;
 }

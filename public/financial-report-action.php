@@ -49,6 +49,11 @@ $_SESSION['touristCount'] = $touristResults['total_amount'];
 $touristGrossRevenue = $touristResults['total_amount'] ?? 0; //gross revenue
 $_SESSION['touristCount'] = $hostResults['total_count'] ?? 0 ;
 $_SESSION['touristRevenue'] = $touristGrossRevenue / 1.12;
+
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    header("Location: financial-report.php");
+}
+
 ?>
 
 

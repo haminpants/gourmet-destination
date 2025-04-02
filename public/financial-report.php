@@ -18,7 +18,7 @@ session_start();
         <table>
             <tr>
                 <th>TOTAL USERS SUBSCRIBED</th>
-                <th><strong>VALUES<strong></th>
+                <th>VALUES</th>
             </tr>
             <tr>
                 <td>Local Guide & Home Chef</td>
@@ -28,9 +28,10 @@ session_start();
                 <td>Tourist</td>
                 <td><?php echo $_SESSION['touristCount'];?></td>
             </tr>
+            <tr></tr>
             <tr>
-                <th><strong>TOTAL USERS SUBSCRIBED<</strong></th>
-                <th><strong>VALUES<strong></th>
+                <th>REVENUE</th>
+                <th></th>
             </tr>
 
         </table>
