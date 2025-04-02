@@ -14,24 +14,22 @@ Group 3's project for INFO 3135
         - `composer`
         - `stripe`
         - `autoload.php`
-6. Go to the `config` folder and create copy of the `example-db-config.ini` named `db_info.ini`, enter info as needed
-7. Open XAMPP and **stop the Apache service, if running**
-8. Open the Apache service's "php.ini"
+6. Go to the `config` folder and create copy of the `db_info_example.ini` named `db_info.ini`, enter info as needed
+7. Still in the `config` folder, create a copy of the `api_keys_example.ini` named `api_keys.ini`, enter info as needed
+8. Open XAMPP and **stop the Apache service, if running**
+9. Open the Apache service's "php.ini"
     - Should be the fourth option from the Apache service's config button
-9. Search for `extension=gd`, which should have one match
-10. Remove the `;` in front of the `extensnion=gd` to uncomment the line and enable the `gd` extension
-11. Save the change and start the Apache service (Or restart it if you forgot to stop it before making the changes)
-### Optional (But Recommended) Setup
-1. Open XAMPP and **stop the Apache service, if running**
-2. Open the Apache service's `httpd.conf`
+10. Search for `extension=gd`, which should have one match
+11. Remove the `;` in front of the `extensnion=gd` to uncomment the line and enable the `gd` extension, save changes
+12. Open the Apache service's `httpd.conf`
     - Should be the first option from the Apache service's config button
-3. Search for `htdocs` (CTRL+F), which should have two matches
+13. Search for `htdocs` (CTRL+F), which should have two matches
     - First match should be `DocumentRoot "C:/xampp/htdocs"`
     - Second match should be `<Directory "C:/xampp/htdocs">`
-4. Add `/GourmetDestination/public` to the end of both file paths
+14. Add `/GourmetDestination/public` to the end of both file paths
     - First match should look like `DocumentRoot "C:/xampp/htdocs/GourmetDestination/public"`
     - Second match should look like `<Directory "C:/xampp/htdocs/GourmetDestination/public">`
-5. Save the changes and start the Apache service (Or restart it if you forgot to stop it before making the changes)
-6. Navigating to `localhost` should now display the `index.php` in `/public`
+15. Save the changes and start the Apache service (Or restart it if you forgot to stop it before making the changes)
+16. Navigating to `localhost` should now display the `index.php` in `/public`
 
-**Note:** You can undo this change at anytime by repeating the steps above, but instead of adding `/GourmetDestination/public`, remove it!
+**Note:** You can undo the `DocumentRoot` change at anytime by repeating steps 12-15, but instead of adding `/GourmetDestination/public`, remove it!

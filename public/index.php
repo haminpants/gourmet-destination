@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gourmet Destination</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
@@ -16,6 +17,9 @@ unset($_SESSION["signupFormData"]);
 unset($_SESSION["profileAction"]);
 unset($_SESSION["editProfileErrorMsgs"]);
 unset($_SESSION["editProfileFormData"]);
+unset($_SESSION["experienceErrorMsgs"]);
+unset($_SESSION["experienceFormData"]);
+unset($_SESSION["experienceId"]);
 ?>
 
 <body>
@@ -110,4 +114,5 @@ unset($_SESSION["editProfileFormData"]);
     </div>
   </section>
 </body>
+
 </html>
