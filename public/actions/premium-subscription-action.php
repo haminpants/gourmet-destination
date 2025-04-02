@@ -49,7 +49,7 @@ if ($_POST["action"] === "subscribe") {
             "metadata" => [
                 "subscriptionType" => $isHost ? "Host" : "Tourist",
             ],
-            "cancel_url" => "https://localhost/profile.php",
+            "cancel_url" => "http://localhost/profile.php",
             "success_url" => "http://localhost/actions/confirm-subscription.php?challenge={$encodedChallenge}"
         ]);
 
