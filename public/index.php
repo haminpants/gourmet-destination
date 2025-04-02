@@ -47,8 +47,9 @@ $experienceIds = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
             <h2>Discover Local Flavours And Unique Experiences</h2>
             <p>Engage with local guides and home cooks to uncover hidden culinary treasures. Experience authentic flavours and connect with your community through unique food events.</p>
             <div class="buttons">
-                <button>Explore</button>
-                <button class="light">Learn More</button>
+                <form action="browse-experiences.php">
+                    <button>Explore</button>
+                </form>
             </div>
         </div>
         <div class="image">
@@ -75,8 +76,9 @@ $experienceIds = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
                 <li>Connect with fellow food lovers in your area</li>
             </ul>
             <div class="buttons">
-                <button>Explore</button>
-                <button class="light">Learn More</button>
+                <form action="browse-experiences.php">
+                    <button>Explore</button>
+                </form>
             </div>
         </div>
         <div class="explore-image">
@@ -113,8 +115,9 @@ $experienceIds = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
             <h2>Become A Local Guide Or Home Cook Today!</h2>
             <p>Join our community to showcase your expertise and offer exciting local events.</p>
             <div class="buttons">
-                <button>Sign Up</button>
-                <button class="light">Learn More</button>
+                <form action="sign-up.php">
+                    <button>Sign Up</button>
+                </form>
             </div>
         </div>
     </section>
