@@ -35,7 +35,7 @@ function getUserById(PDO $pdo, int $userId)
 {
     $stmt = $pdo->prepare("SELECT user.id, user.email, user.password, user.first_name, user.last_name, user.bio, 
         user.country_id, country.name AS country_name, user.subdivision_id, subdivision.name AS subdivision_name, 
-        user.role_id, role.name AS role_name, user.signup_date
+        user.role_id, role.name AS role_name, user.signup_date, user.stripe_customer_id, user.stripe_subscription_id
         FROM users AS user
         JOIN roles AS role ON user.role_id=role.id
         JOIN countries AS country ON user.country_id=country.id
@@ -60,6 +60,7 @@ function commitUserDataToSession(array $userData)
     $_SESSION["userData"]["firstName"] = $userData["first_name"];
     $_SESSION["userData"]["lastName"] = $userData["last_name"];
     $_SESSION["userData"]["profilePicture"] = $userData["profile_picture"];
+    $_SESSION["userData"]["email"] = $userData["email"];
 }
 
 function getPricingMethods(PDO $pdo)

@@ -31,7 +31,7 @@ function createCheckoutSessionForBooking(\Stripe\StripeClient $stripe, PDO $pdo,
     $bookingTimeStr = $bookingTime->format("g:m a");
 
     $urlEncodedChallenge = urlencode($challenge);
-    $session = $stripe->checkout->sessions->create([
+    $checkout = $stripe->checkout->sessions->create([
         "line_items" => [[
             "price_data" => [
                 "currency" => "cad",
@@ -49,7 +49,7 @@ function createCheckoutSessionForBooking(\Stripe\StripeClient $stripe, PDO $pdo,
         "cancel_url" => "http://localhost/booking.php?booking_id={$booking["id"]}"
     ]);
 
-    if ($session) {
+    if ($checkout) {
         $_SESSION["transactionInfo"] = [
             "challenge" => $challenge,
             "bookingId" => $booking["id"],
@@ -57,7 +57,7 @@ function createCheckoutSessionForBooking(\Stripe\StripeClient $stripe, PDO $pdo,
         ];
     }
 
-    return $session;
+    return $checkout;
 }
 
 function createCheckoutSessionForCancelBooking(\Stripe\StripeClient $stripe, PDO $pdo, int $bookingId, string $challenge)
@@ -75,7 +75,7 @@ function createCheckoutSessionForCancelBooking(\Stripe\StripeClient $stripe, PDO
     $bookingTimeStr = $bookingTime->format("g:m a");
 
     $urlEncodedChallenge = urlencode($challenge);
-    $session = $stripe->checkout->sessions->create([
+    $checkout = $stripe->checkout->sessions->create([
         "line_items" => [[
             "price_data" => [
                 "currency" => "cad",
@@ -93,7 +93,7 @@ function createCheckoutSessionForCancelBooking(\Stripe\StripeClient $stripe, PDO
         "cancel_url" => "http://localhost/booking.php?booking_id={$booking["id"]}"
     ]);
 
-    if ($session) {
+    if ($checkout) {
         $_SESSION["transactionInfo"] = [
             "challenge" => $challenge,
             "bookingId" => $booking["id"],
@@ -101,5 +101,5 @@ function createCheckoutSessionForCancelBooking(\Stripe\StripeClient $stripe, PDO
         ];
     }
 
-    return $session;
+    return $checkout;
 }
