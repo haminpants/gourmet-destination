@@ -6,7 +6,7 @@ Group 3's project for INFO 3135
     - Schema name should be `gourmet_destination`
 
 # Setup (XAMPP)
-**NOTE: WINDOWS DEFENDER CURRENTLY FALSELY IDENTIFIES `public\actions\experience-info-form-action.php` AS MALWARE AND WILL AUTOMATICALLY DELETE/QUARENTINE THE FILE YOU. MAY HAVE TO CREATE AN EXCLUSION IN WINDOWS DEFENDER FOR THIS PROJECT TO WORK**
+**NOTE: WINDOWS DEFENDER CURRENTLY FALSELY IDENTIFIES `public\actions\experience-info-form-action.php` AS MALWARE AND WILL AUTOMATICALLY DELETE/QUARENTINE THE FILE. YOU MAY HAVE TO CREATE AN EXCLUSION IN WINDOWS DEFENDER FOR THIS PROJECT TO WORK.**
 1. Install [Git](https://git-scm.com/) and [Composer](https://getcomposer.org/) if you haven't yet
 2. Open your terminal and navigate to your `htdocs` folder
     - Should be something like `cd C:\xampp\htdocs`
