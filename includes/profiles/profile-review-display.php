@@ -1,10 +1,13 @@
 <?php
 require_once(__DIR__ . "/../../src/db.php");
 if (session_status() === PHP_SESSION_NONE) session_start();
+unset($user);
 
 if ($profileData["role_id"] !== 2) return; // If the user is not a host, they won't have any reviews to display
-$isHostView = isset($_SESSION["userData"]) && $_SESSION["userData"]["id"] === $profileData["id"] && $profileData["role_id"] === 2;
-$canLeaveReview = canReviewHost($pdo, intval($_SESSION["userData"]["id"]), intval($profileData["id"]));
+if (!empty($_SESSION["userData"]["id"])) $user = getUserById($pdo, $_SESSION["userData"]["id"]);
+
+$isHostView = isset($user) ? $user["id"] === $profileData["id"] && $user["role_id"] === 2 : false;
+$canLeaveReview = isset($user) ? canReviewHost($pdo, $user["id"], $profileData["id"]) : false;
 
 $reviews = getHostReviews($pdo, $profileData["id"]);
 $reviewStats = getHostReviewStats($pdo, $profileData["id"]);

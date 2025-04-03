@@ -1,5 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
+if (empty($_SESSION["userData"])) return;
 if ($_SESSION["userData"]["id"] !== $profileData["id"]) return;
 
 require_once(__DIR__ . "/../../src/db.php");
