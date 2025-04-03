@@ -27,6 +27,26 @@ include "../includes/nav-bar.php";
 $stmt = $pdo->prepare("SELECT id FROM experiences");
 $stmt->execute();
 $experienceIds = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+// Check if any admin accounts are registered. If none, create the default admin account
+$stmt = $pdo->prepare("SELECT * FROM users WHERE role_id=0");
+$stmt->execute();
+if (!$stmt->fetch()) {
+    require_once("../src/stripe-api.php");
+    try { $customer = $stripe->customers->create(["name" => "ADMIN", "email" => "admin@gourmetdestination.com"]); }
+    catch (Exception $e) { echo "Stripe API failed to create customer for default admin account. Default admin account has not been created."; }
+
+    $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name, role_id, stripe_customer_id)
+        VALUES (:email, :password, :first_name, :last_name, :role_id, :stripe_customer_id)");
+    $stmt->execute([
+        ":email" => "admin@gourmetdestination.com",
+        ":password" => password_hash("adminpassword", PASSWORD_DEFAULT),
+        ":first_name" => "ADMIN",
+        ":last_name" => "DEFAULT",
+        "role_id" => 0,
+        ":stripe_customer_id" => $customer->id
+    ]);
+}
 ?>
 
 <body>
