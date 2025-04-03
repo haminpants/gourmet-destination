@@ -1,6 +1,10 @@
 # Gourmet Destination
 Group 3's project for INFO 3135
 
+# Setup (MySQL)
+1. Run the entire `init_db.sql` file to create all required tables and populate necessary tables
+    - Schema name should be `gourmet_destination`
+
 # Setup (XAMPP)
 1. Install [Git](https://git-scm.com/) and [Composer](https://getcomposer.org/) if you haven't yet
 2. Open your terminal and navigate to your `htdocs` folder
