@@ -33,8 +33,11 @@ $stmt = $pdo->prepare("SELECT * FROM users WHERE role_id=0");
 $stmt->execute();
 if (!$stmt->fetch()) {
     require_once("../src/stripe-api.php");
-    try { $customer = $stripe->customers->create(["name" => "ADMIN", "email" => "admin@gourmetdestination.com"]); }
-    catch (Exception $e) { echo "Stripe API failed to create customer for default admin account. Default admin account has not been created."; }
+    try {
+        $customer = $stripe->customers->create(["name" => "ADMIN", "email" => "admin@gourmetdestination.com"]);
+    } catch (Exception $e) {
+        echo "Stripe API failed to create customer for default admin account. Default admin account has not been created.";
+    }
 
     $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name, role_id, stripe_customer_id)
         VALUES (:email, :password, :first_name, :last_name, :role_id, :stripe_customer_id)");
@@ -54,10 +57,12 @@ if (!$stmt->fetch()) {
     <section class="hero">
         <div class="hero-content">
             <h1>Gourmet Destination</h1>
-            <form action="booking.php">
-                <input type="hidden" name="experience_id" value="<?php echo $experienceIds[array_rand($experienceIds)] ?>">
-                <button>Show Me Something New</button>
-            </form>
+            <?php if (!empty($experienceIds)) { ?>
+                <form action="booking.php">
+                    <input type="hidden" name="experience_id" value="<?php echo $experienceIds[array_rand($experienceIds)] ?>">
+                    <button>Show Me Something New</button>
+                </form>
+            <?php } ?>
         </div>
     </section>
 
