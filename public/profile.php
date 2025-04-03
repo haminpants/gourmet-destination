@@ -16,10 +16,6 @@ require "../src/db.php";
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) $profileData = getUserById($pdo, intval($_GET["id"]));
 else if (isset($_SESSION["userData"])) $profileData = getUserById($pdo, $_SESSION["userData"]["id"]);
 else header("Location: login.php");
-
-$stmt = $pdo->prepare("SELECT stripe_customer_id FROM users WHERE id=:id");
-$stmt->execute([":id" => $_SESSION["userData"]["id"]]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <body class="profile-page">
